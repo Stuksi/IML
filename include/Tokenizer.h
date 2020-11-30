@@ -7,13 +7,12 @@
 
 enum TokenType
 {
-    Open,
-    Close,
-    Number,
-    Text,
-    Slash,
-    Quote,
-    Error
+    OpenBracket, // '<'
+    CloseBracket, // '>'
+    Quote, // '"'
+    Slash, // '/'
+    Number, // [-inf, inf]   
+    String // {'A' ... 'Z'}
 };
 
 struct Token
@@ -30,10 +29,13 @@ private:
     void clear();
     Token nextToken();
 
-    bool isText();
-    std::string readText();
-    bool isNumber();
-    std::string readNumber();
+    bool isChar();
+    bool isDigit();
+    bool isSign();
+
+    Token readString();
+    Token readNumber();
+    Token readSign();
 public:
     Tokenizer(std::istream&);
     std::vector<Token> tokenize();

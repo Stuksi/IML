@@ -11,10 +11,10 @@ enum TagType
 class Tag
 {
 private:
-    std::vector<double> values;
-    Attribute attribute;
-    Tag *parent;
     TagType type;
+    Tag *parent;
+    Attribute attribute;
+    std::vector<double> values;
 public:
     Tag();
     virtual ~Tag();
@@ -23,14 +23,19 @@ public:
     void setAttribute(Attribute);
     void setParent(Tag*);
     
-    Tag* getParent() const;
-    Attribute getAttribute() const;
     TagType getType() const;
+    Attribute getAttribute() const;
+    Tag* getParent() const;
 
     void addValue(double);
     void addValues(std::vector<double>);
 
     virtual std::vector<double> eval() const;
+};
+
+struct Factory
+{
+    static Tag* stot(std::string);
 };
 
 #endif

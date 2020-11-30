@@ -21,9 +21,9 @@ void Tag::setParent(Tag* _parent)
     parent = _parent;
 }
 
-Tag* Tag::getParent() const
+TagType Tag::getType() const
 {
-    return parent;
+    return type;
 }
 
 Attribute Tag::getAttribute() const
@@ -31,14 +31,9 @@ Attribute Tag::getAttribute() const
     return attribute;
 }
 
-TagType Tag::getType() const
+Tag* Tag::getParent() const
 {
-    return type;
-}
-
-std::vector<double> Tag::eval() const
-{
-    return values;
+    return parent;
 }
 
 void Tag::addValue(double value)
@@ -54,3 +49,12 @@ void Tag::addValues(std::vector<double> _values)
     }
 }
 
+std::vector<double> Tag::eval() const
+{
+    return values;
+}
+
+Tag* Factory::stot(std::string type)
+{
+    return new Tag();
+}

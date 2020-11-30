@@ -14,18 +14,18 @@ enum AttributeType
 class Attribute
 {
 private:
-    std::string id;
     AttributeType type;
+    std::string id;
     std::vector<double> values;
 public:
     Attribute();
 
-    void setId(std::string);
     void setType(AttributeType);
+    void setId(std::string);
     void setValues(std::vector<double>);
 
-    std::string getId() const;
     AttributeType getType() const;
+    std::string getId() const;
     std::vector<double> getValues() const;
 };
 

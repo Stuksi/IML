@@ -3,14 +3,66 @@
 Tokenizer::Tokenizer(std::istream& _in) : in(_in)
 {}
 
-std::vector<Token> Tokenizer::tokenize()
+bool Tokenizer::isChar()
 {
-    std::vector<Token> tokenized;
-    while ((bool)in)
+    return in.peek() >= 'A' && in.peek() <= 'Z';
+}
+
+bool Tokenizer::isDigit()
+{
+    return in.peek() >= '0' && in.peek() <= '9';
+}
+
+bool Tokenizer::isSign()
+{
+    return in.peek() == '<' || in.peek() == '>' || in.peek() == '"' || in.peek() == '/';
+}
+
+Token Tokenizer::readString()
+{
+    std::string text = "";
+    while (isChar())
     {
-        tokenized.push_back(nextToken());
+        text += in.get();
     }
-    return tokenized;
+    return Token {String, text};
+}
+
+Token Tokenizer::readNumber()
+{
+    std::string number = "";
+    if (in.peek() == '0')
+    {
+        in.get();
+        if (isDigit()) throw;
+        number = "0";
+    } else {
+        while (isDigit())
+        {
+            number += in.get();
+        }
+    }
+    if (in.peek() == '.')
+    {
+        number += in.get();
+        if (!isDigit()) throw;
+        while (isDigit())
+        {
+            number += in.get();
+        }
+    }
+    return Token {Number, number};
+}
+
+Token Tokenizer::readSign()
+{
+    switch (in.get())
+    {
+    case '<': return Token {OpenBracket, "<"};
+    case '>': return Token {CloseBracket, ">"};
+    case '"': return Token {Quote, "\""};
+    case '/': return Token {Slash, "/"};
+    }
 }
 
 void Tokenizer::clear()
@@ -24,60 +76,27 @@ void Tokenizer::clear()
 Token Tokenizer::nextToken()
 {
     clear();
-    char cursor = in.get();
-    if (cursor == '<')
+    if (isSign())
     {
-        return Token {Open, "<"};
+        return readSign();
     }
-    else if (cursor == '>')
+    else if (isChar())
     {
-        return Token {Close, ">"};
+        return readString();
     }
-    else if (isNumber())
+    else if (isDigit())
     {
-        return Token {Number, readNumber()};
+        return readNumber();
     }
-    else if (isText())
-    {
-        return Token {Text, readText()};
-    }
-    else if (cursor == '/')
-    {
-        return Token {Slash, "/"};
-    }
-    else if (cursor == '"')
-    {
-        return Token {Quote, "\""};
-    }
-    return Token {Error, "?"};
+    throw;
 }
 
-bool Tokenizer::isText()
+std::vector<Token> Tokenizer::tokenize()
 {
-    return in.peek() >= 'A' && in.peek() <= 'Z';
-}
-
-std::string Tokenizer::readText()
-{
-    std::string text = "";
-    while (isText())
+    std::vector<Token> tokenized;
+    while ((bool)in)
     {
-        text += in.get();
+        tokenized.push_back(nextToken());
     }
-    return text;
-}
-
-bool Tokenizer::isNumber()
-{
-    return in.peek() >= '0' && in.peek() <= '9';
-}
-
-std::string Tokenizer::readNumber()
-{
-    std::string number = "";
-    while (isNumber())
-    {
-        number += in.get();
-    }
-    return number;
+    return tokenized;
 }
