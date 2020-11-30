@@ -1,16 +1,9 @@
 #include "../include/Attribute.h"
 
-#include <cstring>
-
 Attribute::Attribute() : id(""), type(Empty)
 {}
 
-Attribute::Attribute(const char* _id) : type(AlphaNumeric)
-{
-    setId(_id);
-}
-
-void Attribute::setId(const char* _id)
+void Attribute::setId(std::string _id)
 {
     id = _id;
 }
@@ -18,6 +11,11 @@ void Attribute::setId(const char* _id)
 void Attribute::setType(AttributeType _type)
 {
     type = _type;
+}
+
+void Attribute::setValues(std::vector<double> _values)
+{
+    values = _values;
 }
 
 std::string Attribute::getId() const
@@ -30,16 +28,7 @@ AttributeType Attribute::getType() const
     return type;
 }
 
-ListAttribute::ListAttribute(const char* _id, const std::vector<double>& _values) : values(_values)
-{
-    setId(_id);
-    setType(List);
-}
-
-ListAttribute::~ListAttribute()
-{}
-
-std::vector<double> ListAttribute::getValues() const
+std::vector<double> Attribute::getValues() const
 {
     return values;
 }

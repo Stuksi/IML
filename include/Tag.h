@@ -1,7 +1,6 @@
 #ifndef __Tag_H
 #define __Tag_H
 
-#include <vector>
 #include "Attribute.h"
 
 enum TagType
@@ -13,20 +12,23 @@ class Tag
 {
 private:
     std::vector<double> values;
-    Attribute *attribute;
+    Attribute attribute;
     Tag *parent;
     TagType type;
 public:
     Tag();
-    Tag(Tag*);
-    Tag(Tag*, Attribute*);
     virtual ~Tag();
 
     void setType(TagType);
-
+    void setAttribute(Attribute);
+    void setParent(Tag*);
+    
     Tag* getParent() const;
-    Attribute* getAttribute() const;
+    Attribute getAttribute() const;
     TagType getType() const;
+
+    void addValue(double);
+    void addValues(std::vector<double>);
 
     virtual std::vector<double> eval() const;
 };

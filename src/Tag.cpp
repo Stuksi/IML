@@ -1,22 +1,24 @@
 #include "../include/Tag.h"
 
-Tag::Tag() : parent(0), attribute(0), type(Root)
-{}
-
-Tag::Tag(Tag* _parent) : parent(_parent), attribute(new Attribute())
-{}
-
-Tag::Tag(Tag* _parent, Attribute* _attribute) : parent(_parent), attribute(_attribute)
+Tag::Tag() : parent(0), attribute(Attribute()), type(Root)
 {}
 
 Tag::~Tag()
-{
-    delete attribute;
-}
+{}
 
 void Tag::setType(TagType _type)
 {
     type = _type;
+}
+
+void Tag::setAttribute(Attribute _attribute)
+{
+    attribute = _attribute;
+}
+
+void Tag::setParent(Tag* _parent)
+{
+    parent = _parent;
 }
 
 Tag* Tag::getParent() const
@@ -24,7 +26,7 @@ Tag* Tag::getParent() const
     return parent;
 }
 
-Attribute* Tag::getAttribute() const
+Attribute Tag::getAttribute() const
 {
     return attribute;
 }
@@ -38,3 +40,17 @@ std::vector<double> Tag::eval() const
 {
     return values;
 }
+
+void Tag::addValue(double value)
+{
+    values.push_back(value);
+}
+
+void Tag::addValues(std::vector<double> _values)
+{
+    for (double value : _values)
+    {
+        values.push_back(value);
+    }
+}
+

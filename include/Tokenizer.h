@@ -20,7 +20,6 @@ struct Token
 {
     TokenType type;
     std::string text;
-    double number;
 };
 
 class Tokenizer
@@ -34,7 +33,7 @@ private:
     bool isText();
     std::string readText();
     bool isNumber();
-    double readNumber();
+    std::string readNumber();
 public:
     Tokenizer(std::istream&);
     std::vector<Token> tokenize();

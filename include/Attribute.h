@@ -16,27 +16,17 @@ class Attribute
 private:
     std::string id;
     AttributeType type;
+    std::vector<double> values;
 public:
     Attribute();
-    Attribute(const char*);
 
-    void setId(const char*);
+    void setId(std::string);
     void setType(AttributeType);
+    void setValues(std::vector<double>);
 
     std::string getId() const;
     AttributeType getType() const;
-};
-
-class ListAttribute : public Attribute
-{
-private:
-    std::vector<double> values;
-public:
-    ListAttribute(const char*, const std::vector<double>&);
-    ~ListAttribute();
-
     std::vector<double> getValues() const;
 };
-
 
 #endif

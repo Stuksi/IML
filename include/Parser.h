@@ -3,20 +3,30 @@
 
 #include "Tokenizer.h"
 #include "Tag.h"
+#include "Attribute.h"
 
 class Parser
 {
 private:
     std::vector<Token> tokenized;
     size_t it;
+    Tag *root, *currentTag;
 
-    void get();
-    Token peek() const;
+    void next();
+    void previous();
+    Attribute findAttribute(std::string);
+    Token current();
 
-    std::vector<double> parse(Tag*);
+    Tag* parseOpenTag();
+    Tag* parseCloseTag();
+    Tag* parseBodyTag();
+    Attribute parseAttribute();
+    std::vector<double> parseExpression();
+    std::vector<double> parseNormalExpression();
+    std::vector<double> parseLetExpression();
+
 public:
     Parser(std::istream&);
-    void parse(std::ostream&);
 };
 
 #endif

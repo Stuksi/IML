@@ -27,29 +27,29 @@ Token Tokenizer::nextToken()
     char cursor = in.get();
     if (cursor == '<')
     {
-        return Token {Open, "<", -1};
+        return Token {Open, "<"};
     }
     else if (cursor == '>')
     {
-        return Token {Close, ">", -1};
+        return Token {Close, ">"};
     }
     else if (isNumber())
     {
-        return Token {Number, "?", readNumber()};
+        return Token {Number, readNumber()};
     }
     else if (isText())
     {
-        return Token {Text, readText(), -1};
+        return Token {Text, readText()};
     }
     else if (cursor == '/')
     {
-        return Token {Slash, "/", -1};
+        return Token {Slash, "/"};
     }
     else if (cursor == '"')
     {
-        return Token {Quote, "\"", -1};
+        return Token {Quote, "\""};
     }
-    return Token {Error, "?", -1};
+    return Token {Error, "?"};
 }
 
 bool Tokenizer::isText()
@@ -72,9 +72,12 @@ bool Tokenizer::isNumber()
     return in.peek() >= '0' && in.peek() <= '9';
 }
 
-double Tokenizer::readNumber()
+std::string Tokenizer::readNumber()
 {
-    double number;
-    in >> number;
+    std::string number = "";
+    while (isNumber())
+    {
+        number += in.get();
+    }
     return number;
 }
