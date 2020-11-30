@@ -5,7 +5,7 @@ Tokenizer::Tokenizer(std::istream& _in) : in(_in)
 
 bool Tokenizer::isChar()
 {
-    return in.peek() >= 'A' && in.peek() <= 'Z';
+    return (in.peek() >= 'A' && in.peek() <= 'Z') || in.peek() == '-';
 }
 
 bool Tokenizer::isDigit()
@@ -30,7 +30,12 @@ Token Tokenizer::readString()
 
 Token Tokenizer::readNumber()
 {
+    int negative = 1;
     std::string number = "";
+    if (in.peek() == '-')
+    {
+        negative = -1;
+    }
     if (in.peek() == '0')
     {
         in.get();
@@ -80,13 +85,13 @@ Token Tokenizer::nextToken()
     {
         return readSign();
     }
+    else if (isDigit() || in.peek() == '-')
+    {
+        return readNumber();
+    }
     else if (isChar())
     {
         return readString();
-    }
-    else if (isDigit())
-    {
-        return readNumber();
     }
     throw;
 }

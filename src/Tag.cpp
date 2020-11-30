@@ -53,8 +53,3 @@ std::vector<double> Tag::eval() const
 {
     return values;
 }
-
-Tag* Factory::stot(std::string type)
-{
-    return new Tag();
-}

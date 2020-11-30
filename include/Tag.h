@@ -14,6 +14,7 @@ private:
     TagType type;
     Tag *parent;
     Attribute attribute;
+protected:
     std::vector<double> values;
 public:
     Tag();
@@ -31,11 +32,6 @@ public:
     void addValues(std::vector<double>);
 
     virtual std::vector<double> eval() const;
-};
-
-struct Factory
-{
-    static Tag* stot(std::string);
 };
 
 #endif
