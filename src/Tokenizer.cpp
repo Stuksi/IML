@@ -13,11 +13,6 @@ bool Tokenizer::isDigit()
     return in.peek() >= '0' && in.peek() <= '9';
 }
 
-bool Tokenizer::isSign()
-{
-    return in.peek() == '<' || in.peek() == '>' || in.peek() == '"' || in.peek() == '/';
-}
-
 Token Tokenizer::readString()
 {
     std::string text = "";
@@ -30,12 +25,7 @@ Token Tokenizer::readString()
 
 Token Tokenizer::readNumber()
 {
-    int negative = 1;
     std::string number = "";
-    if (in.peek() == '-')
-    {
-        negative = -1;
-    }
     if (in.peek() == '0')
     {
         in.get();
@@ -67,6 +57,8 @@ Token Tokenizer::readSign()
     case '>': return Token {CloseBracket, ">"};
     case '"': return Token {Quote, "\""};
     case '/': return Token {Slash, "/"};
+    case '-': return Token {Minus, "-"};
+    default : return Token {Invalid, "?"};
     }
 }
 
@@ -81,11 +73,7 @@ void Tokenizer::clear()
 Token Tokenizer::nextToken()
 {
     clear();
-    if (isSign())
-    {
-        return readSign();
-    }
-    else if (isDigit() || in.peek() == '-')
+    if (isDigit())
     {
         return readNumber();
     }
@@ -93,7 +81,7 @@ Token Tokenizer::nextToken()
     {
         return readString();
     }
-    throw;
+    return readSign();
 }
 
 std::vector<Token> Tokenizer::tokenize()
@@ -102,6 +90,10 @@ std::vector<Token> Tokenizer::tokenize()
     while ((bool)in)
     {
         tokenized.push_back(nextToken());
+    }
+    if (tokenized[tokenized.size() - 1].type == Invalid)
+    {
+        tokenized.pop_back();
     }
     return tokenized;
 }

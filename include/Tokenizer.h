@@ -11,8 +11,10 @@ enum TokenType
     CloseBracket, // '>'
     Quote, // '"'
     Slash, // '/'
-    Number, // [-inf, inf]   
-    String // {'A' ... 'Z'}
+    Number, // -inf ... inf   
+    String, // {'A' ... 'Z'}
+    Minus, // '-'
+    Invalid // '?'
 };
 
 struct Token
@@ -31,7 +33,6 @@ private:
 
     bool isChar();
     bool isDigit();
-    bool isSign();
 
     Token readString();
     Token readNumber();

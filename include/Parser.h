@@ -11,36 +11,40 @@ private:
     std::vector<Token> tokenized;
     size_t it;
 
+    bool more();
+    bool isValue();
+    bool isBodyTag();
+    bool isCloseTag();
+    bool isLetTag();
+
     void next();
     void previous();
-    Token current();
-    bool isCloseTag();
-    bool isBodyTag();
-    void startTag();
-    void endTag();
-    void parseParameters();
+    void startExpression();
+    void endExpression();
+
     Attribute findAttributeById(std::string);
+    Token current();
 
     std::vector<double> parseExpression();
     std::vector<double> parseNormalExpression();
     std::vector<double> parseLetExpression();
+    void parseValueExpression();
     Tag* parseOpenTag();
-    // Tag* parseBodyTag();
+    Tag* parseBodyTag();
     Tag* parseCloseTag();
     Attribute parseAttribute();
-
 public:
     Parser(std::istream&);
+    void build(std::ostream&);
 };
 
 /*
 
 Grammar:
 
-    Expression              := NormalExpression | LetExpression ;
-    NormalExpression        := OpenTag , Parameters , CloseTag ;
-    LetExpression           := OpenTag , Parameters , BodyTag , Parameters , CloseTag ;
-    Parameters              := Expression | Value ;
+    Expression              := NormalExpression | LetExpression | Value , [ Expression ] ;
+    NormalExpression        := OpenTag , Expression , CloseTag ;
+    LetExpression           := OpenTag , Expression , BodyTag , Expression , CloseTag ;
     OpenTag                 := "<" , String , [ Attribute ] , ">" ;
     BodyTag                 := "<" , "BODY" , "/" , ">" ;
     CloseTag                := "<" , "/" , String , ">" ; 

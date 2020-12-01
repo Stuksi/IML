@@ -1,4 +1,5 @@
 #include "../include/Parser.h"
+#include "../include/Factory.h"
 
 Parser::Parser(std::istream& in) : tokenized(Tokenizer(in).tokenize()), it(0), currentTag(new Tag())
 {}
@@ -13,24 +14,19 @@ void Parser::previous()
     it--;
 }
 
+bool Parser::more()
+{
+    return it < tokenized.size();
+}
+
 Token Parser::current()
 {
     return tokenized[it];
 }
 
-bool Parser::isCloseTag()
+bool Parser::isValue()
 {
-    if (current().type == OpenBracket)
-    {
-        next();
-        if (current().type == Slash)
-        {
-            previous();
-            return true;
-        }
-        previous();
-    }
-    return false;
+    return current().type == Minus || current().type == Number || current().type == String;
 }
 
 bool Parser::isBodyTag()
@@ -48,42 +44,51 @@ bool Parser::isBodyTag()
     return false;
 }
 
-void Parser::startTag()
+bool Parser::isCloseTag()
 {
-    Tag *openTag = parseOpenTag();
-    openTag->setParent(currentTag);
-    currentTag = openTag;
-}
-
-void Parser::endTag()
-{
-    Tag *closeTag = parseCloseTag();
-    if (currentTag->getType() != closeTag->getType()) throw;
-    currentTag = currentTag->getParent();
-}
-
-void Parser::parseParameters()
-{
-    while (!isCloseTag())
+    if (current().type == OpenBracket)
     {
-        if (current().type == Number)
-        {
-            currentTag->addValue(stod(current().text));
-        }
-        else if (current().type == String)
-        {
-            currentTag->addValues(findAttributeById(current().text).getValues());
-        }
-        else if (current().type == OpenBracket)
-        {
-            currentTag->addValues(parseExpression());
-        }
-        else 
-        {
-            throw;
-        }
         next();
+        if (current().type == Slash)
+        {
+            previous();
+            return true;
+        }
+        previous();
     }
+    return false;
+}
+
+bool Parser::isLetTag()
+{
+    if (current().type == OpenBracket)
+    {
+        next();
+        if (current().text == "LET")
+        {
+            previous();
+            return true;
+        }
+        previous();
+    }
+    return false;
+}
+
+void Parser::startExpression()
+{
+    Tag *start = parseOpenTag();
+    start->setParent(currentTag);
+    currentTag = start;
+}
+
+void Parser::endExpression()
+{
+    Tag *end = parseCloseTag();
+    if (currentTag->getType() != end->getType()) throw;
+    delete end;
+    Tag *save = currentTag;
+    currentTag = currentTag->getParent();
+    delete save;
 }
 
 Attribute Parser::findAttributeById(std::string id)
@@ -99,36 +104,42 @@ Attribute Parser::findAttributeById(std::string id)
 
 std::vector<double> Parser::parseExpression()
 {
-    if (current().type != OpenBracket) throw;
-    next();
-    if (current().type != String) throw;
-    if (current().text == "LET")
+    if (isValue())
     {
-        previous();
+        parseValueExpression();
+        if (more() && !isBodyTag() && !isCloseTag()) return parseExpression();
+        return currentTag->eval();
+    }
+    else if (isLetTag())
+    {
         return parseLetExpression();
     }
-    previous();
     return parseNormalExpression();
 }
 
 std::vector<double> Parser::parseNormalExpression()
 {
-    startTag();
-    parseParameters();
+    startExpression();
+    while (!isCloseTag()) parseExpression();
     std::vector<double> values = currentTag->eval();
-    endTag();
+    endExpression();
     return values;
 }
 
 std::vector<double> Parser::parseLetExpression()
 {
-    startTag();
+    startExpression();
+    Tag *saveCurrentTag = currentTag;
+    currentTag = new Tag();
     currentTag->getAttribute().setValues(parseExpression());
-    parseParameters();
+    saveCurrentTag->getAttribute().setValues(currentTag->eval());
+    delete currentTag;
+    currentTag = saveCurrentTag;
     if (!isBodyTag()) throw;
-    // parseBodyTag();
+    parseBodyTag();
+    while (!isCloseTag()) parseExpression();
     std::vector<double> values = currentTag->eval();
-    endTag();
+    endExpression();
     return values;
 }
 
@@ -137,37 +148,47 @@ Tag* Parser::parseOpenTag()
     if (current().type != OpenBracket) throw;
     next();
     if (current().type != String) throw;
-    Tag *tag = Factory::stot(current().text);
+    Tag *tag = Factory::sToTag(current().text);
     next();
     if (current().type == Quote)
     {
-        tag->getAttribute().setId(parseAttribute().getId());
-        next();
+        if (!tag->hasNumberAttribute() && !tag->hasStringAttribute()) throw;
+        Attribute attribute = parseAttribute();
+        if (tag->hasNumberAttribute() && attribute.getType() != NumberAttribute) throw;
+        if (tag->hasStringAttribute() && attribute.getType() != StringAttribute) throw;
+        tag->setAttribute(attribute);
+    }
+    else if (tag->hasNumberAttribute() || tag->hasStringAttribute())
+    {
+        throw;
     }
     if (current().type != CloseBracket) throw;
     next();
     return tag;
 }
 
-// Tag* Parser::parseBodyTag()
-// {
-//     if (current().type != OpenBracket) throw;
-//     next();
-//     if (current().text != "BODY") throw;
-//     next();
-//     if (current().type != Slash) throw;
-//     next();
-//     if (current().type != CloseBracket) throw;
-//     next();
-//     return new Tag();
-// }
+Tag* Parser::parseBodyTag()
+{
+    if (current().type != OpenBracket) throw;
+    next();
+    if (current().text != "BODY") throw;
+    next();
+    if (current().type != Slash) throw;
+    next();
+    if (current().type != CloseBracket) throw;
+    next();
+    return new Tag();
+}
 
 Tag* Parser::parseCloseTag()
 {
     if (current().type != OpenBracket) throw;
     next();
+    if (current().type != Slash) throw;
+    next();
     if (current().type != String) throw;
-    Tag *tag = Factory::stot(current().text);
+    Tag *tag = Factory::sToTag(current().text);
+    next();
     if (current().type != CloseBracket) throw;
     next();
     return tag;
@@ -180,8 +201,50 @@ Attribute Parser::parseAttribute()
     if (current().type != Number && current().type != String) throw;
     Attribute attribute;
     attribute.setId(current().text);
+    if (current().type == Number) attribute.setType(NumberAttribute);
+    if (current().type == String) attribute.setType(StringAttribute);
     next();
     if (current().type != Quote) throw;
     next();
     return attribute;
+}
+
+void Parser::parseValueExpression()
+{
+    if (current().type == Minus)
+    {
+        next();
+        if (current().type != Number) throw;
+        currentTag->addValue(-stod(current().text));
+    }
+    else if (current().type == Number)
+    {
+        currentTag->addValue(stod(current().text));
+    }
+    else if (current().type == String)
+    {
+        currentTag->addValue(findAttributeById(current().text).getValues());
+    }
+    next();
+}
+
+void Parser::build(std::ostream& out)
+{
+    try
+    {
+        std::vector<double> parsingResult = parseExpression();
+        if (currentTag->getType() != Root) throw;
+        delete currentTag;
+        size_t parsingResultSize = parsingResult.size() - 1;
+        for (size_t i = 0; i < parsingResultSize; i++)
+        {
+            out << parsingResult[i] << " ";
+        }
+        out << parsingResult[parsingResultSize];
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << "\n";
+        out << e.what();
+    }
 }

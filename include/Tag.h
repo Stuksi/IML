@@ -5,16 +5,17 @@
 
 enum TagType
 {
-    Root
+    Root,
+    MAPINC,
+    LET
 };
 
 class Tag
 {
 private:
     TagType type;
-    Tag *parent;
     Attribute attribute;
-protected:
+    Tag *parent;
     std::vector<double> values;
 public:
     Tag();
@@ -27,11 +28,14 @@ public:
     TagType getType() const;
     Attribute getAttribute() const;
     Tag* getParent() const;
+    std::vector<double> getValues() const;
 
     void addValue(double);
-    void addValues(std::vector<double>);
+    void addValue(std::vector<double>);
 
     virtual std::vector<double> eval() const;
+    virtual bool hasStringAttribute() const;
+    virtual bool hasNumberAttribute() const;
 };
 
 #endif

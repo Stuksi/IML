@@ -6,27 +6,26 @@
 
 enum AttributeType
 {
-    Empty,
-    AlphaNumeric,
-    List
+    StringAttribute,
+    NumberAttribute
 };
 
 class Attribute
 {
 private:
-    AttributeType type;
     std::string id;
     std::vector<double> values;
+    AttributeType type;
 public:
     Attribute();
 
-    void setType(AttributeType);
     void setId(std::string);
     void setValues(std::vector<double>);
+    void setType(AttributeType);
 
-    AttributeType getType() const;
     std::string getId() const;
     std::vector<double> getValues() const;
+    AttributeType getType() const;
 };
 
 #endif
