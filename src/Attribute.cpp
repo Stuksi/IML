@@ -3,6 +3,10 @@
 Attribute::Attribute() : id("")
 {}
 
+Attribute::Attribute(std::string _id) : id(_id)
+{}
+
+
 void Attribute::setId(std::string _id)
 {
     id = _id;
@@ -13,11 +17,6 @@ void Attribute::setValues(std::vector<double> _values)
     values = _values;
 }
 
-void Attribute::setType(AttributeType _type)
-{
-    type = _type;
-}
-
 std::string Attribute::getId() const
 {
     return id;
@@ -26,10 +25,5 @@ std::string Attribute::getId() const
 std::vector<double> Attribute::getValues() const
 {
     return values;
-}
-
-AttributeType Attribute::getType() const
-{
-    return type;
 }
 

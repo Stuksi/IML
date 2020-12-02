@@ -1,6 +1,6 @@
 #include "../include/Tag.h"
 
-Tag::Tag() : parent(nullptr), attribute(Attribute()), type(Root)
+Tag::Tag() : attribute(Attribute()), type(Root)
 {}
 
 Tag::~Tag()
@@ -16,9 +16,9 @@ void Tag::setAttribute(Attribute _attribute)
     attribute = _attribute;
 }
 
-void Tag::setParent(Tag* _parent)
+void Tag::setValues(std::vector<double> _values)
 {
-    parent = _parent;
+    values = _values;
 }
 
 TagType Tag::getType() const
@@ -26,14 +26,14 @@ TagType Tag::getType() const
     return type;
 }
 
-Attribute Tag::getAttribute() const
+Attribute& Tag::getAttribute()
 {
     return attribute;
 }
 
-Tag* Tag::getParent() const
+Attribute Tag::getAttribute() const
 {
-    return parent;
+    return attribute;
 }
 
 std::vector<double> Tag::getValues() const
@@ -59,12 +59,7 @@ std::vector<double> Tag::eval() const
     return values;
 }
 
-bool Tag::hasStringAttribute() const
-{
-    return false;
-}
-
-bool Tag::hasNumberAttribute() const
+bool Tag::hasAttribute() const
 {
     return false;
 }

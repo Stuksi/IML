@@ -1,7 +1,7 @@
 #include "../include/Parser.h"
 #include "../include/Factory.h"
 
-Parser::Parser(std::istream& in) : tokenized(Tokenizer(in).tokenize()), it(0), currentTag(new Tag())
+Parser::Parser(std::istream& in) : tokenized(Tokenizer(in).tokenize()), it(0)
 {}
 
 void Parser::next()
@@ -19,14 +19,24 @@ bool Parser::more()
     return it < tokenized.size();
 }
 
-Token Parser::current()
-{
-    return tokenized[it];
-}
-
 bool Parser::isValue()
 {
     return current().type == Minus || current().type == Number || current().type == String;
+}
+
+bool Parser::isLetTag()
+{
+    if (current().type == OpenBracket)
+    {
+        next();
+        if (current().text == "LET")
+        {
+            previous();
+            return true;
+        }
+        previous();
+    }
+    return false;
 }
 
 bool Parser::isBodyTag()
@@ -59,115 +69,76 @@ bool Parser::isCloseTag()
     return false;
 }
 
-bool Parser::isLetTag()
+Token Parser::current()
 {
-    if (current().type == OpenBracket)
+    return tokenized[it];
+}
+
+void Parser::moveValuesToAttribute()
+{
+    hierachy.top()->getAttribute().setValues(hierachy.top()->eval());
+    hierachy.top()->setValues(std::vector<double>());
+}
+
+Attribute Parser::searchAttributeInHierachy(std::string id)
+{
+    std::stack<Tag*> saveHierachy;
+    while (!hierachy.empty() && hierachy.top()->getAttribute().getId() != id)
+    {
+        saveHierachy.push(hierachy.top());
+        hierachy.pop();
+    }
+    if (hierachy.empty()) throw;
+    Attribute attribute = hierachy.top()->getAttribute();
+    while (!saveHierachy.empty())
+    {
+        hierachy.push(saveHierachy.top());
+        saveHierachy.pop();
+    }
+    return attribute;
+}
+
+void Parser::parseValue()
+{
+    if (current().type == Minus)
     {
         next();
-        if (current().text == "LET")
-        {
-            previous();
-            return true;
-        }
-        previous();
+        if (current().type != Number) throw;
+        hierachy.top()->addValue(-stod(current().text));
     }
-    return false;
-}
-
-void Parser::startExpression()
-{
-    Tag *start = parseOpenTag();
-    start->setParent(currentTag);
-    currentTag = start;
-}
-
-void Parser::endExpression()
-{
-    Tag *end = parseCloseTag();
-    if (currentTag->getType() != end->getType()) throw;
-    delete end;
-    Tag *save = currentTag;
-    currentTag = currentTag->getParent();
-    delete save;
-}
-
-Attribute Parser::findAttributeById(std::string id)
-{
-    Tag* tmp = currentTag;
-    while (tmp && tmp->getAttribute().getId() != id)
+    else if(current().type == Number)
     {
-        tmp = tmp->getParent();
+        hierachy.top()->addValue(stod(current().text));
     }
-    if (tmp == nullptr) throw;
-    return tmp->getAttribute();
-}
-
-std::vector<double> Parser::parseExpression()
-{
-    if (isValue())
-    {
-        parseValueExpression();
-        if (more() && !isBodyTag() && !isCloseTag()) return parseExpression();
-        return currentTag->eval();
+    else 
+    {   
+        hierachy.top()->addValue(searchAttributeInHierachy(current().text).getValues());
     }
-    else if (isLetTag())
-    {
-        return parseLetExpression();
-    }
-    return parseNormalExpression();
+    next();
 }
 
-std::vector<double> Parser::parseNormalExpression()
-{
-    startExpression();
-    while (!isCloseTag()) parseExpression();
-    std::vector<double> values = currentTag->eval();
-    endExpression();
-    return values;
-}
-
-std::vector<double> Parser::parseLetExpression()
-{
-    startExpression();
-    Tag *saveCurrentTag = currentTag;
-    currentTag = new Tag();
-    currentTag->getAttribute().setValues(parseExpression());
-    saveCurrentTag->getAttribute().setValues(currentTag->eval());
-    delete currentTag;
-    currentTag = saveCurrentTag;
-    if (!isBodyTag()) throw;
-    parseBodyTag();
-    while (!isCloseTag()) parseExpression();
-    std::vector<double> values = currentTag->eval();
-    endExpression();
-    return values;
-}
-
-Tag* Parser::parseOpenTag()
+void Parser::parseOpenTag()
 {
     if (current().type != OpenBracket) throw;
     next();
     if (current().type != String) throw;
-    Tag *tag = Factory::sToTag(current().text);
+    Tag *tag = Factory::stringToTag(current().text);
     next();
     if (current().type == Quote)
     {
-        if (!tag->hasNumberAttribute() && !tag->hasStringAttribute()) throw;
-        Attribute attribute = parseAttribute();
-        if (tag->hasNumberAttribute() && attribute.getType() != NumberAttribute) throw;
-        if (tag->hasStringAttribute() && attribute.getType() != StringAttribute) throw;
-        tag->setAttribute(attribute);
+        if (!tag->hasAttribute()) throw;
+        tag->setAttribute(parseAttribute());
     }
-    else if (tag->hasNumberAttribute() || tag->hasStringAttribute())
+    else if (tag->hasAttribute())
     {
         throw;
     }
     if (current().type != CloseBracket) throw;
+    hierachy.push(tag);
     next();
-    return tag;
 }
 
-Tag* Parser::parseBodyTag()
+void Parser::parseBodyTag()
 {
     if (current().type != OpenBracket) throw;
     next();
@@ -177,74 +148,101 @@ Tag* Parser::parseBodyTag()
     next();
     if (current().type != CloseBracket) throw;
     next();
-    return new Tag();
 }
 
-Tag* Parser::parseCloseTag()
+void Parser::parseCloseTag()
 {
     if (current().type != OpenBracket) throw;
     next();
     if (current().type != Slash) throw;
     next();
     if (current().type != String) throw;
-    Tag *tag = Factory::sToTag(current().text);
+    if (hierachy.top()->getType() != Factory::stringToTagType(current().text)) throw;
     next();
     if (current().type != CloseBracket) throw;
+    std::vector<double> result = hierachy.top()->eval();
+    hierachy.pop();
+    hierachy.top()->addValue(result);
     next();
-    return tag;
 }
 
 Attribute Parser::parseAttribute()
 {
     if (current().type != Quote) throw;
     next();
-    if (current().type != Number && current().type != String) throw;
+    if (!isValue()) throw;
     Attribute attribute;
-    attribute.setId(current().text);
-    if (current().type == Number) attribute.setType(NumberAttribute);
-    if (current().type == String) attribute.setType(StringAttribute);
+    if (current().type == Minus)
+    {
+        next();
+        if (current().type != Number) throw;
+        attribute = Attribute("-" + current().text);
+    }
+    else
+    {
+        attribute = Attribute(current().text);
+    }
     next();
     if (current().type != Quote) throw;
     next();
     return attribute;
 }
 
-void Parser::parseValueExpression()
+void Parser::parseExpression()
 {
-    if (current().type == Minus)
+    if (!more() || isBodyTag() || isCloseTag())
     {
-        next();
-        if (current().type != Number) throw;
-        currentTag->addValue(-stod(current().text));
-    }
-    else if (current().type == Number)
+        return;
+    } 
+    else if (isValue())
     {
-        currentTag->addValue(stod(current().text));
+        parseValue();
     }
-    else if (current().type == String)
+    else if (isLetTag())
     {
-        currentTag->addValue(findAttributeById(current().text).getValues());
+        parseLetExpression();
     }
-    next();
+    else 
+    {
+        parseNormalExpression();
+    }
+    parseExpression();
+}
+
+void Parser::parseLetExpression()
+{
+    parseOpenTag();
+    parseExpression();
+    parseBodyTag();
+    moveValuesToAttribute();
+    parseExpression();
+    parseCloseTag();
+}
+
+void Parser::parseNormalExpression()
+{
+    parseOpenTag();
+    parseExpression();
+    parseCloseTag();
 }
 
 void Parser::build(std::ostream& out)
 {
+    hierachy.push(new Tag());
     try
     {
-        std::vector<double> parsingResult = parseExpression();
-        if (currentTag->getType() != Root) throw;
-        delete currentTag;
-        size_t parsingResultSize = parsingResult.size() - 1;
-        for (size_t i = 0; i < parsingResultSize; i++)
+        parseExpression();
+        if (hierachy.size() != 1) throw;
+        std::vector<double> parsingResult = hierachy.top()->getValues();
+        size_t parsingSize = parsingResult.size() - 1;
+        for (size_t i = 0; i < parsingSize; i++)
         {
             out << parsingResult[i] << " ";
         }
-        out << parsingResult[parsingResultSize];
+        out << parsingResult[parsingSize];
     }
     catch(const std::exception& e)
     {
-        std::cerr << e.what() << "\n";
         out << e.what();
     }
 }

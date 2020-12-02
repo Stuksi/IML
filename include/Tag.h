@@ -15,7 +15,6 @@ class Tag
 private:
     TagType type;
     Attribute attribute;
-    Tag *parent;
     std::vector<double> values;
 public:
     Tag();
@@ -23,19 +22,18 @@ public:
 
     void setType(TagType);
     void setAttribute(Attribute);
-    void setParent(Tag*);
+    void setValues(std::vector<double>);
     
     TagType getType() const;
+    Attribute& getAttribute();
     Attribute getAttribute() const;
-    Tag* getParent() const;
     std::vector<double> getValues() const;
 
     void addValue(double);
     void addValue(std::vector<double>);
 
     virtual std::vector<double> eval() const;
-    virtual bool hasStringAttribute() const;
-    virtual bool hasNumberAttribute() const;
+    virtual bool hasAttribute() const;
 };
 
 #endif

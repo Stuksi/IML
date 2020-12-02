@@ -6,7 +6,8 @@
 class Factory
 {
 public:
-    static Tag* sToTag(std::string);
+    static Tag* stringToTag(std::string);
+    static TagType stringToTagType(std::string);
 };
 
 #endif

@@ -5,7 +5,7 @@ Tokenizer::Tokenizer(std::istream& _in) : in(_in)
 
 bool Tokenizer::isChar()
 {
-    return (in.peek() >= 'A' && in.peek() <= 'Z') || in.peek() == '-';
+    return in.peek() >= 'A' && in.peek() <= 'Z';
 }
 
 bool Tokenizer::isDigit()
@@ -16,7 +16,7 @@ bool Tokenizer::isDigit()
 Token Tokenizer::readString()
 {
     std::string text = "";
-    while (isChar())
+    while (isChar() || in.peek() == '-')
     {
         text += in.get();
     }
@@ -51,14 +51,15 @@ Token Tokenizer::readNumber()
 
 Token Tokenizer::readSign()
 {
-    switch (in.get())
+    char current = in.get();
+    switch (current)
     {
     case '<': return Token {OpenBracket, "<"};
     case '>': return Token {CloseBracket, ">"};
     case '"': return Token {Quote, "\""};
     case '/': return Token {Slash, "/"};
     case '-': return Token {Minus, "-"};
-    default : return Token {Invalid, "?"};
+    default : return Token {Invalid, "" + current};
     }
 }
 
@@ -87,13 +88,13 @@ Token Tokenizer::nextToken()
 std::vector<Token> Tokenizer::tokenize()
 {
     std::vector<Token> tokenized;
-    while ((bool)in)
+    Token current;
+    while (in)
     {
-        tokenized.push_back(nextToken());
-    }
-    if (tokenized[tokenized.size() - 1].type == Invalid)
-    {
-        tokenized.pop_back();
+        current = nextToken();
+        if (in.eof()) break;
+        if (current.type == Invalid) throw;
+        tokenized.push_back(current);
     }
     return tokenized;
 }

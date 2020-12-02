@@ -6,7 +6,7 @@
 class Iml
 {
 public:
-    static void parse(std::istream&, std::ostream&);
+    static void parse(const char*, const char*);
 };
 
 #endif

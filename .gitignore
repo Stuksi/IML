@@ -1,4 +1,4 @@
-.out
-/libs
-/tests
+lib
+test
 .vscode
+*.out

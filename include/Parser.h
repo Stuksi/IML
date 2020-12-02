@@ -3,36 +3,44 @@
 
 #include "Tokenizer.h"
 #include "Tag.h"
+#include <stack>
 
 class Parser
 {
 private:
-    Tag *currentTag;
+    // Core
+    std::stack<Tag*> hierachy;
     std::vector<Token> tokenized;
     size_t it;
 
+    // Predicates
     bool more();
     bool isValue();
+    bool isLetTag();
     bool isBodyTag();
     bool isCloseTag();
-    bool isLetTag();
 
+    // Selectors and Iterators
     void next();
     void previous();
-    void startExpression();
-    void endExpression();
-
-    Attribute findAttributeById(std::string);
     Token current();
 
-    std::vector<double> parseExpression();
-    std::vector<double> parseNormalExpression();
-    std::vector<double> parseLetExpression();
-    void parseValueExpression();
-    Tag* parseOpenTag();
-    Tag* parseBodyTag();
-    Tag* parseCloseTag();
+    // Functionalities
+    void moveValuesToAttribute();
+    Attribute searchAttributeInHierachy(std::string);
+
+    // Atoms
+    void parseValue();
+    void parseOpenTag();
+    void parseBodyTag();
+    void parseCloseTag();
     Attribute parseAttribute();
+
+    // Expressions
+    void parseExpression();
+    void parseLetExpression();
+    void parseNormalExpression();
+    
 public:
     Parser(std::istream&);
     void build(std::ostream&);
@@ -42,7 +50,7 @@ public:
 
 Grammar:
 
-    Expression              := NormalExpression | LetExpression | Value , [ Expression ] ;
+    Expression              := NormalExpression , Expression | LetExpression , Expression | Value , Expression | ""
     NormalExpression        := OpenTag , Expression , CloseTag ;
     LetExpression           := OpenTag , Expression , BodyTag , Expression , CloseTag ;
     OpenTag                 := "<" , String , [ Attribute ] , ">" ;

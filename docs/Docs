@@ -1,4 +1,9 @@
-- Read the grammar in the parser.h.
-- Improve the grammar (if can).
-- Create the grarmmar.
-- Test the grammar.
+- Improve Number Tokenizing (if can).
+- Improve Attribute Parsing (if can).
+- Improve Expression Parsing (if can).
+- Add Other Tags.
+- Add error messages.
+- Unit Testing.
+- Integration Testing.
+- System Testing.
+- Documentation.
