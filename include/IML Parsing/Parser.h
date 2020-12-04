@@ -2,7 +2,7 @@
 #define __Parser_H
 
 #include "Tokenizer.h"
-#include "Tag.h"
+#include "../Base Tag Classes/Tag.h"
 #include <stack>
 
 class Parser
@@ -26,15 +26,14 @@ private:
     Token current();
 
     // Functionalities
-    void moveValuesToAttribute();
-    Attribute searchAttributeInHierarchy(std::string);
+    Attribute* searchAttributeInHierarchy(std::string);
 
     // Atoms
     void parseValue();
     void parseOpenTag();
     void parseBodyTag();
     void parseCloseTag();
-    Attribute parseAttribute();
+    void parseAttribute();
 
     // Expressions
     void parseExpression();

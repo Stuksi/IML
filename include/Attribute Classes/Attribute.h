@@ -8,17 +8,16 @@ class Attribute
 {
 private:
     std::string id;
-    std::vector<double> values;
 public:
     Attribute() = default;
     Attribute(std::string);
-    ~Attribute() = default;
+    virtual ~Attribute() = default;
 
     void setId(std::string);
-    void setValues(std::vector<double>);
-
     std::string getId() const;
-    std::vector<double> getValues() const;
+
+    virtual void setValues(std::vector<double>);
+    virtual std::vector<double> getValues() const;
 };
 
 #endif

@@ -1,5 +1,5 @@
-#include "../include/Iml.h"
-#include "../include/Parser.h"
+#include "../include/IML Parsing/Iml.h"
+#include "../include/IML Parsing/Parser.h"
 #include <fstream>
 
 void Iml::parse(const char* inputFileName, const char* outputFileName)

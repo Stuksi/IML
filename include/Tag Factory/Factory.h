@@ -1,7 +1,7 @@
 #ifndef __Factory_H
 #define __Factory_H
 
-#include "Tag.h"
+#include "../Base Tag Classes/Tag.h"
 
 class Factory
 {

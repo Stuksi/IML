@@ -1,6 +1,4 @@
-#include "../include/Tag.h"
-
-// --------------------------------------- TAG ---------------------------------------  // 
+#include "../include/Base Tag Classes/Tag.h"
 
 void Tag::setType(TagType _type)
 {
@@ -45,36 +43,17 @@ void Tag::setAttribute(Attribute _attribute)
     throw;
 }
 
-Attribute& Tag::getAttribute()
+Attribute*& Tag::getAttribute()
 {
     throw;
 }
 
-Attribute Tag::getAttribute() const
+Attribute* Tag::getAttribute() const
 {
     throw;
 }
 
-// --------------------------------------- ATTRIBUTETAG ---------------------------------------  // 
-
-Attribute& AttributeTag::getAttribute()
+void Tag::moveValuesToAttribute()
 {
-    return attribute;
-}
-
-Attribute AttributeTag::getAttribute() const
-{
-    return attribute;
-}
-
-// --------------------------------------- ROOT ---------------------------------------  // 
-
-Root::Root()
-{
-    setType(ROOT);
-}
-
-std::vector<double> Root::eval() const
-{
-    return getValues();
+    throw;
 }

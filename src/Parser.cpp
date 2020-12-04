@@ -1,5 +1,6 @@
-#include "../include/Parser.h"
-#include "../include/Factory.h"
+#include "../include/IML Parsing/Parser.h"
+#include "../include/Tag Factory/Factory.h"
+#include "../include/IML Tags/Root.h"
 
 Parser::Parser(std::istream& in) : tokenized(Tokenizer(in).tokenize()), it(0)
 {}
@@ -74,22 +75,16 @@ Token Parser::current()
     return tokenized[it];
 }
 
-void Parser::moveValuesToAttribute()
-{
-    hierarchy.top()->getAttribute().setValues(hierarchy.top()->eval());
-    hierarchy.top()->setValues(std::vector<double>());
-}
-
-Attribute Parser::searchAttributeInHierarchy(std::string id)
+Attribute* Parser::searchAttributeInHierarchy(std::string id)
 {
     std::stack<Tag*> saveHierarchy;
-    while (!hierarchy.empty() && hierarchy.top()->getAttribute().getId() != id)
+    while (!hierarchy.empty() && hierarchy.top()->getAttribute()->getId() != id)
     {
         saveHierarchy.push(hierarchy.top());
         hierarchy.pop();
     }
     if (hierarchy.empty()) throw;
-    Attribute attribute = hierarchy.top()->getAttribute();
+    Attribute *attribute = hierarchy.top()->getAttribute();
     while (!saveHierarchy.empty())
     {
         hierarchy.push(saveHierarchy.top());
@@ -112,7 +107,7 @@ void Parser::parseValue()
     }
     else 
     {   
-        hierarchy.top()->addValue(searchAttributeInHierarchy(current().text).getValues());
+        hierarchy.top()->addValue(searchAttributeInHierarchy(current().text)->getValues());
     }
     next();
 }
@@ -123,23 +118,27 @@ void Parser::parseOpenTag()
     next();
     if (current().type != String) throw;
     Tag *tag = Factory::stringToTag(current().text);
+    hierarchy.push(tag);
     next();
     if (current().type == Quote)
     {
-        tag->setAttribute(parseAttribute());
+        parseAttribute();
     }
     else
     {
         try
         {
             tag->getAttribute();
-            throw;  
+            throw std::logic_error("");  
         }
-        catch(const std::exception& e)
-        {}
+        catch(const std::logic_error& e)
+        {
+            throw;
+        }
+        // catch(const std::invalid_argument& e)
+        // {}
     }
     if (current().type != CloseBracket) throw;
-    hierarchy.push(tag);
     next();
 }
 
@@ -171,7 +170,7 @@ void Parser::parseCloseTag()
     next();
 }
 
-Attribute Parser::parseAttribute()
+void Parser::parseAttribute()
 {
     if (current().type != Quote) throw;
     next();
@@ -189,8 +188,8 @@ Attribute Parser::parseAttribute()
     }
     next();
     if (current().type != Quote) throw;
+    hierarchy.top()->setAttribute(attribute);
     next();
-    return attribute;
 }
 
 void Parser::parseExpression()
@@ -219,7 +218,7 @@ void Parser::parseLetExpression()
     parseOpenTag();
     parseExpression();
     parseBodyTag();
-    moveValuesToAttribute();
+    hierarchy.top()->moveValuesToAttribute();
     parseExpression();
     parseCloseTag();
 }

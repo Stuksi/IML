@@ -1,9 +1,9 @@
 #ifndef __Tag_H
 #define __Tag_H
 
-#include "Attribute.h"
+#include "../Attribute Classes/Attribute.h"
 
-enum TagType
+enum class TagType
 {
     ROOT,
     MAPINC,
@@ -30,28 +30,9 @@ public:
 
     virtual std::vector<double> eval() const = 0;
     virtual void setAttribute(Attribute);
-    virtual Attribute& getAttribute();
-    virtual Attribute getAttribute() const;
-};
-
-class AttributeTag : public Tag
-{
-private:
-    Attribute attribute;
-public:
-    AttributeTag() = default;
-    virtual ~AttributeTag() = default;
-    
-    Attribute& getAttribute();
-    Attribute getAttribute() const;
-
-    virtual std::vector<double> eval() const = 0;
-};
-
-struct Root : public Tag
-{
-    Root();
-    std::vector<double> eval() const;
+    virtual Attribute*& getAttribute();
+    virtual Attribute* getAttribute() const;
+    virtual void moveValuesToAttribute();
 };
 
 #endif

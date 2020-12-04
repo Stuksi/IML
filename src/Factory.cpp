@@ -1,5 +1,6 @@
-#include "../include/Factory.h"
-#include "../include/TagList.h"
+#include "../include/Tag Factory/Factory.h"
+#include "../include/IML Tags/MapInc.h"
+#include "../include/IML Tags/Let.h"
 
 Tag* Factory::stringToTag(std::string type)
 {
@@ -18,11 +19,11 @@ TagType Factory::stringToTagType(std::string type)
 {
     if (type == "MAP-INC")
     {
-        return MAPINC;
+        return TagType::MAPINC;
     }
     else if (type == "LET")
     {
-        return LET;
+        return TagType::LET;
     }
     throw;
 }
