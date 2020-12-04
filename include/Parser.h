@@ -9,7 +9,7 @@ class Parser
 {
 private:
     // Core
-    std::stack<Tag*> hierachy;
+    std::stack<Tag*> hierarchy;
     std::vector<Token> tokenized;
     size_t it;
 
@@ -27,7 +27,7 @@ private:
 
     // Functionalities
     void moveValuesToAttribute();
-    Attribute searchAttributeInHierachy(std::string);
+    Attribute searchAttributeInHierarchy(std::string);
 
     // Atoms
     void parseValue();
@@ -50,7 +50,7 @@ public:
 
 Grammar:
 
-    Expression              := NormalExpression , Expression | LetExpression , Expression | Value , Expression | ""
+    Expression              := NormalExpression , Expression | LetExpression , Expression | Value , Expression | "" ;
     NormalExpression        := OpenTag , Expression , CloseTag ;
     LetExpression           := OpenTag , Expression , BodyTag , Expression , CloseTag ;
     OpenTag                 := "<" , String , [ Attribute ] , ">" ;

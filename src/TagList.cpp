@@ -12,9 +12,10 @@ std::vector<double> Let::eval() const
     return getValues();
 }
 
-bool Let::hasAttribute() const
+void Let::setAttribute(Attribute _attribute)
 {
-    return true;
+    if(std::isdigit(_attribute.getId()[0])) throw;
+    getAttribute() = _attribute;
 }
 
 // --------------------------------------- MAP-INC ---------------------------------------  // 
@@ -35,7 +36,8 @@ std::vector<double> MapInc::eval() const
     return copy_values;
 }
 
-bool MapInc::hasAttribute() const
+void MapInc::setAttribute(Attribute _attribute)
 {
-    return true;
+    if (!std::isdigit(_attribute.getId()[0])) throw;
+    getAttribute() = _attribute;
 }

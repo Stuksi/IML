@@ -76,24 +76,24 @@ Token Parser::current()
 
 void Parser::moveValuesToAttribute()
 {
-    hierachy.top()->getAttribute().setValues(hierachy.top()->eval());
-    hierachy.top()->setValues(std::vector<double>());
+    hierarchy.top()->getAttribute().setValues(hierarchy.top()->eval());
+    hierarchy.top()->setValues(std::vector<double>());
 }
 
-Attribute Parser::searchAttributeInHierachy(std::string id)
+Attribute Parser::searchAttributeInHierarchy(std::string id)
 {
-    std::stack<Tag*> saveHierachy;
-    while (!hierachy.empty() && hierachy.top()->getAttribute().getId() != id)
+    std::stack<Tag*> saveHierarchy;
+    while (!hierarchy.empty() && hierarchy.top()->getAttribute().getId() != id)
     {
-        saveHierachy.push(hierachy.top());
-        hierachy.pop();
+        saveHierarchy.push(hierarchy.top());
+        hierarchy.pop();
     }
-    if (hierachy.empty()) throw;
-    Attribute attribute = hierachy.top()->getAttribute();
-    while (!saveHierachy.empty())
+    if (hierarchy.empty()) throw;
+    Attribute attribute = hierarchy.top()->getAttribute();
+    while (!saveHierarchy.empty())
     {
-        hierachy.push(saveHierachy.top());
-        saveHierachy.pop();
+        hierarchy.push(saveHierarchy.top());
+        saveHierarchy.pop();
     }
     return attribute;
 }
@@ -104,15 +104,15 @@ void Parser::parseValue()
     {
         next();
         if (current().type != Number) throw;
-        hierachy.top()->addValue(-stod(current().text));
+        hierarchy.top()->addValue(-stod(current().text));
     }
     else if(current().type == Number)
     {
-        hierachy.top()->addValue(stod(current().text));
+        hierarchy.top()->addValue(stod(current().text));
     }
     else 
     {   
-        hierachy.top()->addValue(searchAttributeInHierachy(current().text).getValues());
+        hierarchy.top()->addValue(searchAttributeInHierarchy(current().text).getValues());
     }
     next();
 }
@@ -126,15 +126,20 @@ void Parser::parseOpenTag()
     next();
     if (current().type == Quote)
     {
-        if (!tag->hasAttribute()) throw;
         tag->setAttribute(parseAttribute());
     }
-    else if (tag->hasAttribute())
+    else
     {
-        throw;
+        try
+        {
+            tag->getAttribute();
+            throw;  
+        }
+        catch(const std::exception& e)
+        {}
     }
     if (current().type != CloseBracket) throw;
-    hierachy.push(tag);
+    hierarchy.push(tag);
     next();
 }
 
@@ -157,12 +162,12 @@ void Parser::parseCloseTag()
     if (current().type != Slash) throw;
     next();
     if (current().type != String) throw;
-    if (hierachy.top()->getType() != Factory::stringToTagType(current().text)) throw;
+    if (hierarchy.top()->getType() != Factory::stringToTagType(current().text)) throw;
     next();
     if (current().type != CloseBracket) throw;
-    std::vector<double> result = hierachy.top()->eval();
-    hierachy.pop();
-    hierachy.top()->addValue(result);
+    std::vector<double> result = hierarchy.top()->eval();
+    hierarchy.pop();
+    hierarchy.top()->addValue(result);
     next();
 }
 
@@ -228,12 +233,12 @@ void Parser::parseNormalExpression()
 
 void Parser::build(std::ostream& out)
 {
-    hierachy.push(new Tag());
+    hierarchy.push(new Root());
     try
     {
         parseExpression();
-        if (hierachy.size() != 1) throw;
-        std::vector<double> parsingResult = hierachy.top()->getValues();
+        if (hierarchy.size() != 1) throw;
+        std::vector<double> parsingResult = hierarchy.top()->getValues();
         size_t parsingSize = parsingResult.size() - 1;
         for (size_t i = 0; i < parsingSize; i++)
         {

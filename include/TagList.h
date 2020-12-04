@@ -3,18 +3,18 @@
 
 #include "Tag.h"
 
-struct Let : public Tag
+struct Let : public AttributeTag
 {
     Let();
     std::vector<double> eval() const;
-    bool hasAttribute() const;
+    void setAttribute(Attribute);
 };
 
-struct MapInc : public Tag
+struct MapInc : public AttributeTag
 {
     MapInc();
     std::vector<double> eval() const;
-    bool hasAttribute() const;
+    void setAttribute(Attribute);
 };
 
 #endif

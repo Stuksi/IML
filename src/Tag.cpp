@@ -1,19 +1,10 @@
 #include "../include/Tag.h"
 
-Tag::Tag() : attribute(Attribute()), type(Root)
-{}
-
-Tag::~Tag()
-{}
+// --------------------------------------- TAG ---------------------------------------  // 
 
 void Tag::setType(TagType _type)
 {
     type = _type;
-}
-
-void Tag::setAttribute(Attribute _attribute)
-{
-    attribute = _attribute;
 }
 
 void Tag::setValues(std::vector<double> _values)
@@ -24,16 +15,6 @@ void Tag::setValues(std::vector<double> _values)
 TagType Tag::getType() const
 {
     return type;
-}
-
-Attribute& Tag::getAttribute()
-{
-    return attribute;
-}
-
-Attribute Tag::getAttribute() const
-{
-    return attribute;
 }
 
 std::vector<double> Tag::getValues() const
@@ -59,7 +40,41 @@ std::vector<double> Tag::eval() const
     return values;
 }
 
-bool Tag::hasAttribute() const
+void Tag::setAttribute(Attribute _attribute)
 {
-    return false;
+    throw;
+}
+
+Attribute& Tag::getAttribute()
+{
+    throw;
+}
+
+Attribute Tag::getAttribute() const
+{
+    throw;
+}
+
+// --------------------------------------- ATTRIBUTETAG ---------------------------------------  // 
+
+Attribute& AttributeTag::getAttribute()
+{
+    return attribute;
+}
+
+Attribute AttributeTag::getAttribute() const
+{
+    return attribute;
+}
+
+// --------------------------------------- ROOT ---------------------------------------  // 
+
+Root::Root()
+{
+    setType(ROOT);
+}
+
+std::vector<double> Root::eval() const
+{
+    return getValues();
 }

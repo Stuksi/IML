@@ -5,7 +5,7 @@
 
 enum TagType
 {
-    Root,
+    ROOT,
     MAPINC,
     LET
 };
@@ -14,26 +14,44 @@ class Tag
 {
 private:
     TagType type;
-    Attribute attribute;
     std::vector<double> values;
 public:
-    Tag();
-    virtual ~Tag();
+    Tag() = default;
+    virtual ~Tag() = default;
 
     void setType(TagType);
-    void setAttribute(Attribute);
     void setValues(std::vector<double>);
     
     TagType getType() const;
-    Attribute& getAttribute();
-    Attribute getAttribute() const;
     std::vector<double> getValues() const;
 
     void addValue(double);
     void addValue(std::vector<double>);
 
-    virtual std::vector<double> eval() const;
-    virtual bool hasAttribute() const;
+    virtual std::vector<double> eval() const = 0;
+    virtual void setAttribute(Attribute);
+    virtual Attribute& getAttribute();
+    virtual Attribute getAttribute() const;
+};
+
+class AttributeTag : public Tag
+{
+private:
+    Attribute attribute;
+public:
+    AttributeTag() = default;
+    virtual ~AttributeTag() = default;
+    
+    Attribute& getAttribute();
+    Attribute getAttribute() const;
+
+    virtual std::vector<double> eval() const = 0;
+};
+
+struct Root : public Tag
+{
+    Root();
+    std::vector<double> eval() const;
 };
 
 #endif

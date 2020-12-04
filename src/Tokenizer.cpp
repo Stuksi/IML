@@ -96,5 +96,6 @@ std::vector<Token> Tokenizer::tokenize()
         if (current.type == Invalid) throw;
         tokenized.push_back(current);
     }
+    
     return tokenized;
 }
