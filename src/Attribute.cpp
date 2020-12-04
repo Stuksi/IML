@@ -1,11 +1,7 @@
 #include "../include/Attribute.h"
 
-Attribute::Attribute() : id("")
-{}
-
 Attribute::Attribute(std::string _id) : id(_id)
 {}
-
 
 void Attribute::setId(std::string _id)
 {

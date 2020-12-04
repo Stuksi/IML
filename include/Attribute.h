@@ -10,8 +10,9 @@ private:
     std::string id;
     std::vector<double> values;
 public:
-    Attribute();
+    Attribute() = default;
     Attribute(std::string);
+    ~Attribute() = default;
 
     void setId(std::string);
     void setValues(std::vector<double>);
