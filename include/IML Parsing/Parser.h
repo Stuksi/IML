@@ -3,30 +3,29 @@
 
 #include "Tokenizer.h"
 #include "../Base Tag Classes/Tag.h"
-#include <stack>
+#include "../../lib/Stack.h"
+#include "../../lib/HashTable.h"
+#include "../../lib/DLList.h"
+
 
 class Parser
 {
 private:
     // Core
-    std::stack<Tag*> hierarchy;
-    std::vector<Token> tokenized;
-    size_t it;
+    Stack<Tag*> hierarchy;
+    HashTable<std::string, DLList<double>> nameLinks;
+    DLList<Token> tokenList;
+    DLList<Token>::Iterator tokenListIterator;
 
     // Predicates
-    bool more();
+    bool hasMoreTokens();
     bool isValue();
-    bool isLetTag();
-    bool isBodyTag();
-    bool isCloseTag();
+    bool isEndTag();
 
     // Selectors and Iterators
     void next();
     void previous();
     Token current();
-
-    // Functionalities
-    Attribute* searchAttributeInHierarchy(std::string);
 
     // Atoms
     void parseValue();
@@ -37,8 +36,7 @@ private:
 
     // Expressions
     void parseExpression();
-    void parseLetExpression();
-    void parseNormalExpression();
+    void parseTagExpression();
     
 public:
     Parser(std::istream&);
@@ -49,10 +47,10 @@ public:
 
 Grammar:
 
-    Expression              := NormalExpression , Expression | LetExpression , Expression | Value , Expression | "" ;
-    NormalExpression        := OpenTag , Expression , CloseTag ;
-    LetExpression           := OpenTag , Expression , BodyTag , Expression , CloseTag ;
+    Expression              := TagExpression, Expression | Value , Expression | "" ;
+    TagExpression           := OpenTag , Expression , [BodyTag , Expression] , CloseTag ;
     OpenTag                 := "<" , String , [ Attribute ] , ">" ;
+    EndTag                  := BodyTag | CloseTag
     BodyTag                 := "<" , "BODY" , "/" , ">" ;
     CloseTag                := "<" , "/" , String , ">" ; 
     Attribute               := """ , Value , """ ;

@@ -12,14 +12,3 @@ std::string Attribute::getId() const
 {
     return id;
 }
-
-void Attribute::setValues(std::vector<double> _values)
-{
-    throw;
-}
-
-std::vector<double> Attribute::getValues() const
-{
-    throw;
-}
-

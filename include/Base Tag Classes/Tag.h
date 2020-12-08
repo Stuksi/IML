@@ -12,27 +12,25 @@ enum class TagType
 
 class Tag
 {
-private:
+protected:
     TagType type;
-    std::vector<double> values;
-public:
+    DLList<double> values;
+public: 
     Tag() = default;
     virtual ~Tag() = default;
 
     void setType(TagType);
-    void setValues(std::vector<double>);
+    void setValues(DLList<double>);
     
     TagType getType() const;
-    std::vector<double> getValues() const;
+    DLList<double> getValues() const;
 
     void addValue(double);
-    void addValue(std::vector<double>);
+    void addValue(DLList<double>);
 
-    virtual std::vector<double> eval() const = 0;
+    virtual DLList<double> eval() const = 0;
     virtual void setAttribute(Attribute);
-    virtual Attribute*& getAttribute();
-    virtual Attribute* getAttribute() const;
-    virtual void moveValuesToAttribute();
+    virtual Attribute getAttribute() const;
 };
 
 #endif

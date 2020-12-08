@@ -7,7 +7,7 @@ class MapInc : public AttributeTag
 {
 public:
     MapInc();
-    std::vector<double> eval() const;
+    DLList<double> eval() const;
     void setAttribute(Attribute);
 };
 

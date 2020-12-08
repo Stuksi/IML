@@ -5,19 +5,14 @@
 
 class AttributeTag : public Tag
 {
-private:
-    Attribute *attribute;
+protected:
+    Attribute attribute;
 public:
-    AttributeTag();
-    AttributeTag(const AttributeTag&) = delete;
-    AttributeTag& operator= (const AttributeTag&) = delete;
-    virtual ~AttributeTag();
-    
-    Attribute*& getAttribute();
-    Attribute* getAttribute() const;
+    AttributeTag() = default;
+    virtual ~AttributeTag() = default;
 
-    virtual std::vector<double> eval() const = 0;
-    virtual void moveValuesToAttribute();
+    Attribute getAttribute() const;
+    virtual DLList<double> eval() const = 0;
 };
 
 #endif

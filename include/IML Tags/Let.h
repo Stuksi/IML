@@ -7,9 +7,8 @@ class Let : public AttributeTag
 {
 public:
     Let();
-    std::vector<double> eval() const;
+    DLList<double> eval() const;
     void setAttribute(Attribute);
-    void moveValuesToAttribute();
 };
 
 #endif

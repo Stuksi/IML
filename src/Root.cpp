@@ -2,10 +2,10 @@
 
 Root::Root()
 {
-    setType(TagType::ROOT);
+    type = TagType::ROOT;
 }
 
-std::vector<double> Root::eval() const
+DLList<double> Root::eval() const
 {
-    return getValues();
+    return values;
 }

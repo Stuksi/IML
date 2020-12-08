@@ -2,10 +2,10 @@
 #define __Tokenizer_H
 
 #include <iostream>
-#include <vector>
 #include <string>
+#include "../../lib/DLList.h"
 
-enum TokenType
+enum class TokenType
 {
     OpenBracket, // '<'
     CloseBracket, // '>'
@@ -13,7 +13,6 @@ enum TokenType
     Slash, // '/'
     Number, // -inf ... inf   
     String, // {'A' ... 'Z'}
-    Minus, // '-'
     Invalid // '?'
 };
 
@@ -39,7 +38,7 @@ private:
     Token readSign();
 public:
     Tokenizer(std::istream&);
-    std::vector<Token> tokenize();
+    DLList<Token> tokenize();
 };
 
 #endif

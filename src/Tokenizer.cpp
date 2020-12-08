@@ -20,17 +20,22 @@ Token Tokenizer::readString()
     {
         text += in.get();
     }
-    return Token {String, text};
+    return Token {TokenType::String, text};
 }
 
 Token Tokenizer::readNumber()
 {
     std::string number = "";
+    if (in.peek() == '-')
+    {
+        number = "-";
+        in.get();
+    }
     if (in.peek() == '0')
     {
         in.get();
         if (isDigit()) throw;
-        number = "0";
+        number += "0";
     } else {
         while (isDigit())
         {
@@ -46,7 +51,7 @@ Token Tokenizer::readNumber()
             number += in.get();
         }
     }
-    return Token {Number, number};
+    return Token {TokenType::Number, number};
 }
 
 Token Tokenizer::readSign()
@@ -54,12 +59,11 @@ Token Tokenizer::readSign()
     char current = in.get();
     switch (current)
     {
-    case '<': return Token {OpenBracket, "<"};
-    case '>': return Token {CloseBracket, ">"};
-    case '"': return Token {Quote, "\""};
-    case '/': return Token {Slash, "/"};
-    case '-': return Token {Minus, "-"};
-    default : return Token {Invalid, "" + current};
+        case '<': return Token {TokenType::OpenBracket, "<"};
+        case '>': return Token {TokenType::CloseBracket, ">"};
+        case '"': return Token {TokenType::Quote, "\""};
+        case '/': return Token {TokenType::Slash, "/"};
+        default : return Token {TokenType::Invalid, "" + current};
     }
 }
 
@@ -74,7 +78,7 @@ void Tokenizer::clear()
 Token Tokenizer::nextToken()
 {
     clear();
-    if (isDigit())
+    if (in.peek() == '-' || isDigit())
     {
         return readNumber();
     }
@@ -85,17 +89,16 @@ Token Tokenizer::nextToken()
     return readSign();
 }
 
-std::vector<Token> Tokenizer::tokenize()
+DLList<Token> Tokenizer::tokenize()
 {
-    std::vector<Token> tokenized;
+    DLList<Token> tokenList;
     Token current;
     while (in)
     {
         current = nextToken();
         if (in.eof()) break;
-        if (current.type == Invalid) throw;
-        tokenized.push_back(current);
+        if (current.type == TokenType::Invalid) throw;
+        tokenList.append(current);
     }
-    
-    return tokenized;
+    return tokenList;
 }

@@ -7,7 +7,7 @@ class Root : public Tag
 {
 public:
     Root();
-    std::vector<double> eval() const;
+    DLList<double> eval() const;
 };
 
 #endif
