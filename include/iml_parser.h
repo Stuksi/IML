@@ -1,45 +1,44 @@
-#ifndef __Parser_H
-#define __Parser_H
+#ifndef __iml_parser_H
+#define __iml_parser_H
 
-#include "Tokenizer.h"
-#include "../Base Tag Classes/Tag.h"
-#include "../../lib/Stack.h"
-#include "../../lib/HashTable.h"
-#include "../../lib/DLList.h"
+#include "iml_tokenizer.h"
+#include "iml_tag.h"
+#include "../ds/stack.h"
+#include "../ds/hash_table.h"
+#include "../ds/dllist.h"
 
-
-class Parser
+class iml_parser
 {
 private:
     // Core
-    Stack<Tag*> hierarchy;
-    HashTable<std::string, DLList<double>> nameLinks;
-    DLList<Token> tokenList;
-    DLList<Token>::Iterator tokenListIterator;
+    stack<iml_tag*> hierarchy;
+    hash_table<std::string, dllist<double>> linked_names;
+    dllist<iml_token> t_list;
+    dllist<iml_token>::iterator t_list_iterator;
 
     // Predicates
-    bool hasMoreTokens();
-    bool isValue();
-    bool isEndTag();
+    bool more();
+    bool is_value();
+    bool is_end_tag();
 
     // Selectors and Iterators
     void next();
     void previous();
-    Token current();
+    iml_token current();
 
     // Atoms
-    void parseValue();
-    void parseOpenTag();
-    void parseBodyTag();
-    void parseCloseTag();
-    void parseAttribute();
+    void parse_value();
+    void parse_open_tag();
+    void parse_body_tag();
+    void parse_close_tag();
+    void parse_attribute();
 
     // Expressions
-    void parseExpression();
-    void parseTagExpression();
+    void parse_expression();
+    void parse_tag_expression();
     
 public:
-    Parser(std::istream&);
+    iml_parser(std::istream&);
     void build(std::ostream&);
 };
 
