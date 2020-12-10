@@ -1,20 +1,19 @@
-#ifndef __iml_parser_H
-#define __iml_parser_H
+#ifndef __iml_parser_h
+#define __iml_parser_h
 
 #include "iml_tokenizer.h"
 #include "iml_tag.h"
-#include "../ds/stack.h"
-#include "../ds/hash_table.h"
-#include "../ds/dllist.h"
+#include <stack>
+#include <unordered_map>
 
 class iml_parser
 {
 private:
     // Core
-    stack<iml_tag*> hierarchy;
-    hash_table<std::string, dllist<double>> linked_names;
-    dllist<iml_token> t_list;
-    dllist<iml_token>::iterator t_list_iterator;
+    std::stack<iml_tag*> hierarchy;
+    std::unordered_map<std::string, std::list<double>> linked_names;
+    std::list<iml_token> t_list;
+    std::list<iml_token>::iterator t_list_iterator;
 
     // Predicates
     bool more();

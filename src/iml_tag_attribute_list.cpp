@@ -1,5 +1,7 @@
 #include "../include/iml_tag_attribute_list.h"
 
+#include <stdexcept>
+
 // -------------------------------------- // iml_map_inc // -------------------------------------- //
 
 iml_map_inc::iml_map_inc()
@@ -9,11 +11,14 @@ iml_map_inc::iml_map_inc()
 
 void iml_map_inc::set_attribute(iml_attribute _attribute)
 {
-    if (!std::isdigit(_attribute.get()[0]) && _attribute.get()[0] != '-') throw;
+    if (!std::isdigit(_attribute.get()[0]) && _attribute.get()[0] != '-')
+    {
+        throw std::invalid_argument("Attribute expects number, given " + _attribute.get() + "!");
+    }
     attribute = _attribute;
 }
 
-dllist<double> iml_map_inc::eval()
+std::list<double> iml_map_inc::eval()
 {
     double attribute_value = stod(attribute.get()); 
     for (auto i = values.begin(); i != values.end(); ++i)
@@ -32,11 +37,14 @@ iml_let::iml_let()
 
 void iml_let::set_attribute(iml_attribute _attribute)
 {
-    if (std::isdigit(_attribute.get()[0]) || _attribute.get()[0] == '-') throw;
+    if (std::isdigit(_attribute.get()[0]) || _attribute.get()[0] == '-')
+    {
+        throw std::invalid_argument("Attribute expects string, given " + _attribute.get() + "!");
+    }
     attribute = _attribute;
 }
 
-dllist<double> iml_let::eval()
+std::list<double> iml_let::eval()
 {
     return values;
 }

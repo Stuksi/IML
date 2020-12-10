@@ -7,7 +7,7 @@ class iml_root_tag : public iml_tag
 {
 public:
     iml_root_tag();
-    dllist<double> eval();
+    std::list<double> eval();
 };
 
 #endif

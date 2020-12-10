@@ -8,6 +8,7 @@ class iml_factory
 public:
     static iml_tag* stotag(std::string);
     static iml_tag_type stotype(std::string);
+    static std::string typetos(iml_tag_type);
 };
 
 #endif

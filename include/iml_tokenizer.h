@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include "../ds/dllist.h"
+#include <list>
 
 enum class iml_token_type
 {
@@ -45,7 +45,7 @@ private:
     iml_token read_sign();
 public:
     iml_tokenizer(std::istream&);
-    dllist<iml_token> tokenize();
+    std::list<iml_token> tokenize();
 };
 
 #endif

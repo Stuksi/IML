@@ -7,7 +7,7 @@ class iml_map_inc : public iml_tag_attribute
 {
 public:
     iml_map_inc();
-    dllist<double> eval();
+    std::list<double> eval();
     void set_attribute(iml_attribute);
 };
 
@@ -15,7 +15,7 @@ class iml_let : public iml_tag_attribute
 {
 public:
     iml_let();
-    dllist<double> eval();
+    std::list<double> eval();
     void set_attribute(iml_attribute);
 };
 

@@ -11,7 +11,7 @@ public:
     iml_attribute get_attribute() const;
 
     virtual void set_attribute(iml_attribute) = 0;
-    virtual dllist<double> eval() = 0;
+    virtual std::list<double> eval() = 0;
 };
 
 #endif
