@@ -1,0 +1,25 @@
+Grammar:
+
+    expression              := tag_expression , expression | value , expression | "" ;
+    tag_expression          := open_tag , Expression , [BodyTag , Expression] , CloseTag ;
+    value_expression        := Double | String ;
+    open_tag                := "<" , string , [ attribute ] , ">"
+    body_tag                := "<" , "BODY" , "/" , ">" ;
+    close_tag               := "<" , "/" , string , ">" ; 
+    attribute               := """ , value_expression , """ ;
+    string                  := {"A" ... "Z"}+ ;
+    double                  := "0" | ("1" | ... | "9" , {"0" ... "9"}) , ["." , {"0" ... "9"}+] ;
+
+
+
+Definition Symbols:
+    :=         --->         definition
+    ,          --->         concatenation
+    |          --->         alternation
+    [...]      --->         optional
+    {...}      --->         repetition 
+    "..."      --->         terminal string
+    ;          --->         termination
+    "" ... ""  --->         range
+    +          --->         minimum one
+

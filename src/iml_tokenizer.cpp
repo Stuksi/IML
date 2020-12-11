@@ -35,6 +35,10 @@ iml_token iml_tokenizer::read_number()
         number = "-";
         in.get();
     }
+    if (!is_digit())
+    {
+        throw std::runtime_error("Syntax Error at line " + std::to_string(position.row) + ", column " + std::to_string(position.col) + "! Expected number, given " + std::string(1, in.peek()) + " !");
+    }
     if (in.peek() == '0')
     {
         in.get();
@@ -77,7 +81,7 @@ iml_token iml_tokenizer::read_sign()
         case '>': return iml_token {iml_token_type::close_bracket, ">", token_position};
         case '"': return iml_token {iml_token_type::quote, "\"", token_position};
         case '/': return iml_token {iml_token_type::slash, "/", token_position};
-        default : return iml_token {iml_token_type::invalid, "" + current, token_position};
+        default : return iml_token {iml_token_type::invalid, std::string(1, current), token_position};
     }
 }
 
@@ -116,12 +120,16 @@ std::list<iml_token> iml_tokenizer::tokenize()
 {
     std::list<iml_token> t_list;
     iml_token current;
-    while (!in.eof())
+    while (true)
     {
         current = next_token();
+        if (in.eof() && current.text == std::string(1, -1))
+        {
+            break;
+        }
         if (current.type == iml_token_type::invalid)
         {
-            throw std::runtime_error("Syntax Error at line " + std::to_string(position.row) + ", column " + std::to_string(position.col) + "! Unrecognized character " + current.text + "!");
+            throw std::runtime_error("Syntax Error at line " + std::to_string(current.position.row) + ", column " + std::to_string(current.position.col) + "! Unrecognized character " + current.text + "!");
         }
         t_list.push_back(current);
     }

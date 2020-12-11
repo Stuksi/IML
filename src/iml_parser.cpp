@@ -4,9 +4,6 @@
 
 #include <stdexcept>
 
-iml_parser::iml_parser(std::istream& in) : t_list(iml_tokenizer(in).tokenize()), t_list_iterator(t_list.begin())
-{}
-
 void iml_parser::next()
 {
     ++t_list_iterator;
@@ -22,17 +19,7 @@ iml_token iml_parser::current()
     return *t_list_iterator;
 }
 
-bool iml_parser::more()
-{
-    return t_list_iterator != t_list.end();
-}
-
-bool iml_parser::is_value()
-{
-    return current().type == iml_token_type::number || current().type == iml_token_type::string;
-}
-
-bool iml_parser::is_end_tag()
+bool iml_parser::end_expression()
 {
     if (current().type == iml_token_type::open_bracket)
     {
@@ -44,24 +31,13 @@ bool iml_parser::is_end_tag()
         }
         previous();
     }
-    return false;
+    return t_list_iterator == t_list.end()
+        || current().text == "end_of_file()";
 }
 
-void iml_parser::parse_value()
+bool iml_parser::is_value()
 {
-    if (current().type == iml_token_type::number)
-    {
-        hierarchy.top()->add_value(stod(current().text));
-    }
-    else 
-    {   
-        if (linked_names.find(current().text) == linked_names.end())
-        {
-            throw std::invalid_argument(current().text + " is not defined!");
-        }
-        hierarchy.top()->add_values(linked_names[current().text]);
-    }
-    next();
+    return current().type == iml_token_type::number || current().type == iml_token_type::string;
 }
 
 void iml_parser::parse_open_tag()
@@ -98,7 +74,7 @@ void iml_parser::parse_body_tag()
     next();
     if (current().text != "BODY") 
     {
-        throw std::logic_error("Expected string \"BODY\", given " + current().text + " ! Missing BODY tag!");
+        throw std::logic_error("Expected string \"BODY\", given " + current().text + " ! Missing or invalid BODY tag syntax!");
     }
     next();
     if (current().type != iml_token_type::slash) 
@@ -165,13 +141,13 @@ void iml_parser::parse_attribute()
 
 void iml_parser::parse_expression()
 {
-    if (!more() || is_end_tag())
+    if (end_expression())
     {
         return;
     } 
     else if (is_value())
     {
-        parse_value();
+        parse_value_expression();
     }
     else 
     {
@@ -187,14 +163,15 @@ void iml_parser::parse_tag_expression()
     if (hierarchy.top()->type() == iml_tag_type::let)
     {
         parse_body_tag();
-        if (linked_names.find(hierarchy.top()->get_attribute().get()) != linked_names.end())
-        {
-            throw std::invalid_argument(current().text + " has been allready defined before!");
-        }
-        linked_names[hierarchy.top()->get_attribute().get()] = hierarchy.top()->eval();
-        hierarchy.top()->set_values(std::list<double>());
+        std::string attribute_id = hierarchy.top()->get_attribute().get();
+        linked_names[attribute_id].push(hierarchy.top()->eval());
+        hierarchy.top()->set_values({});
         parse_expression();
-        linked_names.erase(hierarchy.top()->get_attribute().get());
+        linked_names[attribute_id].pop();
+        if (linked_names[attribute_id].empty())
+        {
+            linked_names.erase(attribute_id);
+        }
     }
     parse_close_tag();
 
@@ -203,22 +180,41 @@ void iml_parser::parse_tag_expression()
     hierarchy.top()->add_values(values);
 }
 
-void iml_parser::build(std::ostream& out)
+void iml_parser::parse_value_expression()
 {
+    if (current().type == iml_token_type::number)
+    {
+        hierarchy.top()->add_value(stod(current().text));
+    }
+    else 
+    {   
+        if (linked_names.find(current().text) == linked_names.end())
+        {
+            throw std::invalid_argument(current().text + " is not defined!");
+        }
+        hierarchy.top()->add_values(linked_names[current().text].top());
+    }
+    next();
+}
+
+void iml_parser::build(std::istream& in, std::ostream& out)
+{
+
     hierarchy.push(new iml_root_tag());
     try
     {
+        t_list = iml_tokenizer(in).tokenize();
+        t_list_iterator = t_list.begin();
         parse_expression();
-        if (hierarchy.size() != 1)
-        {
-            throw std::runtime_error("Syntax Error! Unrecognised behaiviour! Missing closing tags and definitions!");
-        }
         std::list<double> end_result = hierarchy.top()->eval();
         for (auto i = end_result.begin(); i != --end_result.end(); ++i)
         {
             out << *i << " ";
         }
-        out << *(--end_result.cend());
+        if (end_result.size() > 0)
+        {
+            out << *(--end_result.end());
+        }
     }
     catch(const std::runtime_error& e)
     {

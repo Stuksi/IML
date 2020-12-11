@@ -6,6 +6,6 @@ void iml::parse_file(const char* input_file_name, const char* output_file_name)
 {
     std::ifstream in(input_file_name);
     std::ofstream out(output_file_name);
-    iml_parser parser(in);
-    parser.build(out);
+    iml_parser parser;
+    parser.build(in, out);
 }
