@@ -2,5 +2,4 @@ lib
 test
 .vscode
 *.out
-*.iml
-*.txt
+

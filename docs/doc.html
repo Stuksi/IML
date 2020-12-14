@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iml</title>
+    <link rel="stylesheet" type="text/css" href="doc_styles.css">
+</head>
+<body>
+    <div id="header">
+        <h1>iml</h1>
+        <div class="details">
+            <span id="author" class="author">author</span><br>
+            <span id="info" class="info">
+                <a class="bare">Stoyan Grozdanov</a>
+            </span><br>
+            <span id="author2" class="author">repository</span><br>
+            <span id="info2" class="info">
+                <a href="https://github.com/Stuksi/IML" class="bare">https://github.com/Stuksi/IML</a><br>
+            </span>
+        </div>
+        <div id="tableofcontents" class="tableofcontents2">
+            <div id="tableofcontentstitle">
+                Table of Contents
+            </div>
+            <ul class="level1">
+                <li>
+                    <a href="#overview">1. Overview</a>
+                    <ul class="level2">
+                        <li><a href="#overview.introduction">1.1 Introduction</a></li>
+                        <li><a href="#overview.license">1.2 License</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#install">2. Installation</a>
+                    <ul class="level2">
+                        <li><a href="#install.getting">2.1 Getting iml</a></li>
+                        <li><a href="#install.building">2.2 Building iml</a></li>
+                        <li><a href="#install.portability">2.3 Portability</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#dom">3. Document object model</a>
+                    <ul class="level2">
+                        <li><a href="#dom.cpp">3.1 C++ interface</a></li>
+                        <li><a href="#dom.grammar">3.2 iml grammar</a></li>
+                        <li><a href="#dom.memory">3.3 Memory management</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#loading">4. Loading document</a>
+                    <ul class="level2">
+                        <li><a href="#loading.file">4.1 Loading document from file</a></li>
+                        <li><a href="#loading.memory">4.2 Loading document from memory</a></li>
+                        <li><a href="#loading.stream">4.3 Loading document from stream</a></li>
+                        <li><a href="#loading.errors">4.4 Handling parsing errors</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#saving">5. Saving document</a>
+                    <ul class="level2">
+                        <li><a href="#saving.file">5.1 Saving document to file</a></li>
+                        <li><a href="#saving.stream">5.2 Saving document to stream/a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#apiref">6. API Reference</a>
+                    <ul class="level2">
+                        <li><a href="#apiref.enumerations">6.1 Enumerations</a></li>
+                        <li><a href="#apiref.classes">6.2 Classes</a></li>
+                        <li><a href="#apiref.functions">6.3 Functions</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="content">
+        <div class="sectionlevel1">
+            <h2 id="overview"><a class="anchor" href="#overview"></a><a class="link" href="#overview">1. Overview</a></h2>
+            <div class="sectionbody">
+                <div class="sectionlevel2">
+                    <h3 id="overview.introduction"><a class="anchor" href="#overview.introduction"><a class="link" href="#overview.introduction">1.1 Introduction</a></h3>
+                    <div class="paragraph">
+                        <p>
+                            <a href="https://github.com/Stuksi/IML">iml</a> is a light weight C++ language 
+                            interpreter library. It consists of a extremely fast parsing/interpreting
+                            mechanism. The iml language is inspired by an uni data structutes project
+                            <a href="https://docs.google.com/document/d/1MXNOaWoTIxODs8LzAuqIOLq4j4mkw4ZweVLvbJe6XKs/edit">IML</a>.   
+                            It is easy to develop new tags, and its very easy to integrate and use the library.
+                        </p>
+                    </div>
+                    <div class="paragraph">
+                        <p>
+                            <a href="https://docs.google.com/document/d/1MXNOaWoTIxODs8LzAuqIOLq4j4mkw4ZweVLvbJe6XKs/edit">IML</a>
+                             as a language can be used to evaluate mathematical expressions with the use of
+                            tags or to structure arrays which can be used with other programs. <a href="https://github.com/Stuksi/IML">iml</a>
+                            provides a small range of tags to be played with.
+                        </p>
+                    </div>
+                    <div class="paragraph">
+                        <p>
+                            If you want to start writing code as quickly as possuble, here are some examples
+                            representing some <a href="https://docs.google.com/document/d/1MXNOaWoTIxODs8LzAuqIOLq4j4mkw4ZweVLvbJe6XKs/edit">IML</a>
+                            syntax and how to use the interpreter: <a href="">example</a>.
+                        </p>
+                    </div>
+                </div>
+                <div class="sectionlevel2">
+                    <h3 id="overview.license"><a class="anchor" href="#overview.license"></a><a class="link" href="#overview.license">1.2 License</a></h3>
+                    <div class="paragraph">
+                        <p>The iml library is distributed under the GNU license:</p>
+                        <div class="literalblock">
+                            <div class="content">
+                                <pre>
+GNU General Public License v3.0
+
+Permissions of this strong copyleft license are conditioned 
+on making available complete source code of licensed works 
+and modifications, which include larger works using a licensed 
+work, under the same license. Copyright and license notices
+must be preserved. Contributors provide an express grant of patent rights.
+                                </pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            This means that you can freely use iml in your applications open-source.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sectionlevel1">
+            <h2 id="install"><a class="anchor" href="#install"></a><a class="link" href="#install">2. Installation</a></h2>
+            <div class="sectionbody">
+                <div class="sectionlevel2">
+                    <h3 id="install.getting"><a class="anchor" href="#install.getting"></a><a class="link" href="#install.getting">2.1 Getting iml</a></h3>
+                    <div class="paragraph">
+                        <!-- =============================================================================================================== -->
+                    </div>
+                </div>
+                <div class="sectionlevel2">
+                    <h3 id="install.building"><a class="anchor" href="#install.building"></a><a class="link" href="#install.building">2.2 Building iml</a></h3>
+                    <div class="paragraph">
+                        <!-- =============================================================================================================== -->
+                    </div>
+                </div>
+                <div class="sectionlevel3">
+                    <h3 id="install.portability"><a class="anchor" href="#install.portability"></a><a class="link" href="#install.portability">2.3 Portability</a></h3>
+                    <div class="paragraph">
+                        <!-- =============================================================================================================== -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sectionlevel1">
+            <h2 id="dom"><a class="anchor" href="#dom"></a><a class="link" href="#dom">3. Document object model</a></h2>
+            <div class="sectionbody">
+                <div class="sectionlevel2">
+                    <h3 id="dom.cpp"><a class="anchor" href="#dom.cpp"></a><a class="link" href="#dom.cpp">3.1 C++ interface</a></h3>
+                    <div class="paragraph">
+                        <!-- =============================================================================================================== -->
+                    </div>
+                </div>
+                <div class="sectionlevel2">
+                    <h3 id="dom.grammar"><a class="anchor" href="#dom.grammar"></a><a class="link" href="#dom.grammar">3.2 iml grammar</a></h3>
+                    <div class="paragraph">
+                        <!-- =============================================================================================================== -->
+                    </div>
+                </div>
+                <div class="sectionlevel2">
+                    <h3 id="dom.memory"><a class="anchor" href="#dom.memory"></a><a class="link" href="#dom.memory">3.3 Memory management</a></h3>
+                    <div class="paragraph">
+                        <!-- =============================================================================================================== -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sectionlevel1">
+            <h2 id="loading"><a class="anchor" href="#loading"></a><a class="link" href="#loading">4. Loading document</a></h2>
+            <div class="sectionbody">
+                <div class="sectionlevel2">
+                    <h3 id="loading.file"><a class="anchor" href="#loading.file"></a><a class="link" href="#loading.file">4.1 Loading document from file</a></h3>
+                    <div class="paragraph">
+                        <!-- =============================================================================================================== -->
+                    </div>
+                </div>
+                <div class="sectionlevel2">
+                    <h3 id="loading.memory"><a class="anchor" href="#loading.memory"></a><a class="link" href="#loading.memory">4.2 Loading document from memory</a></h3>
+                    <div class="paragraph">
+                        <!-- =============================================================================================================== -->
+                    </div>
+                </div>
+                <div class="sectionlevel2">
+                    <h3 id="loading.stream"><a class="anchor" href="#loading.stream"></a><a class="link" href="#loading.stream">4.3 Loading document from stream</a></h3>
+                    <div class="paragraph">
+                        <!-- =============================================================================================================== -->
+                    </div>
+                </div>
+                <div class="sectionlevel2">
+                    <h3 id="loading.errors"><a class="anchor" href="#loading.errors"></a><a class="link" href="#loading.errors">4.4 Handling parsing errors</a></h3>
+                    <div class="paragraph">
+                        <!-- =============================================================================================================== -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sectionlevel1">
+            <h2 id="saving"><a class="anchor" href="#saving"></a><a class="link" href="#saving">5. Saving document</a></h2>
+            <div class="sectionbody">
+                <div class="sectionlevel2">
+                    <h3 id="saving.file"><a class="anchor" href="#saving.file"></a><a class="link" href="#saving.file">5.1 Saving document to file</a></h3>
+                    <div class="paragraph">
+                        <!-- =============================================================================================================== -->
+                    </div>
+                </div>
+                <div class="sectionlevel2">
+                    <h3 id="saving.stream"><a class="anchor" href="#saving.stream"></a><a class="link" href="#saving.stream">5.2 Saving document to stream</a></h3>
+                    <div class="paragraph">
+                        <!-- =============================================================================================================== -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sectionlevel1">
+            <h2 id="apiref"><a class="anchor" href="#apiref"></a><a class="link" href="#apiref">6. API Reference</a></h2>
+            <div class="sectionbody">
+                <div class="sectionlevel2">
+                    <h3 id="apiref.enums"><a class="anchor" href="#apiref.enums"></a><a class="link" href="#apiref.enums">6.1 Enumerations</a></h3>
+                    <div class="paragraph">
+                        <!-- =============================================================================================================== -->
+                    </div>
+                </div>
+                <div class="sectionlevel2">
+                    <h3 id="apiref.classes"><a class="anchor" href="#apiref.classes"></a><a class="link" href="#apiref.classes">6.2 Classes</a></h3>
+                    <div class="paragraph">
+                        <!-- =============================================================================================================== -->
+                    </div>
+                </div>
+                <div class="sectionlevel2">
+                    <h3 id="apiref.functions"><a class="anchor" href="#apiref.functions"></a><a class="link" href="#apiref.functions">6.2 Functions</a></h3>
+                    <div class="paragraph">
+                        <!-- =============================================================================================================== -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

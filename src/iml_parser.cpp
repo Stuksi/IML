@@ -204,7 +204,7 @@ void iml_parser::build(std::istream& in, std::ostream& out)
 
         parse_expression();
         
-        out << "Evaluation:\n";
+        out << "Evaluation complete:\n";
         std::list<double> end_result = hierarchy.top()->eval();
         for (auto i = end_result.begin(); i != --end_result.end(); ++i)
         {
