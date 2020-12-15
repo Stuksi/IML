@@ -1,11 +1,11 @@
 #include "../include/iml_attribute.h"
 
-iml_attribute::iml_attribute(std::string _info) : info(_info)
+iml_attribute::iml_attribute(std::string attribute_info) : info(attribute_info)
 {}
 
-void iml_attribute::set(std::string _info)
+void iml_attribute::set(std::string attribute_info)
 {
-    info = _info;
+    info = attribute_info;
 }
 
 std::string iml_attribute::get() const

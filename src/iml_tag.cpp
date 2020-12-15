@@ -8,9 +8,9 @@ iml_tag_type iml_tag::type() const
     return tag_type;
 }
 
-void iml_tag::set_values(std::list<double> _values)
+void iml_tag::set_values(std::list<double> list_values)
 {
-    values = _values;
+    values = list_values;
 }
 
 void iml_tag::add_value(double value)
@@ -18,9 +18,9 @@ void iml_tag::add_value(double value)
     values.push_back(value);
 }
 
-void iml_tag::add_values(std::list<double> _values)
+void iml_tag::add_values(std::list<double> list_values)
 {
-    for (double value : _values)
+    for (double value : list_values)
     {
         values.push_back(value);
     }

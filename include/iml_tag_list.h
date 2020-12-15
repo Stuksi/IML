@@ -1,5 +1,5 @@
-#ifndef __iml_tag_attribute_list_h
-#define __iml_tag_attribute_list_h
+#ifndef __iml_tag_list_h
+#define __iml_tag_list_h
 
 #include "iml_tag_attribute.h"
 

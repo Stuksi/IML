@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iml</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
     <link rel="stylesheet" type="text/css" href="doc_styles.css">
 </head>
-<body>
+<body class="article tableofcontents2 tableofcontents-right">
     <div id="header">
         <h1>iml</h1>
         <div class="details">
@@ -40,11 +41,12 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#dom">3. Document object model</a>
+                    <a href="#ps">3. Project structure</a>
                     <ul class="level2">
-                        <li><a href="#dom.cpp">3.1 C++ interface</a></li>
-                        <li><a href="#dom.grammar">3.2 iml grammar</a></li>
-                        <li><a href="#dom.memory">3.3 Memory management</a></li>
+                        <li><a href="#ps.cpp">3.1 C++ interface</a></li>
+                        <li><a href="#ps.grammar">3.2 iml grammar</a></li>
+                        <li><a href="#ps.memory">3.3 Memory management</a></li>
+                        <li><a href="#ps.errors">3.4 Handling parsing errors</a></li>
                     </ul>
                 </li>
                 <li>
@@ -53,22 +55,13 @@
                         <li><a href="#loading.file">4.1 Loading document from file</a></li>
                         <li><a href="#loading.memory">4.2 Loading document from memory</a></li>
                         <li><a href="#loading.stream">4.3 Loading document from stream</a></li>
-                        <li><a href="#loading.errors">4.4 Handling parsing errors</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#saving">5. Saving document</a>
+                    <a href="#apiref">5. API Reference</a>
                     <ul class="level2">
-                        <li><a href="#saving.file">5.1 Saving document to file</a></li>
-                        <li><a href="#saving.stream">5.2 Saving document to stream/a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#apiref">6. API Reference</a>
-                    <ul class="level2">
-                        <li><a href="#apiref.enumerations">6.1 Enumerations</a></li>
-                        <li><a href="#apiref.classes">6.2 Classes</a></li>
-                        <li><a href="#apiref.functions">6.3 Functions</a></li>
+                        <li><a href="#apiref.enums">5.1 Enumerations</a></li>
+                        <li><a href="#apiref.classes">5.2 Classes</a></li>
                     </ul>
                 </li>
             </ul>
@@ -99,7 +92,7 @@
                     </div>
                     <div class="paragraph">
                         <p>
-                            If you want to start writing code as quickly as possuble, here are some examples
+                            If you want to start writing code as quickly as possible, here are some examples
                             representing some <a href="https://docs.google.com/document/d/1MXNOaWoTIxODs8LzAuqIOLq4j4mkw4ZweVLvbJe6XKs/edit">IML</a>
                             syntax and how to use the interpreter: <a href="">example</a>.
                         </p>
@@ -111,7 +104,7 @@
                         <p>The iml library is distributed under the GNU license:</p>
                         <div class="literalblock">
                             <div class="content">
-                                <pre>
+                                <pre class="pygments highlight">
 GNU General Public License v3.0
 
 Permissions of this strong copyleft license are conditioned 
@@ -135,40 +128,137 @@ must be preserved. Contributors provide an express grant of patent rights.
                 <div class="sectionlevel2">
                     <h3 id="install.getting"><a class="anchor" href="#install.getting"></a><a class="link" href="#install.getting">2.1 Getting iml</a></h3>
                     <div class="paragraph">
-                        <!-- =============================================================================================================== -->
+                        <p>iml is distributed in source form. You can either download a source distribution or clone the git repository.</p>
+                    </div>
+                    <div class="sectionlevel3">
+                        <h4 id="install.getting.source"><a class="anchor" href="#install.getting.source"</a><a class="link" href="#install.getting.source">2.1.1 Source distribution</a></h4>
+                        <div class="paragraph">
+                            <p>You can download the latest source distribution as an archive:</p>
+                        </div>
+                        <div class="paragraph">
+                            <p>
+                                <a href="https://github.com/Stuksi/iml/releases/iml.zip">iml.zip</a> (Windows)
+                                /
+                                <a href="https://github.com/Stuksi/iml/releases/iml.tar">iml.tar</a> (Linux)
+                            </p>
+                        </div>
+                        <div class="paragraph">
+                            <p>
+                                The distribution contains library source, documentation (the one you're reading now), code examples and tests.
+                                After downloading, install iml by extracting all files from the compressed archive.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="sectionlevel3">
+                        <h4 id="install.getting.git"><a class="anchor" href="#install.getting.git"></a><a class="link" href="#install.getting.git">2.1.2 Git repository</a></h4>
+                        <div class="paragraph">
+                            <p>
+                                The Git repository is located at <a href="https://github.com/Stuksi/iml/" class="bare">https://github.com/Stuksi/iml/</a>.
+                            </p>
+                        </div>
+                        <div class="paragraph">
+                            <p>
+                                To get the current version, you can use this command:
+                            </p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments"><code data-lang="bash">git clone https://github.com/Stuksi/iml/</code></pre>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <p>
+                                The repository contains library source, documentation, code examples and tests.
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div class="sectionlevel2">
                     <h3 id="install.building"><a class="anchor" href="#install.building"></a><a class="link" href="#install.building">2.2 Building iml</a></h3>
                     <div class="paragraph">
-                        <!-- =============================================================================================================== -->
+                        <p>
+                            The complete iml source consists of different files - source files in the 'src' folder, 
+                            and header files, in the 'include' folder. iml.h is the primary header which you need to 
+                            include in order to use iml classes/functions. Make sure that iml.h is either in the current 
+                            directory or in one of include directories of your projects, so that #include "iml.h" can 
+                            find the header. However you can also use relative path (i.e. #include "../libs/iml/include/iml.h"). 
+                        </p>
+                    </div>
+                    <div class="sectionlevel3">
+                        <h4 id="install.building.embed"><a class="anchor" href="#install.building.embed"></a><a class="link" href="#install.building.embed">2.2.1 Building iml as a static library</a></h4>
+                        <div class="paragraph">
+                            <p>
+                                The easiest way to build iml is to compile the files in the source folder, along with the current project.
+                            </p>
+                        </div>
+                        <div class="paragraph">
+                            <p>
+                                For this way, assuming that the project is called 'main', you can use the command:
+                            </p>
+                        </div>
+                        <div class="listingblock">
+                            <div class="content">
+                                <pre class="pygments"><code data-lang="bash">c++ main.cpp /iml/src/*.cpp</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sectionlevel3">
+                        <h4 id="install.building.header"><a class="anchor" href="#install.building.header"></a><a class="link" href="#install.building.header">2.2.2 Building iml in header-only mode</a></h4>
+                        <div class="paragraph">
+                            <p>
+                                It's possible to use iml in header-only mode. This means that all source code for iml 
+                                will be included in every program that includes <code>iml.h</code>. This is how the C++
+                                STL library works.
+                            </p>
+                        </div>
+                        <div class="paragraph">
+                            <p>
+                                Note that there are advantages and drawbacks of this approach. Header mode may improve 
+                                performance (because many simple functions will be inlined). However, since the compiler 
+                                now has to compile iml source files once for each program that includes it, compilation 
+                                times may increase noticeably.
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div class="sectionlevel3">
+                <div class="sectionlevel2">
                     <h3 id="install.portability"><a class="anchor" href="#install.portability"></a><a class="link" href="#install.portability">2.3 Portability</a></h3>
                     <div class="paragraph">
-                        <!-- =============================================================================================================== -->
+                        <p>
+                            iml is written in standard-compliant C++. iml is compatible with the C++11 standard. 
+                        </p>
+                    </div>
+                    <div class="paragraph">
+                        <p>
+                            iml can be compiled using any C++ compiler and runs on Microsoft Windows and Linux. 
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="sectionlevel1">
-            <h2 id="dom"><a class="anchor" href="#dom"></a><a class="link" href="#dom">3. Document object model</a></h2>
+            <h2 id="ps"><a class="anchor" href="#ps"></a><a class="link" href="#ps">3. Project structure</a></h2>
             <div class="sectionbody">
                 <div class="sectionlevel2">
-                    <h3 id="dom.cpp"><a class="anchor" href="#dom.cpp"></a><a class="link" href="#dom.cpp">3.1 C++ interface</a></h3>
+                    <h3 id="ps.cpp"><a class="anchor" href="#ps.cpp"></a><a class="link" href="#ps.cpp">3.1 C++ interface</a></h3>
                     <div class="paragraph">
                         <!-- =============================================================================================================== -->
                     </div>
                 </div>
                 <div class="sectionlevel2">
-                    <h3 id="dom.grammar"><a class="anchor" href="#dom.grammar"></a><a class="link" href="#dom.grammar">3.2 iml grammar</a></h3>
+                    <h3 id="ps.grammar"><a class="anchor" href="#ps.grammar"></a><a class="link" href="#ps.grammar">3.2 iml grammar</a></h3>
                     <div class="paragraph">
                         <!-- =============================================================================================================== -->
                     </div>
                 </div>
                 <div class="sectionlevel2">
-                    <h3 id="dom.memory"><a class="anchor" href="#dom.memory"></a><a class="link" href="#dom.memory">3.3 Memory management</a></h3>
+                    <h3 id="ps.memory"><a class="anchor" href="#ps.memory"></a><a class="link" href="#ps.memory">3.3 Memory management</a></h3>
+                    <div class="paragraph">
+                        <!-- =============================================================================================================== -->
+                    </div>
+                </div>
+                <div class="sectionlevel2">
+                    <h3 id="ps.errors"><a class="anchor" href="#ps.errors"></a><a class="link" href="#ps.errors">3.4 Handling parsing errors</a></h3>
                     <div class="paragraph">
                         <!-- =============================================================================================================== -->
                     </div>
@@ -181,68 +271,179 @@ must be preserved. Contributors provide an express grant of patent rights.
                 <div class="sectionlevel2">
                     <h3 id="loading.file"><a class="anchor" href="#loading.file"></a><a class="link" href="#loading.file">4.1 Loading document from file</a></h3>
                     <div class="paragraph">
-                        <!-- =============================================================================================================== -->
+                        <p>
+                            Writing the data in a separate file lets the user concentrate over the input
+                            and gives the oportunity the user to check if the output is correct after executing 
+                            the program. It is also great for testing the behaiviour of the software.
+                        </p>
+                    </div>
+                    <div class="paragraph">
+                        <p>
+                            iml provides a dedicated function for loading an IML document from file:
+                        </p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="pygments"><code data-lang="c++"><span class="tok-kt">void</span> <span class="tok-n">iml</span><span class="tok-o">::</span><span class="tok-nf">parse_file</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span><span class="tok-o">*</span> <span class="tok-n">input_file_path</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span><span class="tok-o">*</span> <span class="tok-n">output_file_path</span> <span class="tok-o">=</span> <span class="tok-s">"iml_result.imlr"</span><span class="tok-p">);</span></code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p>
+                            This function accepts the input file path as its first argument, and also an optional argument, which
+                            specifies the output file name.<code>parse_file</code> tries to load the new specified file.
+                             The path has the target operating system format, so it can be a relative 
+                            or absolute one, it should have the delimiters of the target system, it should have the exact case 
+                            if the target file system is case-sensitive, etc.
+                        </p>
+                    </div>
+                    <div class="paragraph">
+                        <p>
+                            This is an example of loading IML document from file (<a href="https://github.com/Stuksi/iml/samples/load_file.cpp">samples/load_file.cpp</a>):
+                        </p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="pygments"><code data-lang="c++"><span class="tok-n">iml</span> <span class="tok-n">doc</span><span class="tok-p">;</span>
+
+<span class="tok_n">doc</span><span class="tok_p">.</span><span class="tok-n">parse_file</span><span class="tok-p">(</span><span class="tok-s">"iml_file.iml"</span><span class="tok-p">);</span></code></pre>
+                        </div>
                     </div>
                 </div>
                 <div class="sectionlevel2">
                     <h3 id="loading.memory"><a class="anchor" href="#loading.memory"></a><a class="link" href="#loading.memory">4.2 Loading document from memory</a></h3>
                     <div class="paragraph">
-                        <!-- =============================================================================================================== -->
+                        <p>
+                            There is a function for the people that want to load an IML document from a null-terminated character string:
+                        </p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="pygments"><code data-lang="c++"><span class="tok-kt">void</span> <span class="tok-n">iml</span><span class="tok-o">::</span><span class="tok-nf">parse_buffer</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span><span class="tok-o">*</span> <span class="tok-n">input_buffer</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span><span class="tok-o">*</span> <span class="tok-n">output_file_path</span> <span class="tok-o">=</span> <span class="tok-s">"iml_result.imlr"</span><span class="tok-p">);</span></code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p>
+                            The function converts the IML data to a stream and then it is parsed.
+                        </p>
+                    </div>
+                    <div class="paragraph">
+                        <p>
+                            An example of loading IML document from memory (<a href="https://github.com/Stuksi/iml/samples/load_buffer.cpp">samples/load_buffer.cpp</a>):
+                        </p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="pygments"><code data-lang="c++"><span class="tok-n">iml</span> <span class="tok-n">doc</span><span class="tok-p">;</span>
+
+<span class="tok_n">doc</span><span class="tok_p">.</span><span class="tok-n">parse_buffer</span><span class="tok-p">(</span><span class="tok-s">"&lt;MAP-INC&gt;1 2 3 4 5&lt;/MAP-INC&gt;"</span><span class="tok-p">);</span></code></pre>
+                        </div>
                     </div>
                 </div>
                 <div class="sectionlevel2">
                     <h3 id="loading.stream"><a class="anchor" href="#loading.stream"></a><a class="link" href="#loading.stream">4.3 Loading document from stream</a></h3>
                     <div class="paragraph">
-                        <!-- =============================================================================================================== -->
+                        <p>
+                            Lastly, an IML document can be provided as a stream and parsed using the function:
+                        </p>
                     </div>
-                </div>
-                <div class="sectionlevel2">
-                    <h3 id="loading.errors"><a class="anchor" href="#loading.errors"></a><a class="link" href="#loading.errors">4.4 Handling parsing errors</a></h3>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="pygments"><code data-lang="c++"><span class="tok-kt">void</span> <span class="tok-n">iml</span><span class="tok-o">::</span><span class="tok-nf">parse_stream</span><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-n">istream</span><span class="tok-o">&</span> <span class="tok-n">input_stream</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span><span class="tok-o">*</span> <span class="tok-n">output_file_path</span> <span class="tok-o">=</span> <span class="tok-s">"iml_result.imlr"</span><span class="tok-p">);</span></code></pre>
+                        </div>
+                    </div>
                     <div class="paragraph">
-                        <!-- =============================================================================================================== -->
+                        <p>
+                            An example of loading IML document from a stream (<a href="https://github.com/Stuksi/iml/samples/load_stream.cpp">samples/load_stream.cpp</a>):
+                        </p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="pygments"><code data-lang="c++"><span class="tok-n">iml</span> <span class="tok-n">doc</span><span class="tok-p">;</span>
+
+<span class="tok_n">doc</span><span class="tok_p">.</span><span class="tok-n">parse_stream</span><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-n">cin</span><span class="tok-p">);</span></code></pre>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="sectionlevel1">
-            <h2 id="saving"><a class="anchor" href="#saving"></a><a class="link" href="#saving">5. Saving document</a></h2>
+            <h2 id="apiref"><a class="anchor" href="#apiref"></a><a class="link" href="#apiref">5. API Reference</a></h2>
             <div class="sectionbody">
                 <div class="sectionlevel2">
-                    <h3 id="saving.file"><a class="anchor" href="#saving.file"></a><a class="link" href="#saving.file">5.1 Saving document to file</a></h3>
-                    <div class="paragraph">
-                        <!-- =============================================================================================================== -->
+                    <h3 id="apiref.enums"><a class="anchor" href="#apiref.enums"></a><a class="link" href="#apiref.enums">5.1 Enumerations</a></h3>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="pygments highlight"><code data-lang="c++"><span class="tok-k">enum</span> <a href="#iml_token_type">iml_token_type</a>
+    <a href="#open_bracket">open_bracket</a>
+    <a href="#close_bracket">close_bracket</a>
+    <a href="#quote">quote</a>
+    <a href="#slash">slash</a>
+    <a href="#number">node_cdata</a>
+    <a href="#string">node_comment</a>
+    <a href="#invalid">node_pi</a>
+
+<span class="tok-k">enum</span> <a href="#iml_tag_type">iml_tag_type</a>
+    <a href="#iml_root">iml_root</a>
+    <a href="#map_inc">map_inc</a>
+    <a href="#let">let</a></code></pre>
+                        </div>
                     </div>
                 </div>
                 <div class="sectionlevel2">
-                    <h3 id="saving.stream"><a class="anchor" href="#saving.stream"></a><a class="link" href="#saving.stream">5.2 Saving document to stream</a></h3>
-                    <div class="paragraph">
-                        <!-- =============================================================================================================== -->
+                    <h3 id="apiref.classes"><a class="anchor" href="#apiref.classes"></a><a class="link" href="#apiref.classes">5.2 Classes</a></h3>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="pygments highlight"><code data-lang="c++"><span class="tok-k">class</span> <a href="#iml_attribute">iml_attribute</a>
+    <a href="#iml_attribute::ctor">iml_attribute</a><span class="tok-p">()</span> <span class="tok-o">=</span> <span class="tok-k">default</span><span class="tok-p">;</span>
+    <a href="#iml_attribute::ctor">iml_attribute</a><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <span class="tok-n">attribute_info</span><span class="tok-p">);</span>
+                            
+    <span class="tok-kt">void</span> <a href="#iml_attribute::set">set</a><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <span class="tok-n">attribute_info</span><span class="tok-p">);</span>
+    <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <a href="#iml_attribute::get">get</a><span class="tok-p">() <span class="tok-k">const</span><span class="tok-p">;</span>
+    
+<span class="tok-k">class</span> <a href="#iml_tag">iml_tag</a>
+    <span class="tok-n">iml_tag_type</span> <a href="#iml_tag::type">type</a><span class="tok-p">()</span> <span class="tok-k">const</span><span class="tok-p">;</span>
+    <span class="tok-kt">void</span> <a href="#iml_tag::set_values">set_values</a><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">list</span><span class="tok-p">&lt;</span><span class="tok-kt">double</span><span class="tok-p">&gt;</span> <span class="tok-n">list_values</span><span class="tok-p">);</span>
+    <span class="tok-kt">void</span> <a href="#iml_tag::add_values">add_values</a><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">list</span><span class="tok-p">&lt;</span><span class="tok-kt">double</span><span class="tok-p">&gt;</span> <span class="tok-n">list_values</span><span class="tok-p">);</span>
+    <span class="tok-kt">void</span> <a href="#iml_tag::add_value">add_value</a><span class="tok-p">(</span><span class="tok-kt">double</span> <span class="tok-n">value</span><span class="tok-p">);</span>
+    <span class="tok-k">virtual</span> <span class="tok-kt">void</span> <a href="#iml_tag::set_attribute">set_attribute</a><span class="tok-p">(</span><span class="tok-n">iml_attribute</span> <span class="tok-n">_attribute</span><span class="tok-p">);</span>
+    <span class="tok-k">virtual</span> <span class="tok-n">iml_attribute</span> <a href="#iml_tag::get_attribute">get_attribute</a><span class="tok-p">() <span class="tok-k">const</span><span class="tok-p">;</span>
+    <span class="tok-k">virtual</span> <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">list</span><span class="tok-p">&lt;</span><span class="tok-kt">double</span><span class="tok-p">&gt;</span> <a href="#iml_tag::eval">eval</a><span class="tok-p">()</span> <span class="tok-o">=</span> <span class="tok-mi">0</span></span><span class="tok-p">;</span>
+
+<span class="tok-k">class</span> <a href="#iml_tag_attribute">iml_tag_attribute</a>
+    <span class="tok-kt">void</span> <a href="#iml_tag_attribute::set_attribute">set_attribute</a><span class="tok-p">(</span><span class="tok-n">iml_attribute</span> <span class="tok-n">_attribute</span><span class="tok-p">);</span> 
+    <span class="tok-n">iml_attribute</span> <a href="#iml_tag_attribute::get_attribute">get_attribute</a><span class="tok-p">()</span> <span class="tok-k">const</span><span class="tok-p">;</span>
+    <span class="tok-k">virtual</span> <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">list</span><span class="tok-p">&lt;</span><span class="tok-kt">double</span><span class="tok-p">&gt;</span> <a href="#iml_tag_attribute::eval">eval</a><span class="tok-p">()</span> <span class="tok-o">=</span> <span class="tok-mi">0</span></span><span class="tok-p">;</span>
+
+<span class="tok-k">class</span> <a href="#iml_tag_factory">iml_tag_factory</a>
+    <span class="tok-n">iml_tag</span><span class="tok-o">*</span> <a href="#iml_tag_factory::stotag">stotag</a><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <span class="tok-n">type</span><span class="tok-p">);</span> 
+    <span class="tok-n">iml_tag_type</span><span class="tok-o">*</span> <a href="#iml_tag_factory::stotype">stotype</a><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <span class="tok-n">type</span><span class="tok-p">);</span>   
+    <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <a href="#iml_tag_factory::typetos">typetos</a><span class="tok-p">(</span><span class="tok-n">iml_tag_type</span> <span class="tok-n">type</span><span class="tok-p">);</span>
+
+<span class="tok-k">class</span> <a href="#iml_tokenizer">iml_tokenizer</a>
+    <a href="#iml_tokenizer::ctor">iml_tokenizer</a><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">istream</span><span class="tok-o">&</span> <span class="tok-n">_in</span><span class="tok-p">);</span> 
+    <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">list</span><span class="tok-p">&lt;</span><span class="tok-n">iml_token</span><span class="tok-p">&gt;</span> <a href="#iml_tokenizer::tokenize">tokenize</a><span class="tok-p">();</span>
+
+<span class="tok-k">class</span> <a href="#iml_parser">iml_parser</a>
+    <span class="tok-kt">void</span> <a href="#iml_parser::build">build</a><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">istream</span><span class="tok-o">&</span> <span class="tok-n">in</span><span class="tok-p">,</span> <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">ostream</span><span class="tok-o">&</span> <span class="tok-n">out</span><span class="tok-p">);</span>
+
+<span class="tok-k">class</span> <a href="#iml">iml</a>
+    <span class="tok-kt">void</span> <a href="#iml::parse_file">parse_file</a><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span><span class="tok-o">*</span> <span class="tok-n">input_file_path</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span><span class="tok-o">*</span> <span class="tok-n">output_file_path</span><span class="tok-p">);</span>
+    <span class="tok-kt">void</span> <a href="#iml::parse_buffer">parse_buffer</a><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span><span class="tok-o">*</span> <span class="tok-n">input_buffer</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span><span class="tok-o">*</span> <span class="tok-n">output_file_path</span><span class="tok-p">);</span>
+    <span class="tok-kt">void</span> <a href="#iml::parse_stream">parse_stream</a><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">istream</span><span class="tok-o">&</span> <span class="tok-n">input_stream</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span><span class="tok-o">*</span> <span class="tok-n">output_file_path</span><span class="tok-p">);</span>
+
+<span class="tok-k">class</span> <a href="#iml_tag*">T = iml_tag*</a>
+    <a href="#iml_tag*::ctor">T</a><span class="tok-p">();</span>
+    <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">list</span><span class="tok-p">&lt;</span><span class="tok-kt">double</span><span class="tok-p">&gt;</span> <a href="#iml_attribute::eval">eval</a><span class="tok-p">();</span></code></pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="sectionlevel1">
-            <h2 id="apiref"><a class="anchor" href="#apiref"></a><a class="link" href="#apiref">6. API Reference</a></h2>
-            <div class="sectionbody">
-                <div class="sectionlevel2">
-                    <h3 id="apiref.enums"><a class="anchor" href="#apiref.enums"></a><a class="link" href="#apiref.enums">6.1 Enumerations</a></h3>
-                    <div class="paragraph">
-                        <!-- =============================================================================================================== -->
-                    </div>
-                </div>
-                <div class="sectionlevel2">
-                    <h3 id="apiref.classes"><a class="anchor" href="#apiref.classes"></a><a class="link" href="#apiref.classes">6.2 Classes</a></h3>
-                    <div class="paragraph">
-                        <!-- =============================================================================================================== -->
-                    </div>
-                </div>
-                <div class="sectionlevel2">
-                    <h3 id="apiref.functions"><a class="anchor" href="#apiref.functions"></a><a class="link" href="#apiref.functions">6.2 Functions</a></h3>
-                    <div class="paragraph">
-                        <!-- =============================================================================================================== -->
-                    </div>
-                </div>
-            </div>
+        <div class="paragraph">
+            <p>
+                Documentation idea, structure, code structure from pugixml.
+            </p>
         </div>
     </div>
 </body>

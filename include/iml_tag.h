@@ -20,8 +20,8 @@ public:
     iml_tag_type type() const;
 
     void set_values(std::list<double>);
-    void add_value(double);
     void add_values(std::list<double>);
+    void add_value(double);
 
     virtual void set_attribute(iml_attribute);
     virtual iml_attribute get_attribute() const;
