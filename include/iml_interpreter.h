@@ -1,5 +1,5 @@
-#ifndef __iml_parser_h
-#define __iml_parser_h
+#ifndef __iml_interpreter_h
+#define __iml_interpreter_h
 
 #include "iml_tokenizer.h"
 #include "iml_tag.h"
@@ -8,7 +8,7 @@
 
 typedef std::unordered_map<std::string, std::stack<std::list<double>>> indentificator_links;
 
-class iml_parser
+class iml_interpreter
 {
 private:
     // Core
@@ -27,16 +27,17 @@ private:
     bool is_value();
 
     // Atoms
-    void parse_token(iml_token_type);
-    void parse_value();
-    void parse_open_tag();
-    void parse_body_tag();
-    void parse_close_tag();
-    void parse_attribute();
+    void evaluate_token(iml_token_type);
+    void evaluate_value();
+    void evaluate_open_tag();
+    void evaluate_body_tag();
+    void evaluate_close_tag();
+    void evaluate_attribute();
 
     // Expressions
-    void parse_expression();
-    void parse_tag_expression();
+    void evaluate_expression();
+    void evaluate_tag_expression();
+    void evaluate_let_tag_expression();
     
 public:
     void build(std::istream&, std::ostream&);

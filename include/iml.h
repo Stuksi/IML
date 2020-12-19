@@ -2,15 +2,16 @@
 #define __iml_h
 
 #include <iostream>
+#include "iml_interpreter.h"
 
 class iml
 {
 private:
-    iml_parser parser;
+    iml_interpreter interpreter;
 public:
-    void parse_file(const char*, const char* = "iml_result.imlr");
-    void parse_buffer(const char*, const char* = "iml_result.imlr");
-    void parse_stream(std::istream&, const char* = "iml_result.imlr");
+    void interpret_file(const char*, const char* = "iml_result.imlr");
+    void interpret_buffer(const char*, const char* = "iml_result.imlr");
+    void interpret_stream(std::istream&, const char* = "iml_result.imlr");
 };
 
 #endif

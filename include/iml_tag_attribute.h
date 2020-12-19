@@ -7,11 +7,10 @@ class iml_tag_attribute : public iml_tag
 {
 protected:
     iml_attribute attribute;
-    int attribute_type; // 0 -> string ; 1 -> numeric
 public:
-    void set_attribute(iml_attribute);
     iml_attribute get_attribute() const;
 
+    virtual void set_attribute(iml_attribute) = 0;
     virtual std::list<double> eval() = 0;
 };
 

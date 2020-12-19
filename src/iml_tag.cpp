@@ -13,17 +13,17 @@ void iml_tag::set_values(std::list<double> list_values)
     values = list_values;
 }
 
-void iml_tag::add_value(double value)
-{
-    values.push_back(value);
-}
-
 void iml_tag::add_values(std::list<double> list_values)
 {
     for (double value : list_values)
     {
         values.push_back(value);
     }
+}
+
+void iml_tag::add_value(double value)
+{
+    values.push_back(value);
 }
 
 void iml_tag::set_attribute(iml_attribute _attribute)
