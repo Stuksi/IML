@@ -252,6 +252,7 @@ must be preserved. Contributors provide an express grant of patent rights.
                         <p>
                             <code>iml</code> is instantiated by the default constructor.
                             The loading functions of <code>iml</code> call <code>iml_interpreter</code> to evaluate the input. 
+                            All the final results(errors/correct answers) are then printed in the output file.
                         </p>
                     </div>
                     <div class="paragraph">
@@ -259,21 +260,35 @@ must be preserved. Contributors provide an express grant of patent rights.
                             <a id="iml_interpreter"></a>
                             <code>iml_interpreter</code> then uses <code>iml_tokenizer</code> to convert the input to <code>iml_token</code> tokens.
                             Considering the IML grammar (see <a href="#ps.grammar">iml grammar</a>), <code>iml_interpreter</code> examines the input and
-                            stores the tags in a hierarchy making use of std::stack.
+                            making use of <code>std::stack</code> stores the tags in a hierarchy.
                         </p>
                     </div>
                     <div class="paragraph">
                         <p>
-                            The tags which have some name-value linkage are stored not only in the hierarchy, but that linkage is store in a
-                            std::unordered_map. The map stores
-                            the coresponding to names, values in a stack, so that nested defining is possible. 
+                            <code>iml_interpreter</code> initiates the interpreting process after its public method <code>build</code> is called:
+                        </p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="pygments"><code data-lang="c++"><span class="tok-kt">void</span> <span class="tok-n">build</span><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">istream</span><span class="tok-o">&</span> <span class="tok-n">in</span><span class="tok-p">,</span> <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">ostream</span><span class="tok-o">&</span> <span class="tok-n">out</span><span class="tok-p">);</span></code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p>
+                            <code>build</code> initializes the list of tokens, and starts evaluating the expressions. Then the output is saved.
+                        </p>
+                    </div>
+                    <div class="paragraph">
+                        <p>
+                            The tag attributes which have some name-value linkage are stored in a <code>std::unordered_map</code>. The <code>std::unordered_map</code> stores
+                            the coresponding to the names, values in a stack, so that nested defining is possible. 
                         </p>
                     </div>
                     <div class="paragraph">
                         <p>
                             After a closing tag has appeared, the last inserted tag is popped from the stack, and its evaluation is stored
                             in the previous in the hierarchy tag. If any errors occur while reading the file or there is some undefined
-                            behaiviour, the interpreter stops the work, and returns an error message, displaying where and what the problem
+                            behaiviour, the interpreter stops working, and displays an error message, showing where and what the problem
                             is (see <a href="ps.errors">Handling interpreting errors</a>).
                         </p>
                     </div>
@@ -296,39 +311,171 @@ must be preserved. Contributors provide an express grant of patent rights.
                         </p>
                     </div>  
                     <div class="paragraph">
+                        <a id="iml_tag::set_values"></a><a id="iml_tag::add_values"></a><a id="iml_tag::add_value"></a><a id="iml_tag::type"></a><a id="iml_tag::set_attribute"></a><a id="iml_tag::get_attribute"></a><a id="iml_tag::eval"></a>
                         <p>
-                            <a id="iml_tag_type"></a>
-                            The current <code>iml_tag_type</code>s are based on IML. It is very easy to add new types.
+                            <code>iml_tag</code>'s class members can be accessed by:
+                        </p>
+                    </div>  
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="pygments"><code data-lang="c++"><span class="tok-n">iml_tag_type</span> <span class="tok-n">type</span><span class="tok-p">()</span> <span class="tok-k">const</span><span class="tok-p">;</span>
+<span class="tok-kt">void</span> <span class="tok-n">set_values</span><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">list</span><span class="tok-p">&lt;</span><span class="tok-kt">double</span><span class="tok-p">&gt;</span> <span class="tok-n">list_values</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-n">add_values</span><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">list</span><span class="tok-p">&lt;</span><span class="tok-kt">double</span><span class="tok-p">&gt;</span> <span class="tok-n">list_values</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-n">add_value</span><span class="tok-p">(</span><span class="tok-kt">double</span> <span class="tok-n">value</span><span class="tok-p">);</span></code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p>
+                           <code>add_value</code> and <code>add_values</code> are used for inserting new elements in the tag. <code>type()</code> returns
+                           the type of the tag and <code>set_values</code> replaces the current values.
                         </p>
                     </div>  
                     <div class="paragraph">
                         <p>
-                            <a id="iml_attribute_tag"></a>
-                            There is another polymorphic base class <code>iml_attribute_tag</code>. It covers the tags
-                            which need an attribute to logically and properly function. It is derived from the base class
-                            <code>iml_tag</code>. <code>iml_attribute_tag</code>'s only difference is the <code>attribute</code> parameter which it stores.
-                            Every derived of <code>iml_attribute_tag</code> class must be provided with a method for initializing/setting
-                            the attribute parameter. Every attribute tag can have different types of arguments in the attribute,
-                            so thats why, every <code>iml_attribute_tag</code> must analyze the attribute by its own method.    
+                            The virtual methods and the pure virtual evaluation method:
+                        </p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="pygments"><code data-lang="c++"></code><span class="tok-k">virtual</span> <span class="tok-kt">void</span> <span class="tok-n">set_attribute</span><span class="tok-p">(</span><span class="tok-n">iml_attribute</span> <span class="tok-n">_attribute</span><span class="tok-p">);</span>
+<span class="tok-k">virtual</span> <span class="tok-n">iml_attribute</span> <span class="tok-n">get_attribute</span><span class="tok-p">() <span class="tok-k">const</span><span class="tok-p">;</span>
+<span class="tok-k">virtual</span> <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">list</span><span class="tok-p">&lt;</span><span class="tok-kt">double</span><span class="tok-p">&gt;</span> <span class="tok-n">eval</span><span class="tok-p">()</span> <span class="tok-o">=</span> <span class="tok-mi">0</span></span><span class="tok-p">;</span></code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p>
+                            <a id="iml_tag_type"></a>
+                            The current <code>iml_tag_type</code>'s are based on <a href="https://docs.google.com/document/d/1MXNOaWoTIxODs8LzAuqIOLq4j4mkw4ZweVLvbJe6XKs/edit">IML</a> and it is very easy to implement new ones.
+                            You can see the current types <a href="#apiref.enums">here</a>.
                         </p>
                     </div>  
+                    <div class="paragraph">
+                        <p>
+                            <a id="iml_tag_attribute"></a><a id="iml_tag_attribute::set_attribute"></a><a id="iml_tag_attribute::get_attribute"></a><a id="iml_tag_attribute::eval"></a>
+                            There is another polymorphic base class <code>iml_tag_attribute</code>. It covers the tags
+                            which need an attribute to logically and properly function. It is derived from the base class
+                            <code>iml_tag</code>. <code>iml_tag_attribute</code>'s only difference is the <code>attribute</code> parameter which it stores.
+                            Every derived of <code>iml_tag_attribute</code> class must be provided with a method for initializing/setting
+                            the attribute parameter. Every attribute tag can have different types of arguments in the attribute,
+                            so thats why, every <code>iml_tag_attribute</code> must analyze the attribute on its own.    
+                        </p>
+                    </div>
+                    <div class="paragraph">
+                        <p>
+                            <code>iml_tag_attribute</code>'s methods:
+                        </p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="pygments"><code data-lang="c++"><span class="tok-n">iml_attribute</span> <span class="tok-n">iml_attribute</span><span class="tok-p">()</span> <span class="tok-k">const</span><span class="tok-p">;</span>
+<span class="tok-k">virtual</span> <span class="tok-kt">void</span> <span class="tok-n">set_attribute</span><span class="tok-p">(</span><span class="tok-n">iml_attribute</span> <span class="tok-n">_attribute</span><span class="tok-p">)</span> <span class="tok-o">=</span> <span class="tok-mi">0</span></span><span class="tok-p">;</span>
+<span class="tok-k">virtual</span> <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">list</span><span class="tok-p">&lt;</span><span class="tok-kt">double</span><span class="tok-p">&gt;</span> <span class="tok-n">eval</span><span class="tok-p">()</span> <span class="tok-o">=</span> <span class="tok-mi">0</span></span><span class="tok-p">;</span></code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p>
+                            <a id="iml_attribute"></a><a id="iml_attribute::ctor"></a><a id="iml_attribute::get"></a><a id="iml_attribute::set"></a>
+                            The class <code>iml_attribute</code> contains a string member indicating the contents of the attribute.
+                            It is provided with its coresponding setters and getters:   
+                        </p>
+                    </div>                         
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="pygments"><code data-lang="c++"><span class="tok-kt">void</span> <span class="tok-n">set</span><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <span class="tok-n">attribute_info</span><span class="tok-p">);</span>
+<span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <span class="tok-n">get</span><span class="tok-p">() <span class="tok-k">const</span><span class="tok-p">;</span></code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <p>
+                            Also a default constructor and a parameterized constructor: 
+                        </p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="pygments"><code data-lang="c++"><span class="tok-n">iml_attribute</span><span class="tok-p">()</span> <span class="tok-o">=</span> <span class="tok-k">default</span><span class="tok-p">;</span>
+<span class="tok-n">iml_attribute</span><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <span class="tok-n">attribute_info</span><span class="tok-p">);</span></code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <a id="iml_tokenizer"></a><a id="iml_tokenizer::ctor"></a><a id="iml_tokenizer::tokenize"></a>
+                        <p>
+                            All of the expression evaluation is made as simple as possible because of the <code>iml_tokenizer</code>. The <code>iml_tokenizer</code>
+                            converts all the characters, numbers, strings, symbols, etc. to tokens, which are more simpler to work with and at the end of the day
+                            the code is much more readable. Tokenizing is an elegant way of parsing an input. The class is initialized with a stream(construtor) and then using the
+                            <code>tokenize()</code> method, all the input is stored in a list of <code>iml_token</code>s and is ready to be expressed. 
+                        </p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="pygments"><code data-lang="c++"><span class="tok-n">iml_tokenizer</span><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">istream</span><span class="tok-o">&</span> <span class="tok-n">_in</span><span class="tok-p">);</span> 
+<span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">list</span><span class="tok-p">&lt;</span><span class="tok-n">iml_token</span><span class="tok-p">&gt;</span> <span class="tok-n">tokenize</span><span class="tok-p">();</span></code></pre>
+                        </div>
+                    </div>
+                    <div class="paragraph">
+                        <a id="iml_tag_factory"></a><a id="iml_tag_factory::stotag"></a><a id="iml_tag_factory::stotype"></a><a id="iml_tag_factory::typetos"></a>
+                        <p>
+                            For easier type conversion, <code>iml_tag_factory</code> handles that problem.
+                            <code>iml_tag_factory</code> has the options to convert from a <code>std::string</code> to an <code>iml_tag_type</code> with <code>stotype()</code> or <code>iml_tag*</code> with <code>stotag</code>,
+                            and <code>iml_tag_type</code> can be converted to <code>std::string</code> with <code>typetos()</code>.
+                        </p>
+                    </div>
+                    <div class="listingblock">
+                        <div class="content">
+                            <pre class="pygments"><code data-lang="c++"><span class="tok-n">iml_tag</span><span class="tok-o">*</span> <span class="tok-n">stotag</span><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <span class="tok-n">type</span><span class="tok-p">);</span> 
+<span class="tok-n">iml_tag_type</span> <span class="tok-n">stotype</span><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <span class="tok-n">type</span><span class="tok-p">);</span>   
+<span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <span class="tok-n">typetos</span><span class="tok-p">(</span><span class="tok-n">iml_tag_type</span> <span class="tok-n">type</span><span class="tok-p">);</span></code></pre>
+                        </div>
+                    </div>
                 </div>
                 <div class="sectionlevel2">
                     <h3 id="ps.grammar"><a class="anchor" href="#ps.grammar"></a><a class="link" href="#ps.grammar">3.2 iml grammar</a></h3>
-                    <div class="paragraph">
-                        <!-- =============================================================================================================== -->
+                    <div class="literalblock">
+                        <div class="content">
+                            <pre>
+
+expression              := tag_expression , expression | value , expression | "" ;
+tag_expression          := open_tag , expression , [let_tag_expression] , close_tag ;
+let_tag_expreesion      := body_tag , expression
+open_tag                := "&lt;" , string , [ attribute ] , "&gt;"
+body_tag                := "&lt;" , "BODY" , "/" , "&gt;" ;
+close_tag               := "&lt;" , "/" , string , "&gt;" ; 
+attribute               := """ , value , """ ;
+value                   := double | string ;
+string                  := {"A" ... "Z"}+ ;
+double                  := ["-"] , "0" | ("1" | ... | "9" , {"0" ... "9"}) , ["." , {"0" ... "9"}+] ;
+
+
+
+Used Symbols:
+:=         --->         definition
+,          --->         concatenation
+|          --->         alternation
+[...]      --->         optional
+{...}      --->         repetition 
+"..."      --->         terminal string
+;          --->         termination
+"" ... ""  --->         range
++          --->         minimum one
+
+                            </pre>
+                        </div>
                     </div>
                 </div>
                 <div class="sectionlevel2">
                     <h3 id="ps.memory"><a class="anchor" href="#ps.memory"></a><a class="link" href="#ps.memory">3.3 Memory management</a></h3>
                     <div class="paragraph">
-                        <!-- =============================================================================================================== -->
+                        <p>
+                            All memory allocation/deallocation is handled by the data structures used in the program.
+                        </p>
                     </div>
                 </div>
                 <div class="sectionlevel2">
                     <h3 id="ps.errors"><a class="anchor" href="#ps.errors"></a><a class="link" href="#ps.errors">3.4 Handling interpreting errors</a></h3>
                     <div class="paragraph">
-                        <!-- =============================================================================================================== -->
+                        <p>
+                            The interpreter handles the errors dynamicly while the expressions are evaluating. If an error occures the interpreting stops and
+                            the error message of where and what is the problem is sent to the output and printed on in the output file. 
+                        </p>
                     </div>
                 </div>
             </div>
@@ -339,6 +486,7 @@ must be preserved. Contributors provide an express grant of patent rights.
                 <div class="sectionlevel2">
                     <h3 id="loading.file"><a class="anchor" href="#loading.file"></a><a class="link" href="#loading.file">4.1 Loading document from file</a></h3>
                     <div class="paragraph">
+                        <a id="iml::interpret_file"></a>
                         <p>
                             Writing the data in a separate file lets the user concentrate over the input
                             and gives the oportunity the user to check if the output is correct after executing 
@@ -380,6 +528,7 @@ must be preserved. Contributors provide an express grant of patent rights.
                 <div class="sectionlevel2">
                     <h3 id="loading.memory"><a class="anchor" href="#loading.memory"></a><a class="link" href="#loading.memory">4.2 Loading document from memory</a></h3>
                     <div class="paragraph">
+                        <a id="iml::interpret_buffer"></a>
                         <p>
                             There is a function for the people that want to load an IML document from a null-terminated character string:
                         </p>
@@ -410,8 +559,9 @@ must be preserved. Contributors provide an express grant of patent rights.
                 <div class="sectionlevel2">
                     <h3 id="loading.stream"><a class="anchor" href="#loading.stream"></a><a class="link" href="#loading.stream">4.3 Loading document from stream</a></h3>
                     <div class="paragraph">
+                        <a id="iml::interpret_stream"></a>
                         <p>
-                            Lastly, an IML document can be provided as a stream and interpreted using the function:
+                            An IML document can be provided as a stream and interpreted using the function:
                         </p>
                     </div>
                     <div class="listingblock">
@@ -463,8 +613,7 @@ must be preserved. Contributors provide an express grant of patent rights.
                         <div class="content">
                             <pre class="pygments highlight"><code data-lang="c++"><span class="tok-k">class</span> <a href="#iml_attribute">iml_attribute</a>
     <a href="#iml_attribute::ctor">iml_attribute</a><span class="tok-p">()</span> <span class="tok-o">=</span> <span class="tok-k">default</span><span class="tok-p">;</span>
-    <a href="#iml_attribute::ctor">iml_attribute</a><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <span class="tok-n">attribute_info</span><span class="tok-p">);</span>
-                            
+    <a href="#iml_attribute::ctor">iml_attribute</a><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <span class="tok-n">attribute_info</span><span class="tok-p">);</span>                        
     <span class="tok-kt">void</span> <a href="#iml_attribute::set">set</a><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <span class="tok-n">attribute_info</span><span class="tok-p">);</span>
     <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <a href="#iml_attribute::get">get</a><span class="tok-p">() <span class="tok-k">const</span><span class="tok-p">;</span>
     
@@ -484,7 +633,7 @@ must be preserved. Contributors provide an express grant of patent rights.
 
 <span class="tok-k">class</span> <a href="#iml_tag_factory">iml_tag_factory</a>
     <span class="tok-n">iml_tag</span><span class="tok-o">*</span> <a href="#iml_tag_factory::stotag">stotag</a><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <span class="tok-n">type</span><span class="tok-p">);</span> 
-    <span class="tok-n">iml_tag_type</span><span class="tok-o">*</span> <a href="#iml_tag_factory::stotype">stotype</a><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <span class="tok-n">type</span><span class="tok-p">);</span>   
+    <span class="tok-n">iml_tag_type</span> <a href="#iml_tag_factory::stotype">stotype</a><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <span class="tok-n">type</span><span class="tok-p">);</span>   
     <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">string</span> <a href="#iml_tag_factory::typetos">typetos</a><span class="tok-p">(</span><span class="tok-n">iml_tag_type</span> <span class="tok-n">type</span><span class="tok-p">);</span>
 
 <span class="tok-k">class</span> <a href="#iml_tokenizer">iml_tokenizer</a>
@@ -499,14 +648,14 @@ must be preserved. Contributors provide an express grant of patent rights.
     <span class="tok-kt">void</span> <a href="#iml::interpret_buffer">interpret_buffer</a><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span><span class="tok-o">*</span> <span class="tok-n">input_buffer</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span><span class="tok-o">*</span> <span class="tok-n">output_file_path</span><span class="tok-p">);</span>
     <span class="tok-kt">void</span> <a href="#iml::interpret_stream">interpret_stream</a><span class="tok-p">(</span><span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">istream</span><span class="tok-o">&</span> <span class="tok-n">input_stream</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span><span class="tok-o">*</span> <span class="tok-n">output_file_path</span><span class="tok-p">);</span>
 
-<span class="tok-k">class</span> <a href="#iml_attribute_tag*">T_A = iml_attribute_tag*</a>
-    <a href="#iml_tag*::ctor">T_A</a><span class="tok-p">();</span>
+<span class="tok-k">class</span> <a href="#iml_tag_attribute">T_A = iml_tag_attribute*</a>
+    <a href="#iml_tag_attribute">T_A</a><span class="tok-p">();</span>
     <span class="tok-kt">void</span> <a href="#iml_tag_attribute::set_attribute">set_attribute</a><span class="tok-p">(</span><span class="tok-n">iml_attribute</span> <span class="tok-n">_attribute</span><span class="tok-p">);</span>
-    <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">list</span><span class="tok-p">lt;</span><span class="tok-kt">double</span><span class="tok-p">&gt;</span> <a href="#iml_attribute::eval">eval</a><span class="tok-p">();</span>
+    <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">list</span><span class="tok-p">&lt;</span><span class="tok-kt">double</span><span class="tok-p">&gt;</span> <a href="#iml_tag_attribute::eval">eval</a><span class="tok-p">();</span>
 
-<span class="tok-k">class</span> <a href="#iml_tag*">T = iml_tag*</a>
-    <a href="#iml_tag*::ctor">T</a><span class="tok-p">();</span>
-    <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">list</span><span class="tok-p">&lt;</span><span class="tok-kt">double</span><span class="tok-p">&gt;</span> <a href="#iml_attribute::eval">eval</a><span class="tok-p">();</span></code></pre>
+<span class="tok-k">class</span> <a href="#iml_tag">T = iml_tag*</a>
+    <a href="#iml_tag">T</a><span class="tok-p">();</span>
+    <span class="tok-n">std</span><span class="tok-o">::</span><span class="tok-kt">list</span><span class="tok-p">&lt;</span><span class="tok-kt">double</span><span class="tok-p">&gt;</span> <a href="#iml_tag::eval">eval</a><span class="tok-p">();</span></code></pre>
                             </div>
                         </div>
                     </div>

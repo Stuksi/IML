@@ -1,21 +1,7 @@
-html {
-    font-family:sans-serif;
-    -ms-text-size-adjust:100%;
-    -webkit-text-size-adjust:100%
-}
-
-a {
-    background:none
-}
-
-a:focus {
-    outline:thin dotted
-}
-
-a:active,a:hover {
-    outline:0
-}
-
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
 h1{font-size:2em;margin:.67em 0}
 code,pre{font-family:monospace;font-size:1em}
 pre{white-space:pre-wrap}
