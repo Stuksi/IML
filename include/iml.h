@@ -1,7 +1,6 @@
 #ifndef __iml_h
 #define __iml_h
 
-#include <iostream>
 #include "iml_interpreter.h"
 
 class iml

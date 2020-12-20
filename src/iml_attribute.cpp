@@ -1,14 +1,14 @@
 #include "../include/iml_attribute.h"
 
-iml_attribute::iml_attribute(std::string attribute_info) : info(attribute_info)
+iml_attribute::iml_attribute(std::string text) : text_(text)
 {}
 
-void iml_attribute::set(std::string attribute_info)
+std::string iml_attribute::text() const
 {
-    info = attribute_info;
+    return text_;
 }
 
-std::string iml_attribute::get() const
+bool iml_attribute::empty() const
 {
-    return info;
+    return text_ == "";
 }

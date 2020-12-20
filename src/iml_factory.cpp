@@ -1,17 +1,26 @@
 #include "../include/iml_factory.h"
-#include "../include/iml_tag_list.h"
+#include "../include/iml_tag.h"
+#include "../include/iml_tag_attribute.h"
 
 #include <stdexcept>
 
-iml_tag* iml_factory::stotag(std::string type)
+iml_tag_base* iml_factory::stotag(std::string type, iml_attribute attribute)
 {
-    if (type == "MAP-INC")
+    if (attribute.text() != "")
     {
-        return new iml_map_inc();
+        if (type == "MAP-INC")
+        {
+            return new iml_tag_attribute<iml_tag_type::map_inc>(attribute);
+        }
+        else if (type == "LET")
+        {
+            return new iml_tag_attribute<iml_tag_type::let>(attribute);
+        }
+        throw;
     }
-    else if (type == "LET")
+    else
     {
-        return new iml_let();
+        
     }
     throw std::invalid_argument("Tag " + type + " does not exist!");
 }
@@ -35,6 +44,7 @@ std::string iml_factory::typetos(iml_tag_type type)
     {
     case iml_tag_type::map_inc: return "MAP-INC";
     case iml_tag_type::let: return "LET";    
+    case iml_tag_type::iml_root: return "iml_root";    
     default: return "";
     }
 }

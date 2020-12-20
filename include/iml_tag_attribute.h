@@ -1,17 +1,20 @@
 #ifndef __iml_tag_attribute_h
 #define __iml_tag_attribute_h
 
-#include "iml_tag.h"
+#include "iml_tag_attribute_base.h"
 
-class iml_tag_attribute : public iml_tag
+template <iml_tag_type T>
+class iml_tag_attribute : public iml_tag_attribute_base
 {
-protected:
-    iml_attribute attribute;
 public:
-    iml_attribute get_attribute() const;
+    iml_tag_attribute() = default;
+    iml_tag_attribute(iml_attribute);
+    ~iml_tag_attribute() = default;
 
-    virtual void set_attribute(iml_attribute) = 0;
-    virtual std::list<double> eval() = 0;
+    iml_attribute assert(iml_attribute) const;
+    std::list<double> eval() const;
 };
+
+#include "../src/template/iml_tag_attribute.cpp"
 
 #endif

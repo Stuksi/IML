@@ -6,13 +6,15 @@
 class iml_attribute
 {
 private:
-    std::string info;
+    std::string text_;
+
 public:
     iml_attribute() = default;
     iml_attribute(std::string);
+    ~iml_attribute() = default;
     
-    void set(std::string);
-    std::string get() const;
+    std::string text() const;
+    bool empty() const;
 };
 
 #endif

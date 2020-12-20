@@ -7,13 +7,13 @@
 
 enum class iml_token_type
 {
-    open_bracket, // '<'
-    close_bracket, // '>'
-    quote, // '"'
-    slash, // '/'
-    number, // (-inf ... inf)   
-    string, // ('A' ... 'Z')
-    invalid // '?'
+    open_bracket,
+    close_bracket,
+    quote,
+    slash,
+    number,
+    string,
+    invalid
 };
 
 struct iml_token_position

@@ -1,31 +1,17 @@
 #ifndef __iml_tag_h
 #define __iml_tag_h
 
-#include "iml_attribute.h"
-#include <list>
+#include "iml_tag_base.h"
 
-enum class iml_tag_type
+template <iml_tag_type T>
+class iml_tag : public iml_tag_base
 {
-    iml_root,
-    map_inc,
-    let
+public:
+    iml_tag();
+    ~iml_tag() = default;
+    std::list<double> eval() const;
 };
 
-class iml_tag
-{
-protected:
-    iml_tag_type tag_type;
-    std::list<double> values;
-public: 
-    iml_tag_type type() const;
-
-    void set_values(std::list<double>);
-    void add_values(std::list<double>);
-    void add_value(double);
-
-    virtual void set_attribute(iml_attribute);
-    virtual iml_attribute get_attribute() const;
-    virtual std::list<double> eval() = 0;
-};
+#include "../src/template/iml_tag.cpp"
 
 #endif
