@@ -1,4 +1,7 @@
 #include "../include/iml_tag_base.h"
+#include "../include/iml_factory.h"
+
+#include <stdexcept>
 
 iml_tag_base::iml_tag_base(iml_tag_type type) : type_(type)
 {}
@@ -20,7 +23,7 @@ void iml_tag_base::add(std::list<double> values)
         values_.push_back(value);
     }
 }
-
+#include <iostream>
 void iml_tag_base::add(double value)
 {
     values_.push_back(value);
@@ -28,10 +31,10 @@ void iml_tag_base::add(double value)
 
 void iml_tag_base::clear()
 {
-    values_ = {};
+    values_.clear();
 }
 
 iml_attribute iml_tag_base::attribute() const
 {
-    throw;
+    throw std::logic_error("Tag " + iml_factory::to_string(type_) + " does not support attributes!");;
 }

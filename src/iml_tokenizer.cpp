@@ -2,79 +2,123 @@
 
 #include <stdexcept>
 
-iml_tokenizer::iml_tokenizer(std::istream& _in) : in(_in), position(iml_token_position {1, 1})
+iml_tokenizer::iml_tokenizer(std::istream& in) : in_(in), position_(iml_token_position {1, 1})
 {}
 
 bool iml_tokenizer::is_char()
 {
-    return in.peek() >= 'A' && in.peek() <= 'Z';
+    return in_.peek() >= 'A' && in_.peek() <= 'Z';
 }
 
 bool iml_tokenizer::is_digit()
 {
-    return in.peek() >= '0' && in.peek() <= '9';
+    return in_.peek() >= '0' && in_.peek() <= '9';
 }
 
 iml_token iml_tokenizer::read_string()
 {
     std::string text = "";
-    while (is_char() || in.peek() == '-')
+
+    /// The strings can contain letters (upper-case) and dashes.
+    while (is_char() || in_.peek() == '-')
     {
-        text += in.get();
+        text += in_.get();
     }
-    iml_token_position token_position = position;
-    position.col += text.length();
+
+    iml_token_position token_position = position_;
+    position_.col += text.length();
+
     return iml_token {iml_token_type::string, text, token_position};
 }
 
 iml_token iml_tokenizer::read_number()
 {
     std::string number = "";
-    if (in.peek() == '-')
+    
+    /// Check for negative numbers.
+    if (in_.peek() == '-')
     {
         number = "-";
-        in.get();
+        in_.get();
     }
+
+    /// The number must contain at least one digit.
     if (!is_digit())
     {
-        throw std::runtime_error("Syntax Error at line " + std::to_string(position.row) + ", column " + std::to_string(position.col) + "! Expected number, given " + std::string(1, in.peek()) + " !");
+        throw std::runtime_error
+        (
+            "Syntax Error at line " 
+            + std::to_string(position_.row) 
+            + ", column " 
+            + std::to_string(position_.col) 
+            + "! Expected number, given " 
+            + std::string(1, in_.peek()) 
+            + " !"
+        );
     }
-    if (in.peek() == '0')
+
+    /// Check if the number starts with a zero.
+    if (in_.peek() == '0')
     {
-        in.get();
+        in_.get();
+
+        /// If the number starts with a zero, a digit must not follow. 
         if (is_digit())
         {
-            throw std::runtime_error("Syntax Error at line " + std::to_string(position.row) + ", column " + std::to_string(position.col) + "! A number cannot have a leading zero and following digits!");
-        }
+            throw std::runtime_error
+            (
+                "Syntax Error at line " 
+                + std::to_string(position_.row) 
+                + ", column " 
+                + std::to_string(position_.col) 
+                + "! A number cannot have a leading zero and following digits!"
+            );
+        } 
         number += "0";
-    } else {
-        while (is_digit())
-        {
-            number += in.get();
-        }
     }
-    if (in.peek() == '.')
+    else
     {
-        number += in.get();
-        if (!is_digit())
-        { 
-            throw std::runtime_error("Syntax Error at line " + std::to_string(position.row) + ", column " + std::to_string(position.col) + "! A number must have digits after dot '.' sign!");
-        }
         while (is_digit())
         {
-            number += in.get();
+            number += in_.get();
         }
     }
-    iml_token_position token_position = position;
-    position.col += number.length();
+
+    /// Check for a floating point number.
+    if (in_.peek() == '.')
+    {
+        number += in_.get();
+        
+        /// It is a syntax error if a digit doesn't follow after the floating point.
+        if (!is_digit())
+        {
+            throw std::runtime_error(
+                "Syntax Error at line " 
+                + std::to_string(position_.row) 
+                + ", column " 
+                + std::to_string(position_.col) 
+                + "! A number must have digits after dot '.' sign!");
+        }
+            
+        while (is_digit())
+        {
+            number += in_.get();
+        }
+    }
+        
+    iml_token_position token_position = position_;
+    position_.col += number.length();
+
     return iml_token {iml_token_type::number, number, token_position};
 }
 
 iml_token iml_tokenizer::read_sign()
 {
-    char current = in.get();
-    iml_token_position token_position = position;
-    position.col += 1;
+    char current = in_.get();
+
+    iml_token_position token_position = position_;
+    position_.col += 1;
+    
     switch (current)
     {
         case '<': return iml_token {iml_token_type::open_bracket, "<", token_position};
@@ -85,27 +129,29 @@ iml_token iml_tokenizer::read_sign()
     }
 }
 
-void iml_tokenizer::clear_white_spaces()
+void iml_tokenizer::cws()
 {
-    while (in.peek() == ' ' || in.peek() == '\n')
+    while (in_.peek() == ' ' || in_.peek() == '\n')
     {
-        if (in.peek() == ' ')
+        if (in_.peek() == ' ')
         {
-            position.col++;
+            position_.col++;
         }
         else
         {
-            position.row++;
-            position.col = 1;
+            position_.row++;
+            position_.col = 1;
         }
-        in.get();
+        
+        in_.get();
     }
 }
 
-iml_token iml_tokenizer::next_token()
+iml_token iml_tokenizer::next()
 {
-    clear_white_spaces();
-    if (in.peek() == '-' || is_digit())
+    cws();
+ 
+    if (in_.peek() == '-' || is_digit())
     {
         return read_number();
     }
@@ -113,6 +159,7 @@ iml_token iml_tokenizer::next_token()
     {
         return read_string();
     }
+
     return read_sign();
 }
 
@@ -120,19 +167,36 @@ std::list<iml_token> iml_tokenizer::tokenize()
 {
     std::list<iml_token> t_list;
     iml_token current;
+
     while (true)
     {
-        current = next_token();
-        if (in.eof() && current.text == std::string(1, -1))
+        current = next();
+
+        /// Check for the end of file character in the stream. The character has a value of -1.
+        if (in_.eof() && current.text == std::string(1, -1))
         {
             break;
         }
+
         if (current.type == iml_token_type::invalid)
         {
-            throw std::runtime_error("Syntax Error at line " + std::to_string(current.position.row) + ", column " + std::to_string(current.position.col) + "! Unrecognized character " + current.text + "!");
+            throw std::runtime_error
+            (
+                "Syntax Error at line " 
+                + std::to_string(current.position.row) 
+                + ", column " 
+                + std::to_string(current.position.col) 
+                + "! Unrecognized character " 
+                + current.text 
+                + "!"
+            );
         }
+
         t_list.push_back(current);
     }
-    t_list.push_back(iml_token {iml_token_type::invalid, "end_of_file()", position});
+
+    /// A token indicating the end of the file position.
+    t_list.push_back(iml_token {iml_token_type::invalid, "end_of_file()", position_});
+    
     return t_list;
 }

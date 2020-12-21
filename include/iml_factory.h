@@ -6,9 +6,11 @@
 class iml_factory
 {
 public:
-    static iml_tag_base* stotag(std::string, iml_attribute);
-    static iml_tag_type stotype(std::string);
-    static std::string typetos(iml_tag_type);
+    static bool exists(std::string);
+    static iml_tag_base* to_tag(std::string);
+    static iml_tag_base* to_atag(std::string, iml_attribute);
+    static iml_tag_type to_type(std::string);
+    static std::string to_string(iml_tag_type);
 };
 
 #endif

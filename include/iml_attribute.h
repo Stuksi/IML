@@ -9,12 +9,11 @@ private:
     std::string text_;
 
 public:
-    iml_attribute() = default;
     iml_attribute(std::string);
-    ~iml_attribute() = default;
     
     std::string text() const;
     bool empty() const;
+    
 };
 
 #endif

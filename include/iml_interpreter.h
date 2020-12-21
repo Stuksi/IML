@@ -11,29 +11,25 @@ typedef std::unordered_map<std::string, std::stack<std::list<double>>> indentifi
 class iml_interpreter
 {
 private:
-    // Core
     std::list<iml_token> t_list;
     std::list<iml_token>::iterator t_list_iterator;
     std::stack<iml_tag_base*> hierarchy;
     indentificator_links linked_names;
     
-    // Selectors and Iterators
     void next();
     void previous();
     iml_token current();
 
-    // Predicates
     bool end_expression();
     bool is_value();
+    bool is_body_expression();
 
-    // Atoms
     void parse_token(iml_token_type);
     void parse_open_tag();
     void parse_body_tag();
     void parse_close_tag();
     iml_attribute parse_attribute();
 
-    // Expressions
     void evaluate_expression();
     void evaluate_value();
     void evaluate_tag_expression();
@@ -41,6 +37,7 @@ private:
     
 public:
     void build(std::istream&, std::ostream&);
+
 };
 
 #endif

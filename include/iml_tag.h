@@ -8,8 +8,8 @@ class iml_tag : public iml_tag_base
 {
 public:
     iml_tag();
-    ~iml_tag() = default;
-    std::list<double> eval() const;
+    std::list<double> evaluate() const;
+    
 };
 
 #include "../src/template/iml_tag.cpp"

@@ -2,14 +2,9 @@
 #define __iml_tag_base_h
 
 #include "iml_attribute.h"
-#include <list>
+#include "iml_tag_type.h"
 
-enum class iml_tag_type
-{
-    iml_root,
-    map_inc,
-    let
-};
+#include <list>
 
 class iml_tag_base
 {
@@ -18,9 +13,7 @@ private:
     std::list<double> values_;
 
 public:
-    iml_tag_base() = default;
     iml_tag_base(iml_tag_type);
-    virtual ~iml_tag_base() = default;
 
     iml_tag_type type() const;
     std::list<double> values() const;
@@ -30,7 +23,7 @@ public:
     void clear();
 
     virtual iml_attribute attribute() const;
-    virtual std::list<double> eval() const = 0;
+    virtual std::list<double> evaluate() const = 0;
 
 };
 
