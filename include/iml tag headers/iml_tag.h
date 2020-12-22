@@ -9,9 +9,8 @@ class iml_tag : public iml_tag_base
 public:
     iml_tag();
     std::list<double> evaluate() const;
-    
 };
 
-#include "../src/template/iml_tag.cpp"
+#include "../../src/template/iml_tag.cpp"
 
 #endif

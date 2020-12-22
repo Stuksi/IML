@@ -1,208 +1,21 @@
-#include "../include/iml_interpreter.h"
-#include "../include/iml_factory.h"
-#include "../include/iml_tag.h"
-
+#include "../include/iml core headers/iml_interpreter.h"
+#include "../include/iml tag headers/iml_tag_factory.h"
+#include "../include/iml tag headers/iml_tag.h"
+#include "../include/iml tag headers/iml_tag_type_converter.h"
 #include <stdexcept>
-
-// =============================================== // SELECTORS AND ITERATORS // =============================================== //
-
-void iml_interpreter::next()
-{
-    ++t_list_iterator;
-}
-
-void iml_interpreter::previous()
-{
-    --t_list_iterator;
-}
-
-iml_token iml_interpreter::current()
-{
-    return *t_list_iterator;
-}
-
-// ================================================================================================================== //
-
-// =============================================== // PREDICATES // =============================================== //
-
-bool iml_interpreter::end_expression()
-{
-    if (current().type == iml_token_type::open_bracket)
-    {
-        next();
-        if (current().type == iml_token_type::slash || current().text == "BODY")
-        {
-            previous();
-            return true;
-        }
-        previous();
-    }
-    return t_list_iterator == t_list.end()
-        || current().text == "end_of_file()";
-}
-
-bool iml_interpreter::is_value()
-{
-    return current().type == iml_token_type::number || current().type == iml_token_type::string;
-}
 
 bool iml_interpreter::is_body_expression()
 {
-    return hierarchy.top()->type() == iml_tag_type::let;
-}
-
-
-// ================================================================================================================== //
-
-// =============================================== // ATOM PARSING // =============================================== //
-
-void iml_interpreter::parse_token(iml_token_type type)
-{
-    if (current().type != type)
-    {
-        switch (type)
-        {
-            case iml_token_type::open_bracket: 
-                throw std::logic_error("Expected open bracket character '<', given " + current().text + " !");
-            
-            case iml_token_type::close_bracket: 
-                throw std::logic_error("Expected closed bracket character '>', given " + current().text + " !");
-            
-            case iml_token_type::slash: 
-                throw std::logic_error("Expected slash character '/', given " + current().text + " !");
-            
-            case iml_token_type::quote: 
-                throw std::logic_error("Expected quote character '\"', given " + current().text + " !"); 
-            
-            case iml_token_type::string: 
-                throw std::logic_error("Expected string, given " + current().text + " !");
-        }
-    }
-    next();
-}
-
-void iml_interpreter::parse_open_tag()
-{
-    parse_token(iml_token_type::open_bracket);
-
-    std::string tag_type = current().text;
-    if(!iml_factory::exists(tag_type))
-    {
-        throw std::invalid_argument
-            (
-                "Tag " 
-                + current().text 
-                + 
-                " does not exist!"
-            );
-    }
-
-    parse_token(iml_token_type::string);
-
-    if (current().type == iml_token_type::quote) 
-    {
-        hierarchy.push(iml_factory::to_atag(tag_type, parse_attribute()));
-    }
-    else
-    {
-        hierarchy.push(iml_factory::to_tag(tag_type));
-    }
-    
-    parse_token(iml_token_type::close_bracket);
-}
-
-void iml_interpreter::parse_body_tag()
-{
-    parse_token(iml_token_type::open_bracket);
-
-    if (current().text != "BODY") 
-    {
-        throw std::logic_error
-            (
-                "Expected string \"BODY\", given " 
-                + current().text 
-                + " ! Missing or invalid BODY tag syntax!"
-            );
-    }
-    next();
-
-    parse_token(iml_token_type::slash);
-    parse_token(iml_token_type::close_bracket);
-}
-
-void iml_interpreter::parse_close_tag()
-{
-    parse_token(iml_token_type::open_bracket);
-    parse_token(iml_token_type::slash);
-
-    std::string tag_type = current().text;
-    if (hierarchy.top()->type() != iml_factory::to_type(tag_type)) 
-    {
-        throw std::logic_error
-            (
-                "Invalid close tag type, expected " 
-                + iml_factory::to_string(hierarchy.top()->type()) 
-                + " , given " 
-                + current().text 
-                + " !"
-            );
-    }
-
-    parse_token(iml_token_type::string);
-    parse_token(iml_token_type::close_bracket);
-}
-
-iml_attribute iml_interpreter::parse_attribute()
-{
-    parse_token(iml_token_type::quote);
-
-    if (!is_value()) 
-    {
-        throw std::invalid_argument
-            (
-                "Attribute expects value argument!"
-            );
-    }
-    std::string attribute_text = current().text;
-    next();
-
-    parse_token(iml_token_type::quote);
-    
-    return iml_attribute(attribute_text);
-}
-
-// ================================================================================================================== //
-
-// =============================================== // EXPRESSION EVALUATING // =============================================== //
-
-void iml_interpreter::evaluate_value()
-{
-    if (current().type == iml_token_type::string) 
-    {
-        if (linked_names.find(current().text) == linked_names.end()) 
-        {
-            throw std::invalid_argument
-                (
-                    current().text 
-                    + " is not defined!"
-                );
-        }
-        hierarchy.top()->add(linked_names[current().text].top());
-    }
-    else
-    {
-        hierarchy.top()->add(stod(current().text));
-    }
-    next();
+    return hierarchy_.top()->type() == iml_tag_type::let;
 }
 
 void iml_interpreter::evaluate_expression()
 {
-    if (end_expression())
+    if (parser_->is_end())
     {
         return;
     }
-    else if (is_value())
+    else if (parser_->is_value())
     {
         evaluate_value();
     }
@@ -213,72 +26,75 @@ void iml_interpreter::evaluate_expression()
     evaluate_expression();
 }
 
+void iml_interpreter::evaluate_value()
+{
+    hierarchy_.top()->add(parser_->parse_value(links_));
+}
+
 void iml_interpreter::evaluate_tag_expression()
 {
-    parse_open_tag();
+    hierarchy_.push(parser_->parse_open_tag());
     evaluate_expression();
 
     if (is_body_expression())
     {
         evaluate_body_expression();
     }
-    parse_close_tag();
 
-    std::list<double> values = hierarchy.top()->evaluate();
-    hierarchy.pop();
-    hierarchy.top()->add(values);
+    tag close_tag = parser_->parse_close_tag();
+    if (hierarchy_.top()->type() != close_tag->type())
+    {
+        throw std::logic_error
+            (
+                "Invalid close tag type, expected " 
+                + iml_tag_type_converter::types[(int)hierarchy_.top()->type()]
+                + " , given " 
+                + iml_tag_type_converter::types[(int)close_tag->type()]
+                + " !"
+            );
+    }
+
+    std::list<double> values = hierarchy_.top()->evaluate();
+    hierarchy_.pop();
+    hierarchy_.top()->add(values);
 }
 
 void iml_interpreter::evaluate_body_expression()
 {
-    parse_body_tag();
+    parser_->parse_body_tag();
 
-    std::string attribute_id = hierarchy.top()->attribute().text();
-    linked_names[attribute_id].push(hierarchy.top()->evaluate());
-    hierarchy.top()->clear();
+    std::string name = hierarchy_.top()->attribute().text();
+    links_[name].push(hierarchy_.top()->evaluate());
+    hierarchy_.top()->clear();
 
     evaluate_expression();
 
-    linked_names[attribute_id].pop();
-    if (linked_names[attribute_id].empty())
+    links_[name].pop();
+    if (links_[name].empty())
     {
-        linked_names.erase(attribute_id);
+        links_.erase(name);
     }
 }
 
-// ================================================================================================================== //
-
-void iml_interpreter::build(std::istream& in, std::ostream& out)
+std::list<double> iml_interpreter::evaluate(std::istream& in)
 {
     try
     {
-        hierarchy.push(new iml_tag<iml_tag_type::iml_root>());
-        t_list = iml_tokenizer(in).tokenize();
-        t_list_iterator = t_list.begin();
-
+        parser_ = new iml_parser(in);
+        hierarchy_.push(new iml_tag<iml_tag_type::root>());
         evaluate_expression();
-        
-        out << "Evaluation complete:\n";
-        std::list<double> end_result = hierarchy.top()->evaluate();
-        for (auto i = end_result.begin(); i != --end_result.end(); ++i)
-        {
-            out << *i << " ";
-        }
-        if (end_result.size() > 0)
-        {
-            out << *(--end_result.end());
-        }
+        return hierarchy_.top()->evaluate();
     }
     catch(const std::runtime_error& e)
     {
-        out << e.what();
+        throw std::runtime_error(e.what());
     }
     catch(const std::invalid_argument& e)
     {
-        out << "Invalid Argument at line " + std::to_string(current().position.row) + ", column " + std::to_string(current().position.col) + "! " + e.what();
+        throw std::invalid_argument("Invalid Argument at line " + std::to_string(parser_->cursor_position().row) + ", column " + std::to_string(parser_->cursor_position().col) + "! " + e.what());
     }
     catch(const std::logic_error& e)
     {
-        out << "Logic Error at line " + std::to_string(current().position.row) + ", column " + std::to_string(current().position.col) + "! " + e.what();
+        throw std::logic_error("Logic Error at line " + std::to_string(parser_->cursor_position().row) + ", column " + std::to_string(parser_->cursor_position().col) + "! " + e.what());
     }
 }
