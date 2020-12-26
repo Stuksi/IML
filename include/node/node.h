@@ -17,12 +17,25 @@ namespace iml
         node(node_type);
         virtual ~node();
 
+        // Get node type
         node_type type() const;
 
+        // Get beginning of tree
         // node_iterator begin();
+        // Get end of tree
         // node_iterator end();
- 
+
+        // Get reference to node
+        node*& node_ptr() const;
+
+        // Get node as string
+        std::string as_string() const;
+        
+        // Get node children
+        // virtual std::list<node*&> children() = 0;
+        // Visualize tree node
         virtual void visualize(std::ostream&) const = 0;
+        // Evaluate tree node
         virtual std::list<double> evaluate() const = 0;
     };
 }

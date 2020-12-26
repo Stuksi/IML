@@ -9,16 +9,18 @@ namespace iml
     class tag
     {
     private:
-        tag_type type_;
+        tag_type type;
     public:
+        // Constructors and destructor
         tag();
         tag(tag_type);
         virtual ~tag();
 
-        tag_type type() const;
+        // Accessors and mutators
+        tag_type get_type() const;
         std::string as_string() const;
-
-        virtual attribute attr() const;
+        virtual attribute get_attribute() const;
+        virtual void set_attribute();
     };   
 } 
 

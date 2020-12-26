@@ -6,9 +6,13 @@
 
 namespace iml
 {
-    struct lexer_result
+    class lexer_result
     {
-        std::list<token> tokens; 
+    public:
+        lexer_result() = default;
+        lexer_result(std::list<token>);
+        std::list<token> tokens;
+        std::list<token>::iterator tokens_it;
     };
 }
 

@@ -8,12 +8,14 @@ namespace iml
     class taga : public tag
     {
     private:
-        attribute attribute_;
+        attribute attr;
     public:
-        taga();
+        // Constructors
         taga(tag_type, attribute);
 
-        attribute attr() const;
+        // Accessors and mutatos
+        attribute get_attribute() const;
+        void set_attribute(attribute);
     };
 }
 

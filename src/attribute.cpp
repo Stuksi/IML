@@ -2,33 +2,58 @@
 
 namespace iml
 {
-    attribute::attribute() : value_("")
+    attribute::attribute() : value("")
     {}
 
-    attribute::attribute(std::string value) : value_(value)
+    attribute::attribute(std::string _value) : value(_value)
     {}
 
-    bool attribute::empty() const
+
+    std::string attribute::get_value() const
     {
-        return value_ == "";
+        return value;
     }
 
-    std::string attribute::value() const
+    double attribute::as_double(double def) const
     {
-        return value_;
-    }
-
-    double attribute::as_number() const
-    {
-        double value;
+        double _value;
         try
         {
-            value = stod(value_);
+            _value = stod(value);
         }
         catch(...)
         {
-            value = 0;
+            _value = def;
         }
-        return value;
+        return _value;
+    }
+
+    int attribute::as_int(int def) const
+    {
+        double _value;
+        try
+        {
+            _value = stod(value);
+        }
+        catch(...)
+        {
+            _value = def;
+        }
+        return _value;
+    }
+
+    void attribute::set_value(std::string _value)
+    {
+        value = _value;
+    }
+
+    void attribute::set_value(double _value)
+    {
+        value = std::to_string(_value);
+    }
+
+    bool attribute::empty() const
+    {
+        return value == "";
     }
 }

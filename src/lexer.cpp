@@ -2,40 +2,60 @@
 
 namespace iml
 {
-    lexer::lexer(std::istream& in) : in_(in)
+    lexer::lexer(std::istream& _in) : in(_in)
     {}
 
-    token lexer::next()
+    void lexer::cws()
     {
-        while (in_.peek() == ' ' || in_.peek() == '\n')
+        while (in.peek() == ' ' || in.peek() == '\n')
         {
-            in_.get();
+            in.get();
         }
-        char c = in_.peek();
-        if (c >= 'A' && c <= 'Z')
-        {
-            std::string text = "";
-            while ((in_.peek() >= 'A' && in_.peek() <= 'Z') || in_.peek() == '-')
-            {
-                text += in_.get();
-            } 
-            return token {text, token_string};
-        }
-        else if ((c >= '0' && c <= '9') || c == '-')
-        {
-            double text;
-            in_ >> text;
-            return token {std::to_string(text), token_number};
-        }
-        in_.get();
+    }
+
+    token lexer::next_sign()
+    {
+        char c = in.get();
         switch (c)
         {
             case '<': return token {"<", token_open_bracket};
             case '>': return token {">", token_close_bracket};
             case '/': return token {"/", token_slash};
             case '\"': return token {"\"", token_quote};
-            default: return token {"?", token_invalid};
+            default: throw std::runtime_error("'" + std::string(1, c) + "' is not a recognisable character!");
         }
+    }
+
+    token lexer::next_string()
+    {
+        std::string text = "";
+        while ((in.peek() >= 'A' && in.peek() <= 'Z') || in.peek() == '-')
+        {
+            text += in.get();
+        } 
+        return token {text, token_string};
+    }
+
+    token lexer::next_number()
+    {
+        double text;
+        in >> text;
+        return token {std::to_string(text), token_number};
+    }
+
+    token lexer::next()
+    {
+        cws();
+        char c = in.peek();
+        if (c >= 'A' && c <= 'Z')
+        {
+            return next_string();
+        }
+        else if ((c >= '0' && c <= '9') || c == '-')
+        {
+            return next_number();
+        }
+        return next_sign();
     }
 
     lexer_result lexer::tokenize()
@@ -44,14 +64,22 @@ namespace iml
         token next_token;
         while (1)
         {
-            next_token = next();
-            if (in_.eof() && next_token.type == token_invalid)
+            try
             {
-                break;
+                next_token = next();
+            }
+            catch (const std::exception& e)
+            {
+                if (in.eof()) 
+                {
+                    break;
+                }
+                std::cerr << "Warning -> " << e.what() << std::endl;
+                continue;
             }
             tokens.push_back(next_token);
         }
         tokens.push_back(token {"end_of_file", token_invalid});
-        return lexer_result {tokens};
+        return lexer_result(tokens);
     }
 }

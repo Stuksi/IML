@@ -13,6 +13,7 @@ namespace iml
         node* parse();
     public:
         parser(std::istream&);
+        // Construct tree
         parser_result build_tree();
     };
 }

@@ -8,25 +8,32 @@
 
 namespace iml
 {
-    typedef std::stack<tag*> hierarchy;
-    typedef std::stack<std::list<double>> hierarchy_values;
-    typedef std::unordered_map<std::string, std::stack<std::list<double>>> attribute_links;
+    typedef std::stack<tag*> tag_hierarchy;
+    typedef std::stack<std::list<double>> values_hierarchy;
+    typedef std::unordered_map<std::string, std::stack<std::list<double>>> name_links;
 
     class interpreter
     {
     private:
-        reader reader_;
-        hierarchy hierarchy_;
-        hierarchy_values values_;
-        attribute_links links_;
+        reader r;
+        tag_hierarchy tags;
+        values_hierarchy values;
+        name_links links;
         
-        // bool is_body_expression();
-        void evaluate_value();
-        void evaluate_tag_expression();
-        // void evaluate_body_expression();
-        void evaluate_expression();
-    public:
-        std::list<double> evaluate(std::istream&);
+        bool is_body_expr();
+
+        void value_expr();
+        void tag_expr();
+        void body_expr();
+        void expr();
+
+        std::list<double> evaluate();
+        void interpret(const char*);
+    public: 
+        // Interpretation
+        void file(const char*, const char* = "iml_result.imlr");
+        void stream(std::istream&, const char* = "iml_result.imlr");
+        void buffer(const char*, const char* = "iml_result.imlr");
     };
 }
 

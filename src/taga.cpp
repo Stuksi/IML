@@ -2,14 +2,16 @@
 
 namespace iml
 {
-    taga::taga() : attribute_(attribute())
+    taga::taga(tag_type _type, attribute _attr) : tag(_type), attr(_attr)
     {}
 
-    taga::taga(tag_type type, attribute attribute) : tag(type), attribute_(attribute)
-    {}
-
-    attribute taga::attr() const
+    attribute taga::get_attribute() const
     {
-        return attribute_;
+        return attr;
+    }
+
+    void taga::set_attribute(attribute _attr)
+    {
+        attr = _attr;
     }
 }

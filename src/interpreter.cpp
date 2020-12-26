@@ -1,99 +1,141 @@
 #include "../include/interpreter/interpreter.h"
 #include "../include/tag/factory.h"
-#include "../include/tag/tag.h"
-#include "../include/tag/tag_apply.h"
-#include <cassert>
+#include "../include/tag/tag_config.h"
+#include <fstream>
+#include <sstream>
 
 namespace iml
 {
-    // bool interpreter::is_body_expression()
-    // {
-    //     return hierarchy_.top()->type() == tag_let;
-    // }
-
-    void interpreter::evaluate_expression()
+    bool interpreter::is_body_expr()
     {
-        if (reader_.end())
+        return tags.top()->get_type() == tag_let;
+    }
+
+    void interpreter::expr()
+    {
+        if (r.is_end())
         {
             return;
         }
-        else if (reader_.is_value())
+        else if (r.is_value())
         {
-            evaluate_value();
+            value_expr();
         }
         else
         {
-            evaluate_tag_expression();
+            tag_expr();
         } 
-        evaluate_expression();
+        expr();
     }
 
-    void interpreter::evaluate_value()
+    void interpreter::value_expr()
     {
-        if (reader_.current().type == token_number)
+        if (r.current().type == token_number)
         {
-            if (values_.empty())
-            {
-                values_.push(std::list<double>());
-            }
-            values_.top().push_back(stod(reader_.current().text));
+            values.top().push_back(stod(r.current().text));
         }
         else 
         {
-            assert(links_.find(reader_.current().text) != links_.end());
-            for (double value : links_.at(reader_.current().text).top())
+            if(links.find(r.current().text) == links.end()) throw std::runtime_error(r.current().text + " is not defined!");
+            
+            for (double value : links.at(r.current().text).top())
             {
-                values_.top().push_back(value);
+                values.top().push_back(value);
             }
         }
-        reader_.next();
+        r.next();
     }
 
-    void interpreter::evaluate_tag_expression()
+    void interpreter::tag_expr()
     {
-        hierarchy_.push(reader_.read_open_tag());
-        values_.push(std::list<double>());
-        evaluate_expression();
+        tags.push(r.read_open_tag());
+        values.push(std::list<double>());
+        expr();
 
-        // if (is_body_expression())
-        // {
-        //     evaluate_body_expression();
-        // }
-
-        tag* close_tag = reader_.read_close_tag();
-        assert(hierarchy_.top()->type() != close_tag->type());
-
-        std::list<double> values = tag_apply::apply(values_.top(), hierarchy_.top());
-        hierarchy_.pop();
-        values_.pop();
-        for (double value : values)
+        if (is_body_expr())
         {
-            values_.top().push_back(value);
+            body_expr();
+        }
+
+        tag* close_tag = r.read_close_tag();
+        if (tags.top()->get_type() != close_tag->get_type()) throw std::runtime_error("Wrong closing tag for - " + tags.top()->as_string() + ". Given - " + close_tag->as_string() + "!");
+
+        std::list<double> list_values = tag_config::apply(values.top(), tags.top());
+        tags.pop();
+        values.pop();
+        for (double value : list_values)
+        {
+            values.top().push_back(value);
         }
     }
 
-    // void interpreter::evaluate_body_expression()
-    // {
-    //     parser_->parse_body_tag();
-
-    //     std::string name = hierarchy_.top()->attribute().text();
-    //     links_[name].push(hierarchy_.top()->evaluate());
-    //     hierarchy_.top()->clear();
-
-    //     evaluate_expression();
-
-    //     links_[name].pop();
-    //     if (links_[name].empty())
-    //     {
-    //         links_.erase(name);
-    //     }
-    // }
-
-    std::list<double> interpreter::evaluate(std::istream& in)
+    void interpreter::body_expr()
     {
-        reader_ = reader(in);
-        hierarchy_.push(new tag(tag_null));
-        evaluate_expression();
-        return values_.top();
+        r.read_body_tag();
+
+        std::string name = tags.top()->get_attribute().get_value();
+        links[name].push(values.top());
+        values.top().clear();
+
+        expr();
+
+        links[name].pop();
+        if (links[name].empty())
+        {
+            links.erase(name);
+        }
+    }
+
+    std::list<double> interpreter::evaluate()
+    {
+        tags.push(new tag(tag_null));
+        values.push(std::list<double>());
+        expr();
+        return values.top();
+    }
+
+    void interpreter::interpret(const char* out_file_path)
+    {
+        try
+        {
+            std::list<double> resulting_values = evaluate();
+            std::ofstream out(out_file_path);
+            std::cout << "Evaluation successfull!\n";
+            out << "Result: ";
+            for (auto i = resulting_values.begin(); i != --resulting_values.end(); ++i)
+            {
+                out << *i << " ";
+            }
+            out << *(--resulting_values.end()); 
+        }
+        catch(const std::exception& e)
+        {
+            std::cout << "Error:\n";
+            std::cerr << "      " << e.what() << '\n';
+        }
+    }
+
+    void interpreter::file(const char* in_file_path, const char* out_file_path)
+    {
+        std::ifstream in(in_file_path);
+        r = reader(in);
+        interpret(out_file_path);
+        
+    }
+
+    void interpreter::stream(std::istream& in_stream, const char* out_file_path)
+    {
+        r = reader(in_stream);
+        interpret(out_file_path);
+    }
+
+    void interpreter::buffer(const char* file_info, const char* out_file_path)
+    {
+        std::stringstream ss;
+        ss << file_info;
+        r = reader(ss);
+        interpret(out_file_path);
     }
 }
+
+

@@ -3,23 +3,23 @@
 
 namespace iml
 {
-    tag::tag() : type_(tag_null)
+    tag::tag() : type(tag_null)
     {}
 
-    tag::tag(tag_type type) : type_(type)
+    tag::tag(tag_type type) : type(type)
     {}
 
     tag::~tag()
     {}
 
-    tag_type tag::type() const
+    tag_type tag::get_type() const
     {
-        return type_;
+        return type;
     }
 
     std::string tag::as_string() const
     {
-        switch (type_)
+        switch (type)
         {
             case tag_null: return "NULL";
             case tag_map_inc: return "MAP-INC";
@@ -39,9 +39,13 @@ namespace iml
         }
     }
 
-    attribute tag::attr() const
+    attribute tag::get_attribute() const
     {
-        assert(false);
-        return attribute();
+        throw as_string() + " type does not support attributes!";
+    }
+
+    void tag::set_attribute()
+    {
+        throw as_string() + " type does not support attributes!";
     }
 }

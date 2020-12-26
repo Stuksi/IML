@@ -5,9 +5,10 @@ namespace iml
 {
     enum node_type
     {
-        node_null,
-        node_document,
-        node_element
+        node_type_null,
+        node_type_document,
+        node_type_const,
+        node_type_tag
     };
 }
 

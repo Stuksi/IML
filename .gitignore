@@ -1,4 +1,7 @@
 lib
 .vscode
 *.out
-DEBUG.cpp
+*.iml
+*.imlr
+*.dot
+main.cpp

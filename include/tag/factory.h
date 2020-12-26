@@ -8,7 +8,8 @@ namespace iml
     class factory
     {
     public:
-        static tag* to_tag(std::string, attribute);
+        // Tag creation
+        static tag* to_tag(std::string, attribute = attribute());
     };
 }
 
