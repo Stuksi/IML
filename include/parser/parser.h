@@ -8,13 +8,11 @@ namespace iml
 {
     class parser
     {
-        reader reader_;
-        
+        reader r;
         node* parse();
     public:
-        parser(std::istream&);
         // Construct tree
-        parser_result build_tree();
+        parser_result build_tree(const char*);
     };
 }
 

@@ -1,22 +1,22 @@
-#include "../include/node/node_tag.h"
+#include "../include/node/node_document.h"
 #include "../include/tag/tag_config.h"
 
 namespace iml
 {
-    node_tag::node_tag(tag* tag, std::list<node*> _children) : current_tag(tag), children(_children)
+    node_document::node_document(std::list<node*> _children) : children(_children)
     {}
 
-    node_tag::~node_tag()
+    node_document::~node_document()
     {
-        for (node* child : children)
+        for (node*& child : children)
         {
             delete child;
         }
     }
 
-    void node_tag::visualize(std::ostream& out) const
+    void node_document::visualize(std::ostream& out) const
     {
-        out << (long)this << "[label=\"" << "Tag: " << current_tag->as_string() << "\"];\n";
+        out << (long)this << "[label=\"ROOT\"];\n";
         for (node* child : children)
         {
             out << (long)this << "->" << (long)child << ";\n";
@@ -24,7 +24,7 @@ namespace iml
         }
     }
 
-    std::list<double> node_tag::evaluate() const
+    std::list<double> node_document::evaluate() const
     {
         std::list<double> values;
         for (node* child : children)
@@ -34,6 +34,6 @@ namespace iml
                 values.push_back(value);
             }
         }
-        return tag_config::apply(values, current_tag);
+        return tag_config::apply(values);
     }
 }

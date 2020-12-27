@@ -5,9 +5,20 @@
 
 namespace iml
 {
-    struct parser_result
+    class parser_result
     {
+    private:
         node* root;
+    public:
+        // Constructor and destructor
+        parser_result(node*);
+        ~parser_result();
+
+        // Visualization
+        void visualize(const char* = "iml_tree.dot");
+
+        // Evaluation
+        void evaluate(const char* = "iml_in.iml");
     };
 }
 
