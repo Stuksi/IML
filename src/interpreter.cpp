@@ -110,12 +110,12 @@ namespace iml
         }
         catch(const std::exception& e)
         {
-            std::cout << "Error:\n";
-            std::cerr << "      " << e.what() << '\n';
+            std::cout << "Error -> " << e.what() << std::endl;
+            std::cout << "Evaluation failed!" << std::endl;
         }
     }
 
-    void interpreter::file(const char* in_file_path, const char* out_file_path)
+    void interpreter::interpret_file(const char* in_file_path, const char* out_file_path)
     {
         std::ifstream in(in_file_path);
         r = reader(in);
@@ -123,16 +123,16 @@ namespace iml
         
     }
 
-    void interpreter::stream(std::istream& in_stream, const char* out_file_path)
+    void interpreter::interpret_stream(std::istream& in_stream, const char* out_file_path)
     {
         r = reader(in_stream);
         interpret(out_file_path);
     }
 
-    void interpreter::buffer(const char* file_info, const char* out_file_path)
+    void interpreter::interpret_buffer(const char* buffer, const char* out_file_path)
     {
         std::stringstream ss;
-        ss << file_info;
+        ss << buffer;
         r = reader(ss);
         interpret(out_file_path);
     }

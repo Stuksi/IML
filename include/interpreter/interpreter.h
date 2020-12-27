@@ -31,9 +31,9 @@ namespace iml
         void interpret(const char*);
     public: 
         // Interpretation
-        void file(const char*, const char* = "iml_result.imlr");
-        void stream(std::istream&, const char* = "iml_result.imlr");
-        void buffer(const char*, const char* = "iml_result.imlr");
+        void interpret_file(const char*, const char* = "iml_result.imlr");
+        void interpret_stream(std::istream&, const char* = "iml_result.imlr");
+        void interpret_buffer(const char*, const char* = "iml_result.imlr");
     };
 }
 

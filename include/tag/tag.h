@@ -20,7 +20,7 @@ namespace iml
         tag_type get_type() const;
         std::string as_string() const;
         virtual attribute get_attribute() const;
-        virtual void set_attribute();
+        virtual void set_attribute(attribute);
     };   
 } 
 

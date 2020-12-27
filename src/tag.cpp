@@ -33,8 +33,8 @@ namespace iml
             case tag_srt_rev: return "SRT-REV";
             case tag_srt_dst: return "SRT-DST";
             case tag_srt_slc: return "SRT-SLC";
-            case tag_let: return "SRT-LET";
-            case tag_body: return "SRT-BODY";
+            case tag_let: return "LET";
+            case tag_body: return "BODY";
             default: return "";
         }
     }
@@ -44,7 +44,7 @@ namespace iml
         throw as_string() + " type does not support attributes!";
     }
 
-    void tag::set_attribute()
+    void tag::set_attribute(attribute attr)
     {
         throw as_string() + " type does not support attributes!";
     }

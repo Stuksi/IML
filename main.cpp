@@ -5,7 +5,7 @@
 int main()
 {
     iml::interpreter interpreter;
-    interpreter.file("iml_in.iml");
+    interpreter.interpret_file("iml_in.iml");
 
     return 0;
 }
