@@ -6,8 +6,9 @@
 
 namespace iml
 {
-    struct token
+    class token
     {
+    public:
         std::string text;
         token_type type;
     };  

@@ -6,12 +6,17 @@
 
 namespace iml
 {
+    /// Main parser class.
+    ///
+    /// Creates the dom-like tree.
     class parser
     {
         reader r;
-        node* parse();
+
+        //! Parses the tree based on the iml grammar, and using an argument for parent passing.
+        node* parse(node*);
     public:
-        // Construct tree
+        //! Construct tree by passing a file path.
         parser_result build_tree(const char*);
     };
 }

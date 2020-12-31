@@ -5,16 +5,15 @@
 
 namespace iml
 {
+    /// Root node of the document.
+    ///
+    /// The root of the tree (does not have a parent).
     class node_document : public node
     {
-    private:
-        std::list<node*> children;
     public:
-        // Constructor and destructor
-        node_document(std::list<node*>);
-        ~node_document();
-
+        //! Visualizes the node by creating a visual tree node with 'ROOT' in it and visualizes the children. 
         void visualize(std::ostream&) const;
+        //! Evaluates the node, by evaluating the node's chuldren, storing the results in a list and returning it.
         std::list<double> evaluate() const;
     };
 }

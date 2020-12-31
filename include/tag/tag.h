@@ -6,20 +6,25 @@
 
 namespace iml
 {
+    /// Base tag class.
     class tag
     {
     private:
         tag_type type;
     public:
-        // Constructors and destructor
+        //! Default constructor of class tag. Initializes the tag as a null-tag.
         tag();
+        //! Default constructor of class tag. Initializes the tag with the passed type.
         tag(tag_type);
-        virtual ~tag();
 
-        // Accessors and mutators
+        // Gets the tag type.
         tag_type get_type() const;
+        // Gets the tag type as a string.
         std::string as_string() const;
+        // Gets the tag attribute (if the tag does not support attributes an error message is displayed).
         virtual attribute get_attribute() const;
+        
+        // Sets the tag attribute (if the tag does not support attributes an error message is displayed).
         virtual void set_attribute(attribute);
     };   
 } 

@@ -1,11 +1,13 @@
-#include "../include/node/node_document.h"
-#include "../include/tag/tag_config.h"
+#include "../include/node/node_link.h"
 
 namespace iml
 {
-    void node_document::visualize(std::ostream& out) const
+    node_link::node_link(std::string _name) : name(_name)
+    {}
+
+    void node_link::visualize(std::ostream& out) const
     {
-        out << (long)this << "[label=\"ROOT\"];\n";
+        out << (long)this << "[label=\"" << "Link: " << name << "\"];\n";
         for (node* child : get_children())
         {
             out << (long)this << "->" << (long)child << ";\n";
@@ -13,7 +15,7 @@ namespace iml
         }
     }
 
-    std::list<double> node_document::evaluate() const
+    std::list<double> node_link::evaluate() const
     {
         std::list<double> values;
         for (node* child : get_children())

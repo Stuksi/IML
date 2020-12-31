@@ -5,10 +5,11 @@
 
 namespace iml
 {
+    /// Tag factory.
     class factory
     {
     public:
-        // Tag creation
+        //! Converts a string (type), to a tag (with an attribute if the tag type supports it).
         static tag* to_tag(std::string, attribute = attribute());
     };
 }

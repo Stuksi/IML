@@ -5,20 +5,24 @@
 
 namespace iml
 {
+    /// User handle.
+    ///
+    /// A wrap of the parsed tree for users to use and configure. 
     class parser_result
     {
     private:
         node* root;
     public:
-        // Constructor and destructor
+        //! Default constructor of class parser_result. Initializes the root of the tree.
         parser_result(node*);
+        //! Destroys the tree.
         ~parser_result();
 
-        // Visualization
+        //! Visualizes the tree by calling the root visualize method.
         void visualize(const char* = "iml_tree.dot");
 
-        // Evaluation
-        void evaluate(const char* = "iml_in.iml");
+        //! Evaluates the tree by calling the root evaluate method.
+        void evaluate(const char* = "iml_result.imlr");
     };
 }
 

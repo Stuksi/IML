@@ -9,9 +9,6 @@ namespace iml
     tag::tag(tag_type type) : type(type)
     {}
 
-    tag::~tag()
-    {}
-
     tag_type tag::get_type() const
     {
         return type;
