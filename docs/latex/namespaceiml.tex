@@ -1,0 +1,206 @@
+\hypertarget{namespaceiml}{}\doxysection{iml Namespace Reference}
+\label{namespaceiml}\index{iml@{iml}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classiml_1_1interpreter}{interpreter}}
+\item 
+class \mbox{\hyperlink{classiml_1_1node}{node}}
+\begin{DoxyCompactList}\small\item\em Base class of the tree nodes. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classiml_1_1node__const}{node\+\_\+const}}
+\item 
+class \mbox{\hyperlink{classiml_1_1node__document}{node\+\_\+document}}
+\item 
+class \mbox{\hyperlink{classiml_1_1node__link}{node\+\_\+link}}
+\begin{DoxyCompactList}\small\item\em Node representing the attribute to expression link. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classiml_1_1node__tag}{node\+\_\+tag}}
+\begin{DoxyCompactList}\small\item\em Tag nodes, containing a tag (and if the tag type has a body expression, contains a \mbox{\hyperlink{classiml_1_1node__link}{node\+\_\+link}}). \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classiml_1_1attribute}{attribute}}
+\begin{DoxyCompactList}\small\item\em Attribute of tags. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classiml_1_1factory}{factory}}
+\begin{DoxyCompactList}\small\item\em Tag factory. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classiml_1_1tag}{tag}}
+\begin{DoxyCompactList}\small\item\em Base tag class. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classiml_1_1tag__config}{tag\+\_\+config}}
+\item 
+class \mbox{\hyperlink{classiml_1_1taga}{taga}}
+\begin{DoxyCompactList}\small\item\em Tag class supporting attributes. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classiml_1_1parser}{parser}}
+\item 
+class \mbox{\hyperlink{classiml_1_1parser__result}{parser\+\_\+result}}
+\item 
+class \mbox{\hyperlink{classiml_1_1reader}{reader}}
+\item 
+class \mbox{\hyperlink{classiml_1_1lexer}{lexer}}
+\item 
+class \mbox{\hyperlink{classiml_1_1lexer__result}{lexer\+\_\+result}}
+\begin{DoxyCompactList}\small\item\em The result of tokenizing a stream. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classiml_1_1token}{token}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef std\+::stack$<$ \mbox{\hyperlink{classiml_1_1tag}{tag}} $\ast$ $>$ \mbox{\hyperlink{namespaceiml_af1670c2a79bf0804561a9855cd8ac322}{tag\+\_\+hierarchy}}
+\item 
+typedef std\+::stack$<$ std\+::list$<$ double $>$ $>$ \mbox{\hyperlink{namespaceiml_ace9a374b2f41ffa6bdd2ef0bf00cbc2f}{values\+\_\+hierarchy}}
+\item 
+typedef std\+::unordered\+\_\+map$<$ std\+::string, std\+::stack$<$ std\+::list$<$ double $>$ $>$ $>$ \mbox{\hyperlink{namespaceiml_a456d8d7898ad3ea98b2da2169df3c3c1}{name\+\_\+links}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespaceiml_a2c188259b88e332ebfccf2da587fe734}{tag\+\_\+type}} \{ \newline
+\mbox{\hyperlink{namespaceiml_a2c188259b88e332ebfccf2da587fe734aed952900c17b99f531c04d92a7b94d78}{tag\+\_\+null}}
+, \mbox{\hyperlink{namespaceiml_a2c188259b88e332ebfccf2da587fe734aa63cecf700351b7ec1aee7a0d40a3bf8}{tag\+\_\+map\+\_\+inc}}
+, \mbox{\hyperlink{namespaceiml_a2c188259b88e332ebfccf2da587fe734a9234185ea92aa39cf7c4d5a77d42b5fe}{tag\+\_\+map\+\_\+mlt}}
+, \mbox{\hyperlink{namespaceiml_a2c188259b88e332ebfccf2da587fe734a9f18fc07b3a0a431520cb316efd2069d}{tag\+\_\+agg\+\_\+sum}}
+, \newline
+\mbox{\hyperlink{namespaceiml_a2c188259b88e332ebfccf2da587fe734a6c103693921461962d2cf9def293a98a}{tag\+\_\+agg\+\_\+pro}}
+, \mbox{\hyperlink{namespaceiml_a2c188259b88e332ebfccf2da587fe734ae1f4b99e269e88279f9a4dec47e8364d}{tag\+\_\+agg\+\_\+avg}}
+, \mbox{\hyperlink{namespaceiml_a2c188259b88e332ebfccf2da587fe734a249e904463c90ffa5f5be22c37203175}{tag\+\_\+agg\+\_\+fst}}
+, \mbox{\hyperlink{namespaceiml_a2c188259b88e332ebfccf2da587fe734a90e14c7be61300a645441e55b257ed8e}{tag\+\_\+agg\+\_\+lst}}
+, \newline
+\mbox{\hyperlink{namespaceiml_a2c188259b88e332ebfccf2da587fe734ab884a8a09657e8cb7a60c2cebe0ccebe}{tag\+\_\+srt\+\_\+rev}}
+, \mbox{\hyperlink{namespaceiml_a2c188259b88e332ebfccf2da587fe734aa5a33b326cd35e49a36bdc8207341065}{tag\+\_\+srt\+\_\+ord}}
+, \mbox{\hyperlink{namespaceiml_a2c188259b88e332ebfccf2da587fe734ae7dcf191df6a489269cfeb797ad4983a}{tag\+\_\+srt\+\_\+slc}}
+, \mbox{\hyperlink{namespaceiml_a2c188259b88e332ebfccf2da587fe734a684b86fc0de2f6b8af94dc5fa40262f3}{tag\+\_\+srt\+\_\+dst}}
+, \newline
+\mbox{\hyperlink{namespaceiml_a2c188259b88e332ebfccf2da587fe734a7f989a077cba3bf171f5475ca25d2ce0}{tag\+\_\+let}}
+, \mbox{\hyperlink{namespaceiml_a2c188259b88e332ebfccf2da587fe734afcb700f6bfaa64695ce0b4688000fa10}{tag\+\_\+body}}
+ \}
+\item 
+enum \mbox{\hyperlink{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44ef}{token\+\_\+type}} \{ \newline
+\mbox{\hyperlink{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efae2c6172b271aacb0cb54b9e6f49673ba}{token\+\_\+invalid}}
+, \mbox{\hyperlink{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efa7a7aba9242dee4a8840bc8d66b46629b}{token\+\_\+number}}
+, \mbox{\hyperlink{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efa24349cbcfc315b78bd87a80a1f8de393}{token\+\_\+string}}
+, \mbox{\hyperlink{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efa9276e02897d5b737c2920595266cc922}{token\+\_\+open\+\_\+bracket}}
+, \newline
+\mbox{\hyperlink{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efa01ab4b6187252e6b8ce43c92c0624792}{token\+\_\+close\+\_\+bracket}}
+, \mbox{\hyperlink{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efae9252bca44a439331ab79fba77cfe501}{token\+\_\+slash}}
+, \mbox{\hyperlink{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efab1f48c88802f6a816b9be226d08a65a0}{token\+\_\+quote}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{namespaceiml_a456d8d7898ad3ea98b2da2169df3c3c1}\label{namespaceiml_a456d8d7898ad3ea98b2da2169df3c3c1}} 
+\index{iml@{iml}!name\_links@{name\_links}}
+\index{name\_links@{name\_links}!iml@{iml}}
+\doxysubsubsection{\texorpdfstring{name\_links}{name\_links}}
+{\footnotesize\ttfamily typedef std\+::unordered\+\_\+map$<$std\+::string, std\+::stack$<$std\+::list$<$double$>$ $>$ $>$ \mbox{\hyperlink{namespaceiml_a456d8d7898ad3ea98b2da2169df3c3c1}{iml\+::name\+\_\+links}}}
+
+\mbox{\Hypertarget{namespaceiml_af1670c2a79bf0804561a9855cd8ac322}\label{namespaceiml_af1670c2a79bf0804561a9855cd8ac322}} 
+\index{iml@{iml}!tag\_hierarchy@{tag\_hierarchy}}
+\index{tag\_hierarchy@{tag\_hierarchy}!iml@{iml}}
+\doxysubsubsection{\texorpdfstring{tag\_hierarchy}{tag\_hierarchy}}
+{\footnotesize\ttfamily typedef std\+::stack$<$\mbox{\hyperlink{classiml_1_1tag}{tag}}$\ast$$>$ \mbox{\hyperlink{namespaceiml_af1670c2a79bf0804561a9855cd8ac322}{iml\+::tag\+\_\+hierarchy}}}
+
+\mbox{\Hypertarget{namespaceiml_ace9a374b2f41ffa6bdd2ef0bf00cbc2f}\label{namespaceiml_ace9a374b2f41ffa6bdd2ef0bf00cbc2f}} 
+\index{iml@{iml}!values\_hierarchy@{values\_hierarchy}}
+\index{values\_hierarchy@{values\_hierarchy}!iml@{iml}}
+\doxysubsubsection{\texorpdfstring{values\_hierarchy}{values\_hierarchy}}
+{\footnotesize\ttfamily typedef std\+::stack$<$std\+::list$<$double$>$ $>$ \mbox{\hyperlink{namespaceiml_ace9a374b2f41ffa6bdd2ef0bf00cbc2f}{iml\+::values\+\_\+hierarchy}}}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{namespaceiml_a2c188259b88e332ebfccf2da587fe734}\label{namespaceiml_a2c188259b88e332ebfccf2da587fe734}} 
+\index{iml@{iml}!tag\_type@{tag\_type}}
+\index{tag\_type@{tag\_type}!iml@{iml}}
+\doxysubsubsection{\texorpdfstring{tag\_type}{tag\_type}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{namespaceiml_a2c188259b88e332ebfccf2da587fe734}{iml\+::tag\+\_\+type}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{tag\_null@{tag\_null}!iml@{iml}}\index{iml@{iml}!tag\_null@{tag\_null}}}\mbox{\Hypertarget{namespaceiml_a2c188259b88e332ebfccf2da587fe734aed952900c17b99f531c04d92a7b94d78}\label{namespaceiml_a2c188259b88e332ebfccf2da587fe734aed952900c17b99f531c04d92a7b94d78}} 
+tag\+\_\+null&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{tag\_map\_inc@{tag\_map\_inc}!iml@{iml}}\index{iml@{iml}!tag\_map\_inc@{tag\_map\_inc}}}\mbox{\Hypertarget{namespaceiml_a2c188259b88e332ebfccf2da587fe734aa63cecf700351b7ec1aee7a0d40a3bf8}\label{namespaceiml_a2c188259b88e332ebfccf2da587fe734aa63cecf700351b7ec1aee7a0d40a3bf8}} 
+tag\+\_\+map\+\_\+inc&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{tag\_map\_mlt@{tag\_map\_mlt}!iml@{iml}}\index{iml@{iml}!tag\_map\_mlt@{tag\_map\_mlt}}}\mbox{\Hypertarget{namespaceiml_a2c188259b88e332ebfccf2da587fe734a9234185ea92aa39cf7c4d5a77d42b5fe}\label{namespaceiml_a2c188259b88e332ebfccf2da587fe734a9234185ea92aa39cf7c4d5a77d42b5fe}} 
+tag\+\_\+map\+\_\+mlt&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{tag\_agg\_sum@{tag\_agg\_sum}!iml@{iml}}\index{iml@{iml}!tag\_agg\_sum@{tag\_agg\_sum}}}\mbox{\Hypertarget{namespaceiml_a2c188259b88e332ebfccf2da587fe734a9f18fc07b3a0a431520cb316efd2069d}\label{namespaceiml_a2c188259b88e332ebfccf2da587fe734a9f18fc07b3a0a431520cb316efd2069d}} 
+tag\+\_\+agg\+\_\+sum&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{tag\_agg\_pro@{tag\_agg\_pro}!iml@{iml}}\index{iml@{iml}!tag\_agg\_pro@{tag\_agg\_pro}}}\mbox{\Hypertarget{namespaceiml_a2c188259b88e332ebfccf2da587fe734a6c103693921461962d2cf9def293a98a}\label{namespaceiml_a2c188259b88e332ebfccf2da587fe734a6c103693921461962d2cf9def293a98a}} 
+tag\+\_\+agg\+\_\+pro&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{tag\_agg\_avg@{tag\_agg\_avg}!iml@{iml}}\index{iml@{iml}!tag\_agg\_avg@{tag\_agg\_avg}}}\mbox{\Hypertarget{namespaceiml_a2c188259b88e332ebfccf2da587fe734ae1f4b99e269e88279f9a4dec47e8364d}\label{namespaceiml_a2c188259b88e332ebfccf2da587fe734ae1f4b99e269e88279f9a4dec47e8364d}} 
+tag\+\_\+agg\+\_\+avg&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{tag\_agg\_fst@{tag\_agg\_fst}!iml@{iml}}\index{iml@{iml}!tag\_agg\_fst@{tag\_agg\_fst}}}\mbox{\Hypertarget{namespaceiml_a2c188259b88e332ebfccf2da587fe734a249e904463c90ffa5f5be22c37203175}\label{namespaceiml_a2c188259b88e332ebfccf2da587fe734a249e904463c90ffa5f5be22c37203175}} 
+tag\+\_\+agg\+\_\+fst&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{tag\_agg\_lst@{tag\_agg\_lst}!iml@{iml}}\index{iml@{iml}!tag\_agg\_lst@{tag\_agg\_lst}}}\mbox{\Hypertarget{namespaceiml_a2c188259b88e332ebfccf2da587fe734a90e14c7be61300a645441e55b257ed8e}\label{namespaceiml_a2c188259b88e332ebfccf2da587fe734a90e14c7be61300a645441e55b257ed8e}} 
+tag\+\_\+agg\+\_\+lst&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{tag\_srt\_rev@{tag\_srt\_rev}!iml@{iml}}\index{iml@{iml}!tag\_srt\_rev@{tag\_srt\_rev}}}\mbox{\Hypertarget{namespaceiml_a2c188259b88e332ebfccf2da587fe734ab884a8a09657e8cb7a60c2cebe0ccebe}\label{namespaceiml_a2c188259b88e332ebfccf2da587fe734ab884a8a09657e8cb7a60c2cebe0ccebe}} 
+tag\+\_\+srt\+\_\+rev&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{tag\_srt\_ord@{tag\_srt\_ord}!iml@{iml}}\index{iml@{iml}!tag\_srt\_ord@{tag\_srt\_ord}}}\mbox{\Hypertarget{namespaceiml_a2c188259b88e332ebfccf2da587fe734aa5a33b326cd35e49a36bdc8207341065}\label{namespaceiml_a2c188259b88e332ebfccf2da587fe734aa5a33b326cd35e49a36bdc8207341065}} 
+tag\+\_\+srt\+\_\+ord&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{tag\_srt\_slc@{tag\_srt\_slc}!iml@{iml}}\index{iml@{iml}!tag\_srt\_slc@{tag\_srt\_slc}}}\mbox{\Hypertarget{namespaceiml_a2c188259b88e332ebfccf2da587fe734ae7dcf191df6a489269cfeb797ad4983a}\label{namespaceiml_a2c188259b88e332ebfccf2da587fe734ae7dcf191df6a489269cfeb797ad4983a}} 
+tag\+\_\+srt\+\_\+slc&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{tag\_srt\_dst@{tag\_srt\_dst}!iml@{iml}}\index{iml@{iml}!tag\_srt\_dst@{tag\_srt\_dst}}}\mbox{\Hypertarget{namespaceiml_a2c188259b88e332ebfccf2da587fe734a684b86fc0de2f6b8af94dc5fa40262f3}\label{namespaceiml_a2c188259b88e332ebfccf2da587fe734a684b86fc0de2f6b8af94dc5fa40262f3}} 
+tag\+\_\+srt\+\_\+dst&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{tag\_let@{tag\_let}!iml@{iml}}\index{iml@{iml}!tag\_let@{tag\_let}}}\mbox{\Hypertarget{namespaceiml_a2c188259b88e332ebfccf2da587fe734a7f989a077cba3bf171f5475ca25d2ce0}\label{namespaceiml_a2c188259b88e332ebfccf2da587fe734a7f989a077cba3bf171f5475ca25d2ce0}} 
+tag\+\_\+let&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{tag\_body@{tag\_body}!iml@{iml}}\index{iml@{iml}!tag\_body@{tag\_body}}}\mbox{\Hypertarget{namespaceiml_a2c188259b88e332ebfccf2da587fe734afcb700f6bfaa64695ce0b4688000fa10}\label{namespaceiml_a2c188259b88e332ebfccf2da587fe734afcb700f6bfaa64695ce0b4688000fa10}} 
+tag\+\_\+body&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44ef}\label{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44ef}} 
+\index{iml@{iml}!token\_type@{token\_type}}
+\index{token\_type@{token\_type}!iml@{iml}}
+\doxysubsubsection{\texorpdfstring{token\_type}{token\_type}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44ef}{iml\+::token\+\_\+type}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{token\_invalid@{token\_invalid}!iml@{iml}}\index{iml@{iml}!token\_invalid@{token\_invalid}}}\mbox{\Hypertarget{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efae2c6172b271aacb0cb54b9e6f49673ba}\label{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efae2c6172b271aacb0cb54b9e6f49673ba}} 
+token\+\_\+invalid&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{token\_number@{token\_number}!iml@{iml}}\index{iml@{iml}!token\_number@{token\_number}}}\mbox{\Hypertarget{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efa7a7aba9242dee4a8840bc8d66b46629b}\label{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efa7a7aba9242dee4a8840bc8d66b46629b}} 
+token\+\_\+number&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{token\_string@{token\_string}!iml@{iml}}\index{iml@{iml}!token\_string@{token\_string}}}\mbox{\Hypertarget{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efa24349cbcfc315b78bd87a80a1f8de393}\label{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efa24349cbcfc315b78bd87a80a1f8de393}} 
+token\+\_\+string&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{token\_open\_bracket@{token\_open\_bracket}!iml@{iml}}\index{iml@{iml}!token\_open\_bracket@{token\_open\_bracket}}}\mbox{\Hypertarget{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efa9276e02897d5b737c2920595266cc922}\label{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efa9276e02897d5b737c2920595266cc922}} 
+token\+\_\+open\+\_\+bracket&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{token\_close\_bracket@{token\_close\_bracket}!iml@{iml}}\index{iml@{iml}!token\_close\_bracket@{token\_close\_bracket}}}\mbox{\Hypertarget{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efa01ab4b6187252e6b8ce43c92c0624792}\label{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efa01ab4b6187252e6b8ce43c92c0624792}} 
+token\+\_\+close\+\_\+bracket&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{token\_slash@{token\_slash}!iml@{iml}}\index{iml@{iml}!token\_slash@{token\_slash}}}\mbox{\Hypertarget{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efae9252bca44a439331ab79fba77cfe501}\label{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efae9252bca44a439331ab79fba77cfe501}} 
+token\+\_\+slash&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{token\_quote@{token\_quote}!iml@{iml}}\index{iml@{iml}!token\_quote@{token\_quote}}}\mbox{\Hypertarget{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efab1f48c88802f6a816b9be226d08a65a0}\label{namespaceiml_a8b01bb4f6e1a5ef414c1c58e287f44efab1f48c88802f6a816b9be226d08a65a0}} 
+token\+\_\+quote&\\
+\hline
+
+\end{DoxyEnumFields}

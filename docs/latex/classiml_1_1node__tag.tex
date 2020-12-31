@@ -1,0 +1,131 @@
+\hypertarget{classiml_1_1node__tag}{}\doxysection{iml\+::node\+\_\+tag Class Reference}
+\label{classiml_1_1node__tag}\index{iml::node\_tag@{iml::node\_tag}}
+
+
+Tag nodes, containing a tag (and if the tag type has a body expression, contains a \mbox{\hyperlink{classiml_1_1node__link}{node\+\_\+link}}).  
+
+
+
+
+{\ttfamily \#include $<$node\+\_\+tag.\+h$>$}
+
+Inheritance diagram for iml\+::node\+\_\+tag\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classiml_1_1node__tag}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classiml_1_1node__tag_abfcb057e2815cf61c89a02fd87f2bdc2}{node\+\_\+tag}} (\mbox{\hyperlink{classiml_1_1tag}{tag}} $\ast$)
+\begin{DoxyCompactList}\small\item\em Default constructor of class \mbox{\hyperlink{classiml_1_1node__tag}{node\+\_\+tag}}. Initializes the tag with a non-\/null tag. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiml_1_1node__tag_acb48515dc66a3e79fa504b277e350638}{$\sim$node\+\_\+tag}} ()
+\begin{DoxyCompactList}\small\item\em Destroys the tag reference (and link if exists). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classiml_1_1node__tag_ab004e7dad5ea3018a7837b2dbaa7577f}{set\+\_\+link}} (\mbox{\hyperlink{classiml_1_1node}{node}} $\ast$)
+\begin{DoxyCompactList}\small\item\em Sets node link. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiml_1_1tag}{tag}} $\ast$ \mbox{\hyperlink{classiml_1_1node__tag_ae3334336b88a12554b054a6a11b558a0}{get\+\_\+tag}} () const
+\begin{DoxyCompactList}\small\item\em Gets the tag associated with the node. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiml_1_1node}{node}} $\ast$ \mbox{\hyperlink{classiml_1_1node__tag_a5bed025f3cbdf11bf3e8b55ada7e9c0b}{get\+\_\+link}} () const
+\begin{DoxyCompactList}\small\item\em Gets the attribute-\/link expression (or nullptr if the node does not contain such parameter). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classiml_1_1node__tag_ab81a5eacf613f9805d0d305927d81092}{visualize}} (std\+::ostream \&) const
+\item 
+std\+::list$<$ double $>$ \mbox{\hyperlink{classiml_1_1node__tag_a485e66aedd3b2e264a756e68aead444c}{evaluate}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Tag nodes, containing a tag (and if the tag type has a body expression, contains a \mbox{\hyperlink{classiml_1_1node__link}{node\+\_\+link}}). 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classiml_1_1node__tag_abfcb057e2815cf61c89a02fd87f2bdc2}\label{classiml_1_1node__tag_abfcb057e2815cf61c89a02fd87f2bdc2}} 
+\index{iml::node\_tag@{iml::node\_tag}!node\_tag@{node\_tag}}
+\index{node\_tag@{node\_tag}!iml::node\_tag@{iml::node\_tag}}
+\doxysubsubsection{\texorpdfstring{node\_tag()}{node\_tag()}}
+{\footnotesize\ttfamily iml\+::node\+\_\+tag\+::node\+\_\+tag (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classiml_1_1tag}{tag}} $\ast$}]{ }\end{DoxyParamCaption})}
+
+
+
+Default constructor of class \mbox{\hyperlink{classiml_1_1node__tag}{node\+\_\+tag}}. Initializes the tag with a non-\/null tag. 
+
+\mbox{\Hypertarget{classiml_1_1node__tag_acb48515dc66a3e79fa504b277e350638}\label{classiml_1_1node__tag_acb48515dc66a3e79fa504b277e350638}} 
+\index{iml::node\_tag@{iml::node\_tag}!````~node\_tag@{$\sim$node\_tag}}
+\index{````~node\_tag@{$\sim$node\_tag}!iml::node\_tag@{iml::node\_tag}}
+\doxysubsubsection{\texorpdfstring{$\sim$node\_tag()}{~node\_tag()}}
+{\footnotesize\ttfamily iml\+::node\+\_\+tag\+::$\sim$node\+\_\+tag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destroys the tag reference (and link if exists). 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classiml_1_1node__tag_a485e66aedd3b2e264a756e68aead444c}\label{classiml_1_1node__tag_a485e66aedd3b2e264a756e68aead444c}} 
+\index{iml::node\_tag@{iml::node\_tag}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!iml::node\_tag@{iml::node\_tag}}
+\doxysubsubsection{\texorpdfstring{evaluate()}{evaluate()}}
+{\footnotesize\ttfamily std\+::list$<$double$>$ iml\+::node\+\_\+tag\+::evaluate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Evaluates the node, by evaluating the node\textquotesingle{}s chuldren, storing the results in a list evaluates the list based on the tag type and returning it. 
+
+Implements \mbox{\hyperlink{classiml_1_1node_ad8a9514dd478f3337a96bfcac4643081}{iml\+::node}}.
+
+\mbox{\Hypertarget{classiml_1_1node__tag_a5bed025f3cbdf11bf3e8b55ada7e9c0b}\label{classiml_1_1node__tag_a5bed025f3cbdf11bf3e8b55ada7e9c0b}} 
+\index{iml::node\_tag@{iml::node\_tag}!get\_link@{get\_link}}
+\index{get\_link@{get\_link}!iml::node\_tag@{iml::node\_tag}}
+\doxysubsubsection{\texorpdfstring{get\_link()}{get\_link()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classiml_1_1node}{node}}$\ast$ iml\+::node\+\_\+tag\+::get\+\_\+link (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Gets the attribute-\/link expression (or nullptr if the node does not contain such parameter). 
+
+
+
+Reimplemented from \mbox{\hyperlink{classiml_1_1node_ad616f28d6e11809c4c503863f619ed61}{iml\+::node}}.
+
+\mbox{\Hypertarget{classiml_1_1node__tag_ae3334336b88a12554b054a6a11b558a0}\label{classiml_1_1node__tag_ae3334336b88a12554b054a6a11b558a0}} 
+\index{iml::node\_tag@{iml::node\_tag}!get\_tag@{get\_tag}}
+\index{get\_tag@{get\_tag}!iml::node\_tag@{iml::node\_tag}}
+\doxysubsubsection{\texorpdfstring{get\_tag()}{get\_tag()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classiml_1_1tag}{tag}}$\ast$ iml\+::node\+\_\+tag\+::get\+\_\+tag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Gets the tag associated with the node. 
+
+
+
+Reimplemented from \mbox{\hyperlink{classiml_1_1node_ab7f96f4784db0387c4b8075ca3851a59}{iml\+::node}}.
+
+\mbox{\Hypertarget{classiml_1_1node__tag_ab004e7dad5ea3018a7837b2dbaa7577f}\label{classiml_1_1node__tag_ab004e7dad5ea3018a7837b2dbaa7577f}} 
+\index{iml::node\_tag@{iml::node\_tag}!set\_link@{set\_link}}
+\index{set\_link@{set\_link}!iml::node\_tag@{iml::node\_tag}}
+\doxysubsubsection{\texorpdfstring{set\_link()}{set\_link()}}
+{\footnotesize\ttfamily void iml\+::node\+\_\+tag\+::set\+\_\+link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classiml_1_1node}{node}} $\ast$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Sets node link. 
+
+
+
+Reimplemented from \mbox{\hyperlink{classiml_1_1node_aedc8065d0da4252c354939d62e0162d3}{iml\+::node}}.
+
+\mbox{\Hypertarget{classiml_1_1node__tag_ab81a5eacf613f9805d0d305927d81092}\label{classiml_1_1node__tag_ab81a5eacf613f9805d0d305927d81092}} 
+\index{iml::node\_tag@{iml::node\_tag}!visualize@{visualize}}
+\index{visualize@{visualize}!iml::node\_tag@{iml::node\_tag}}
+\doxysubsubsection{\texorpdfstring{visualize()}{visualize()}}
+{\footnotesize\ttfamily void iml\+::node\+\_\+tag\+::visualize (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Visualizes the node by creating a visual tree node with the tag type (name) and the children (if a link exists, it is the most left child (not associated with the children list)). ~\newline
+ 
+
+Implements \mbox{\hyperlink{classiml_1_1node_a0e9f0631468dc2856d886a6304b958f8}{iml\+::node}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/stoyan/\+FMI/\+Programming/c++/projects/iml/include/node/\mbox{\hyperlink{node__tag_8h}{node\+\_\+tag.\+h}}\end{DoxyCompactItemize}

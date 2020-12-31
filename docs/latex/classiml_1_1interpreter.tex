@@ -1,0 +1,58 @@
+\hypertarget{classiml_1_1interpreter}{}\doxysection{iml\+::interpreter Class Reference}
+\label{classiml_1_1interpreter}\index{iml::interpreter@{iml::interpreter}}
+
+
+{\ttfamily \#include $<$interpreter.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classiml_1_1interpreter_acea0b232523b39a58fbf4a902353536e}{interpret\+\_\+file}} (const char $\ast$, const char $\ast$=\char`\"{}iml\+\_\+result.\+imlr\char`\"{})
+\begin{DoxyCompactList}\small\item\em Calls interpreter with an input file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classiml_1_1interpreter_a7396c13a019ea59e739a8a1f97c8a7cb}{interpret\+\_\+stream}} (std\+::istream \&, const char $\ast$=\char`\"{}iml\+\_\+result.\+imlr\char`\"{})
+\begin{DoxyCompactList}\small\item\em Calls interpreter with an input stream. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classiml_1_1interpreter_a20d9fd88e2f3d2ace2a826f98faba1ec}{interpret\+\_\+buffer}} (const char $\ast$, const char $\ast$=\char`\"{}iml\+\_\+result.\+imlr\char`\"{})
+\begin{DoxyCompactList}\small\item\em Calls interpreter with a string representing the input. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The interpreter class evaluates the input and returns the result in an output file.
+
+Interpreting is done by a straightforward alghorithm, using a stack to store the tag hierarchy, an unordered\+\_\+map storing the links between tag attribute names and resulting lists and another stack containing the hierarchy of lists of values to be modificated and returned as a result. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classiml_1_1interpreter_a20d9fd88e2f3d2ace2a826f98faba1ec}\label{classiml_1_1interpreter_a20d9fd88e2f3d2ace2a826f98faba1ec}} 
+\index{iml::interpreter@{iml::interpreter}!interpret\_buffer@{interpret\_buffer}}
+\index{interpret\_buffer@{interpret\_buffer}!iml::interpreter@{iml::interpreter}}
+\doxysubsubsection{\texorpdfstring{interpret\_buffer()}{interpret\_buffer()}}
+{\footnotesize\ttfamily void iml\+::interpreter\+::interpret\+\_\+buffer (\begin{DoxyParamCaption}\item[{const char $\ast$}]{,  }\item[{const char $\ast$}]{ = {\ttfamily \char`\"{}iml\+\_\+result.imlr\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Calls interpreter with a string representing the input. 
+
+\mbox{\Hypertarget{classiml_1_1interpreter_acea0b232523b39a58fbf4a902353536e}\label{classiml_1_1interpreter_acea0b232523b39a58fbf4a902353536e}} 
+\index{iml::interpreter@{iml::interpreter}!interpret\_file@{interpret\_file}}
+\index{interpret\_file@{interpret\_file}!iml::interpreter@{iml::interpreter}}
+\doxysubsubsection{\texorpdfstring{interpret\_file()}{interpret\_file()}}
+{\footnotesize\ttfamily void iml\+::interpreter\+::interpret\+\_\+file (\begin{DoxyParamCaption}\item[{const char $\ast$}]{,  }\item[{const char $\ast$}]{ = {\ttfamily \char`\"{}iml\+\_\+result.imlr\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Calls interpreter with an input file. 
+
+\mbox{\Hypertarget{classiml_1_1interpreter_a7396c13a019ea59e739a8a1f97c8a7cb}\label{classiml_1_1interpreter_a7396c13a019ea59e739a8a1f97c8a7cb}} 
+\index{iml::interpreter@{iml::interpreter}!interpret\_stream@{interpret\_stream}}
+\index{interpret\_stream@{interpret\_stream}!iml::interpreter@{iml::interpreter}}
+\doxysubsubsection{\texorpdfstring{interpret\_stream()}{interpret\_stream()}}
+{\footnotesize\ttfamily void iml\+::interpreter\+::interpret\+\_\+stream (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{,  }\item[{const char $\ast$}]{ = {\ttfamily \char`\"{}iml\+\_\+result.imlr\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Calls interpreter with an input stream. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/stoyan/\+FMI/\+Programming/c++/projects/iml/include/interpreter/\mbox{\hyperlink{interpreter_8h}{interpreter.\+h}}\end{DoxyCompactItemize}

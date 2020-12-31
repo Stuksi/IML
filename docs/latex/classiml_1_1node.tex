@@ -1,0 +1,186 @@
+\hypertarget{classiml_1_1node}{}\doxysection{iml\+::node Class Reference}
+\label{classiml_1_1node}\index{iml::node@{iml::node}}
+
+
+Base class of the tree nodes.  
+
+
+
+
+{\ttfamily \#include $<$node.\+h$>$}
+
+Inheritance diagram for iml\+::node\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classiml_1_1node}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classiml_1_1node_a892f3dc2ae3b420c01ff8c11fd42a4a4}{node}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor of class node. Initializes the node parameters with null objects. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classiml_1_1node_a73a5090e88c8b62244a035b8817f7899}{$\sim$node}} ()
+\begin{DoxyCompactList}\small\item\em Destroys the children of the node. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classiml_1_1node_ae48d7dc1494e4d32ea8ecf80f46dac0d}{set\+\_\+parent}} (\mbox{\hyperlink{classiml_1_1node}{node}} $\ast$)
+\begin{DoxyCompactList}\small\item\em Sets node parent. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classiml_1_1node_a27f42419a1c8eec86decafde8847b7ed}{set\+\_\+children}} (std\+::list$<$ \mbox{\hyperlink{classiml_1_1node}{node}} $\ast$ $>$)
+\begin{DoxyCompactList}\small\item\em Sets node children. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classiml_1_1node_aedc8065d0da4252c354939d62e0162d3}{set\+\_\+link}} (\mbox{\hyperlink{classiml_1_1node}{node}} $\ast$)
+\begin{DoxyCompactList}\small\item\em Sets node link. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiml_1_1node}{node}} $\ast$ \mbox{\hyperlink{classiml_1_1node_ab7d30be20b942ac22d65bc1e123d2679}{get\+\_\+parent}} () const
+\begin{DoxyCompactList}\small\item\em Gets node parent (or nullptr if the node is the document root). \end{DoxyCompactList}\item 
+std\+::list$<$ \mbox{\hyperlink{classiml_1_1node}{node}} $\ast$ $>$ \mbox{\hyperlink{classiml_1_1node_af3ad4ebf9eeee999647e152aa0f721eb}{get\+\_\+children}} () const
+\begin{DoxyCompactList}\small\item\em Gets the list of children of the node (if it is a leaf node). \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classiml_1_1tag}{tag}} $\ast$ \mbox{\hyperlink{classiml_1_1node_ab7f96f4784db0387c4b8075ca3851a59}{get\+\_\+tag}} () const
+\begin{DoxyCompactList}\small\item\em Gets the tag associated with the node (or nullptr if the node does not support tags). \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classiml_1_1node}{node}} $\ast$ \mbox{\hyperlink{classiml_1_1node_ad616f28d6e11809c4c503863f619ed61}{get\+\_\+link}} () const
+\begin{DoxyCompactList}\small\item\em Gets the attribute-\/link expression (or nullptr if the node does not support links). \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classiml_1_1node_a0e9f0631468dc2856d886a6304b958f8}{visualize}} (std\+::ostream \&) const =0
+\begin{DoxyCompactList}\small\item\em Visualizes the node depending on the type. \end{DoxyCompactList}\item 
+virtual std\+::list$<$ double $>$ \mbox{\hyperlink{classiml_1_1node_ad8a9514dd478f3337a96bfcac4643081}{evaluate}} () const =0
+\begin{DoxyCompactList}\small\item\em Evaluates the node depending on the type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base class of the tree nodes. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classiml_1_1node_a892f3dc2ae3b420c01ff8c11fd42a4a4}\label{classiml_1_1node_a892f3dc2ae3b420c01ff8c11fd42a4a4}} 
+\index{iml::node@{iml::node}!node@{node}}
+\index{node@{node}!iml::node@{iml::node}}
+\doxysubsubsection{\texorpdfstring{node()}{node()}}
+{\footnotesize\ttfamily iml\+::node\+::node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Default constructor of class node. Initializes the node parameters with null objects. 
+
+\mbox{\Hypertarget{classiml_1_1node_a73a5090e88c8b62244a035b8817f7899}\label{classiml_1_1node_a73a5090e88c8b62244a035b8817f7899}} 
+\index{iml::node@{iml::node}!````~node@{$\sim$node}}
+\index{````~node@{$\sim$node}!iml::node@{iml::node}}
+\doxysubsubsection{\texorpdfstring{$\sim$node()}{~node()}}
+{\footnotesize\ttfamily virtual iml\+::node\+::$\sim$node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Destroys the children of the node. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classiml_1_1node_ad8a9514dd478f3337a96bfcac4643081}\label{classiml_1_1node_ad8a9514dd478f3337a96bfcac4643081}} 
+\index{iml::node@{iml::node}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!iml::node@{iml::node}}
+\doxysubsubsection{\texorpdfstring{evaluate()}{evaluate()}}
+{\footnotesize\ttfamily virtual std\+::list$<$double$>$ iml\+::node\+::evaluate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Evaluates the node depending on the type. 
+
+
+
+Implemented in \mbox{\hyperlink{classiml_1_1node__tag_a485e66aedd3b2e264a756e68aead444c}{iml\+::node\+\_\+tag}}, \mbox{\hyperlink{classiml_1_1node__link_ab1da2281ae130693fd51c09e5d26d3c7}{iml\+::node\+\_\+link}}, \mbox{\hyperlink{classiml_1_1node__document_ac037f012693907f865f80ed7826c3aa0}{iml\+::node\+\_\+document}}, and \mbox{\hyperlink{classiml_1_1node__const_adbff43f2f9433b0a0166b6eddc255f11}{iml\+::node\+\_\+const}}.
+
+\mbox{\Hypertarget{classiml_1_1node_af3ad4ebf9eeee999647e152aa0f721eb}\label{classiml_1_1node_af3ad4ebf9eeee999647e152aa0f721eb}} 
+\index{iml::node@{iml::node}!get\_children@{get\_children}}
+\index{get\_children@{get\_children}!iml::node@{iml::node}}
+\doxysubsubsection{\texorpdfstring{get\_children()}{get\_children()}}
+{\footnotesize\ttfamily std\+::list$<$\mbox{\hyperlink{classiml_1_1node}{node}}$\ast$$>$ iml\+::node\+::get\+\_\+children (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the list of children of the node (if it is a leaf node). 
+
+\mbox{\Hypertarget{classiml_1_1node_ad616f28d6e11809c4c503863f619ed61}\label{classiml_1_1node_ad616f28d6e11809c4c503863f619ed61}} 
+\index{iml::node@{iml::node}!get\_link@{get\_link}}
+\index{get\_link@{get\_link}!iml::node@{iml::node}}
+\doxysubsubsection{\texorpdfstring{get\_link()}{get\_link()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classiml_1_1node}{node}}$\ast$ iml\+::node\+::get\+\_\+link (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Gets the attribute-\/link expression (or nullptr if the node does not support links). 
+
+
+
+Reimplemented in \mbox{\hyperlink{classiml_1_1node__tag_a5bed025f3cbdf11bf3e8b55ada7e9c0b}{iml\+::node\+\_\+tag}}.
+
+\mbox{\Hypertarget{classiml_1_1node_ab7d30be20b942ac22d65bc1e123d2679}\label{classiml_1_1node_ab7d30be20b942ac22d65bc1e123d2679}} 
+\index{iml::node@{iml::node}!get\_parent@{get\_parent}}
+\index{get\_parent@{get\_parent}!iml::node@{iml::node}}
+\doxysubsubsection{\texorpdfstring{get\_parent()}{get\_parent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classiml_1_1node}{node}}$\ast$ iml\+::node\+::get\+\_\+parent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets node parent (or nullptr if the node is the document root). 
+
+\mbox{\Hypertarget{classiml_1_1node_ab7f96f4784db0387c4b8075ca3851a59}\label{classiml_1_1node_ab7f96f4784db0387c4b8075ca3851a59}} 
+\index{iml::node@{iml::node}!get\_tag@{get\_tag}}
+\index{get\_tag@{get\_tag}!iml::node@{iml::node}}
+\doxysubsubsection{\texorpdfstring{get\_tag()}{get\_tag()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classiml_1_1tag}{tag}}$\ast$ iml\+::node\+::get\+\_\+tag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Gets the tag associated with the node (or nullptr if the node does not support tags). 
+
+
+
+Reimplemented in \mbox{\hyperlink{classiml_1_1node__tag_ae3334336b88a12554b054a6a11b558a0}{iml\+::node\+\_\+tag}}.
+
+\mbox{\Hypertarget{classiml_1_1node_a27f42419a1c8eec86decafde8847b7ed}\label{classiml_1_1node_a27f42419a1c8eec86decafde8847b7ed}} 
+\index{iml::node@{iml::node}!set\_children@{set\_children}}
+\index{set\_children@{set\_children}!iml::node@{iml::node}}
+\doxysubsubsection{\texorpdfstring{set\_children()}{set\_children()}}
+{\footnotesize\ttfamily void iml\+::node\+::set\+\_\+children (\begin{DoxyParamCaption}\item[{std\+::list$<$ \mbox{\hyperlink{classiml_1_1node}{node}} $\ast$ $>$}]{ }\end{DoxyParamCaption})}
+
+
+
+Sets node children. 
+
+\mbox{\Hypertarget{classiml_1_1node_aedc8065d0da4252c354939d62e0162d3}\label{classiml_1_1node_aedc8065d0da4252c354939d62e0162d3}} 
+\index{iml::node@{iml::node}!set\_link@{set\_link}}
+\index{set\_link@{set\_link}!iml::node@{iml::node}}
+\doxysubsubsection{\texorpdfstring{set\_link()}{set\_link()}}
+{\footnotesize\ttfamily virtual void iml\+::node\+::set\+\_\+link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classiml_1_1node}{node}} $\ast$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Sets node link. 
+
+
+
+Reimplemented in \mbox{\hyperlink{classiml_1_1node__tag_ab004e7dad5ea3018a7837b2dbaa7577f}{iml\+::node\+\_\+tag}}.
+
+\mbox{\Hypertarget{classiml_1_1node_ae48d7dc1494e4d32ea8ecf80f46dac0d}\label{classiml_1_1node_ae48d7dc1494e4d32ea8ecf80f46dac0d}} 
+\index{iml::node@{iml::node}!set\_parent@{set\_parent}}
+\index{set\_parent@{set\_parent}!iml::node@{iml::node}}
+\doxysubsubsection{\texorpdfstring{set\_parent()}{set\_parent()}}
+{\footnotesize\ttfamily void iml\+::node\+::set\+\_\+parent (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classiml_1_1node}{node}} $\ast$}]{ }\end{DoxyParamCaption})}
+
+
+
+Sets node parent. 
+
+\mbox{\Hypertarget{classiml_1_1node_a0e9f0631468dc2856d886a6304b958f8}\label{classiml_1_1node_a0e9f0631468dc2856d886a6304b958f8}} 
+\index{iml::node@{iml::node}!visualize@{visualize}}
+\index{visualize@{visualize}!iml::node@{iml::node}}
+\doxysubsubsection{\texorpdfstring{visualize()}{visualize()}}
+{\footnotesize\ttfamily virtual void iml\+::node\+::visualize (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Visualizes the node depending on the type. 
+
+
+
+Implemented in \mbox{\hyperlink{classiml_1_1node__tag_ab81a5eacf613f9805d0d305927d81092}{iml\+::node\+\_\+tag}}, \mbox{\hyperlink{classiml_1_1node__link_ae904f18c685ee4a9f841d48b8ef9eac8}{iml\+::node\+\_\+link}}, \mbox{\hyperlink{classiml_1_1node__document_aa7bd3b1ffe1db4d93f3cbb6701662021}{iml\+::node\+\_\+document}}, and \mbox{\hyperlink{classiml_1_1node__const_ae4255c576dbe984243090f1f7714a454}{iml\+::node\+\_\+const}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/stoyan/\+FMI/\+Programming/c++/projects/iml/include/node/\mbox{\hyperlink{node_8h}{node.\+h}}\end{DoxyCompactItemize}

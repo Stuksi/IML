@@ -1,0 +1,157 @@
+\hypertarget{classiml_1_1reader}{}\doxysection{iml\+::reader Class Reference}
+\label{classiml_1_1reader}\index{iml::reader@{iml::reader}}
+
+
+{\ttfamily \#include $<$reader.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classiml_1_1reader_a3a7599069ccf791587a67e97ddbbb534}{reader}} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor of class reader (not used). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiml_1_1reader_a006b02ab43414e734305a34f8c4f94f5}{reader}} (std\+::istream \&)
+\begin{DoxyCompactList}\small\item\em Default constructor of class reader. Initializes the tokens by calling a lexer class. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiml_1_1token}{token}} \mbox{\hyperlink{classiml_1_1reader_a02906575c6129718307a48ac209347b6}{current}} () const
+\begin{DoxyCompactList}\small\item\em Gets the currently pointed token in the tokens list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classiml_1_1reader_a2eae6315f020fa6e4507723067dd8420}{next}} ()
+\begin{DoxyCompactList}\small\item\em Points to the next token in the tokens list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classiml_1_1reader_ad7ecc863ad6d387199203bedccf29632}{previous}} ()
+\begin{DoxyCompactList}\small\item\em Points to the previous token in the tokens list. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classiml_1_1reader_aa307843253673982cf3bd21a3771976f}{is\+\_\+end}} ()
+\begin{DoxyCompactList}\small\item\em Checks if it is an \textquotesingle{}end\textquotesingle{} tag (BODY or close tag) or end of the input. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classiml_1_1reader_a322d18a9bbeae8e5c2d1a48c49120e92}{is\+\_\+value}} ()
+\begin{DoxyCompactList}\small\item\em Checks if the currently pointed token is of a value type (string or number). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiml_1_1tag}{tag}} $\ast$ \mbox{\hyperlink{classiml_1_1reader_a91f894fc72bbdc1fb74ea3bf95dcf4d8}{read\+\_\+open\+\_\+tag}} ()
+\begin{DoxyCompactList}\small\item\em Reads and returns an open tag based on the iml grammar. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiml_1_1tag}{tag}} $\ast$ \mbox{\hyperlink{classiml_1_1reader_a20a848d840148c8689ac32de7932e5c9}{read\+\_\+close\+\_\+tag}} ()
+\begin{DoxyCompactList}\small\item\em Reads and returns a close tag based on the iml grammar. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiml_1_1tag}{tag}} $\ast$ \mbox{\hyperlink{classiml_1_1reader_adeb9f39ac04c246c734ed92e8df6ec6e}{read\+\_\+body\+\_\+tag}} ()
+\begin{DoxyCompactList}\small\item\em Reads and returns a body tag based on the iml grammar. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiml_1_1attribute}{attribute}} \mbox{\hyperlink{classiml_1_1reader_adefccd3b8a605c80e39ccde6e3171ed2}{read\+\_\+attribute}} ()
+\begin{DoxyCompactList}\small\item\em Reads and returns an attribute based on the iml grammar. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Reader class, validating the expressions based on the iml grammar.
+
+Helper class used to read and validate expressions and check for future expressions. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classiml_1_1reader_a3a7599069ccf791587a67e97ddbbb534}\label{classiml_1_1reader_a3a7599069ccf791587a67e97ddbbb534}} 
+\index{iml::reader@{iml::reader}!reader@{reader}}
+\index{reader@{reader}!iml::reader@{iml::reader}}
+\doxysubsubsection{\texorpdfstring{reader()}{reader()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily iml\+::reader\+::reader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Default constructor of class reader (not used). 
+
+\mbox{\Hypertarget{classiml_1_1reader_a006b02ab43414e734305a34f8c4f94f5}\label{classiml_1_1reader_a006b02ab43414e734305a34f8c4f94f5}} 
+\index{iml::reader@{iml::reader}!reader@{reader}}
+\index{reader@{reader}!iml::reader@{iml::reader}}
+\doxysubsubsection{\texorpdfstring{reader()}{reader()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily iml\+::reader\+::reader (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{ }\end{DoxyParamCaption})}
+
+
+
+Default constructor of class reader. Initializes the tokens by calling a lexer class. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classiml_1_1reader_a02906575c6129718307a48ac209347b6}\label{classiml_1_1reader_a02906575c6129718307a48ac209347b6}} 
+\index{iml::reader@{iml::reader}!current@{current}}
+\index{current@{current}!iml::reader@{iml::reader}}
+\doxysubsubsection{\texorpdfstring{current()}{current()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classiml_1_1token}{token}} iml\+::reader\+::current (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the currently pointed token in the tokens list. 
+
+\mbox{\Hypertarget{classiml_1_1reader_aa307843253673982cf3bd21a3771976f}\label{classiml_1_1reader_aa307843253673982cf3bd21a3771976f}} 
+\index{iml::reader@{iml::reader}!is\_end@{is\_end}}
+\index{is\_end@{is\_end}!iml::reader@{iml::reader}}
+\doxysubsubsection{\texorpdfstring{is\_end()}{is\_end()}}
+{\footnotesize\ttfamily bool iml\+::reader\+::is\+\_\+end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if it is an \textquotesingle{}end\textquotesingle{} tag (BODY or close tag) or end of the input. 
+
+\mbox{\Hypertarget{classiml_1_1reader_a322d18a9bbeae8e5c2d1a48c49120e92}\label{classiml_1_1reader_a322d18a9bbeae8e5c2d1a48c49120e92}} 
+\index{iml::reader@{iml::reader}!is\_value@{is\_value}}
+\index{is\_value@{is\_value}!iml::reader@{iml::reader}}
+\doxysubsubsection{\texorpdfstring{is\_value()}{is\_value()}}
+{\footnotesize\ttfamily bool iml\+::reader\+::is\+\_\+value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if the currently pointed token is of a value type (string or number). 
+
+\mbox{\Hypertarget{classiml_1_1reader_a2eae6315f020fa6e4507723067dd8420}\label{classiml_1_1reader_a2eae6315f020fa6e4507723067dd8420}} 
+\index{iml::reader@{iml::reader}!next@{next}}
+\index{next@{next}!iml::reader@{iml::reader}}
+\doxysubsubsection{\texorpdfstring{next()}{next()}}
+{\footnotesize\ttfamily void iml\+::reader\+::next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Points to the next token in the tokens list. 
+
+\mbox{\Hypertarget{classiml_1_1reader_ad7ecc863ad6d387199203bedccf29632}\label{classiml_1_1reader_ad7ecc863ad6d387199203bedccf29632}} 
+\index{iml::reader@{iml::reader}!previous@{previous}}
+\index{previous@{previous}!iml::reader@{iml::reader}}
+\doxysubsubsection{\texorpdfstring{previous()}{previous()}}
+{\footnotesize\ttfamily void iml\+::reader\+::previous (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Points to the previous token in the tokens list. 
+
+\mbox{\Hypertarget{classiml_1_1reader_adefccd3b8a605c80e39ccde6e3171ed2}\label{classiml_1_1reader_adefccd3b8a605c80e39ccde6e3171ed2}} 
+\index{iml::reader@{iml::reader}!read\_attribute@{read\_attribute}}
+\index{read\_attribute@{read\_attribute}!iml::reader@{iml::reader}}
+\doxysubsubsection{\texorpdfstring{read\_attribute()}{read\_attribute()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classiml_1_1attribute}{attribute}} iml\+::reader\+::read\+\_\+attribute (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reads and returns an attribute based on the iml grammar. 
+
+\mbox{\Hypertarget{classiml_1_1reader_adeb9f39ac04c246c734ed92e8df6ec6e}\label{classiml_1_1reader_adeb9f39ac04c246c734ed92e8df6ec6e}} 
+\index{iml::reader@{iml::reader}!read\_body\_tag@{read\_body\_tag}}
+\index{read\_body\_tag@{read\_body\_tag}!iml::reader@{iml::reader}}
+\doxysubsubsection{\texorpdfstring{read\_body\_tag()}{read\_body\_tag()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classiml_1_1tag}{tag}}$\ast$ iml\+::reader\+::read\+\_\+body\+\_\+tag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reads and returns a body tag based on the iml grammar. 
+
+\mbox{\Hypertarget{classiml_1_1reader_a20a848d840148c8689ac32de7932e5c9}\label{classiml_1_1reader_a20a848d840148c8689ac32de7932e5c9}} 
+\index{iml::reader@{iml::reader}!read\_close\_tag@{read\_close\_tag}}
+\index{read\_close\_tag@{read\_close\_tag}!iml::reader@{iml::reader}}
+\doxysubsubsection{\texorpdfstring{read\_close\_tag()}{read\_close\_tag()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classiml_1_1tag}{tag}}$\ast$ iml\+::reader\+::read\+\_\+close\+\_\+tag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reads and returns a close tag based on the iml grammar. 
+
+\mbox{\Hypertarget{classiml_1_1reader_a91f894fc72bbdc1fb74ea3bf95dcf4d8}\label{classiml_1_1reader_a91f894fc72bbdc1fb74ea3bf95dcf4d8}} 
+\index{iml::reader@{iml::reader}!read\_open\_tag@{read\_open\_tag}}
+\index{read\_open\_tag@{read\_open\_tag}!iml::reader@{iml::reader}}
+\doxysubsubsection{\texorpdfstring{read\_open\_tag()}{read\_open\_tag()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classiml_1_1tag}{tag}}$\ast$ iml\+::reader\+::read\+\_\+open\+\_\+tag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reads and returns an open tag based on the iml grammar. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/stoyan/\+FMI/\+Programming/c++/projects/iml/include/reader/\mbox{\hyperlink{reader_8h}{reader.\+h}}\end{DoxyCompactItemize}
