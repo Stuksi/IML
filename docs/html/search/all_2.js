@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['current_7',['current',['../classiml_1_1reader.html#a02906575c6129718307a48ac209347b6',1,'iml::reader']]]
+  ['build_5ftree_7',['build_tree',['../classiml_1_1parser.html#aedf73489100a805841f91fcd1b0637c7',1,'iml::parser']]]
 ];

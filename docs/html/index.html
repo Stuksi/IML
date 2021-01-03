@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>iml: Main Page</title>
+<title>iml: &lt;a href=&quot;https://docs.google.com/document/d/1MXNOaWoTIxODs8LzAuqIOLq4j4mkw4ZweVLvbJe6XKs/edit&quot;&gt;iml&lt;/a&gt;</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,11 +60,48 @@ $(function() {
 </iframe>
 </div>
 
-<div class="header">
+<div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">iml Documentation</div>  </div>
+<div class="title"><a href="https://docs.google.com/document/d/1MXNOaWoTIxODs8LzAuqIOLq4j4mkw4ZweVLvbJe6XKs/edit">iml</a> </div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md__home_stoyan_FMI_Programming_c___projects_iml_README"></a> </p>
+<h2><a class="anchor" id="autotoc_md1"></a>
+What is iml?</h2>
+<p>iml is a light weight C++ language interpreting/parsing library. It consists of a fast interpreting/parsing mechanism. The IML language is inspired by an uni data structutes project. It is easy to develop new tags, and its very easy to integrate and use the library.</p>
+<h2><a class="anchor" id="autotoc_md2"></a>
+What is its purpose?</h2>
+<p>IML as a language can be used to evaluate mathematical expressions with the use of tags or to structure arrays which can be used with other programs. iml provides a small range of tags to be played with.</p>
+<h2><a class="anchor" id="autotoc_md3"></a>
+IML Grammar</h2>
+<p>The parser and the interpreter are based on the following grammar: </p><div class="fragment"><div class="line">expression              := tag_expression , expression | value , expression | &quot;&quot; ;</div>
+<div class="line">tag_expression          := open_tag , expression , [let_tag_expression] , close_tag ;</div>
+<div class="line">let_tag_expreesion      := body_tag , expression</div>
+<div class="line">open_tag                := &quot;&lt;&quot; , string , [ attribute ] , &quot;&gt;&quot;</div>
+<div class="line">body_tag                := &quot;&lt;&quot; , &quot;BODY&quot; , &quot;/&quot; , &quot;&gt;&quot; ;</div>
+<div class="line">close_tag               := &quot;&lt;&quot; , &quot;/&quot; , string , &quot;&gt;&quot; ; </div>
+<div class="line">attribute               := &quot;&quot;&quot; , value , &quot;&quot;&quot; ;</div>
+<div class="line">value                   := double | string ;</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md4"></a>
+How to use it?</h2>
+<p>Every element is stored in the iml namespace, so to use the library, add <code>iml::</code> in front of the class elements or simply write <code>using namespace iml;</code> on top of your program.</p>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Quick start guide...</h2>
+<p>Simply install the library and add the interpreter (parser) header file in your project. You can try the examples in the 'examples' directory.. They consist of an example with the interpreter and the parser:</p>
+<h3><a class="anchor" id="autotoc_md6"></a>
+Interpreter example</h3>
+<div class="fragment"><div class="line">iml::interpreter i;</div>
+<div class="line">i.interpret_file(&quot;iml_file_example.iml&quot;);</div>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md7"></a>
+Parser example</h3>
+<div class="fragment"><div class="line">iml::parser parser;</div>
+<div class="line">iml::parser_result result = parser.build_tree(&quot;iml_file_example.iml&quot;);</div>
+<div class="line">result.evaluate();</div>
+<div class="line">result.visualize();</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md8"></a>
+Installation</h2>
+<p><a href="https://github.com/Stuksi/iml/releases/download/v1.0.1/iml.zip">Version 1.0.1</a> </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

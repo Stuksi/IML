@@ -1,0 +1,37 @@
+\label{index_md__home_stoyan_FMI_Programming_c___projects_iml_README}%
+\Hypertarget{index_md__home_stoyan_FMI_Programming_c___projects_iml_README}%
+ \hypertarget{index_autotoc_md1}{}\doxysubsection{What is iml?}\label{index_autotoc_md1}
+iml is a light weight C++ language interpreting/parsing library. It consists of a fast interpreting/parsing mechanism. The IML language is inspired by an uni data structutes project. It is easy to develop new tags, and its very easy to integrate and use the library.\hypertarget{index_autotoc_md2}{}\doxysubsection{What is its purpose?}\label{index_autotoc_md2}
+IML as a language can be used to evaluate mathematical expressions with the use of tags or to structure arrays which can be used with other programs. iml provides a small range of tags to be played with.\hypertarget{index_autotoc_md3}{}\doxysubsection{IML Grammar}\label{index_autotoc_md3}
+The parser and the interpreter are based on the following grammar\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{expression              := tag\_expression , expression | value , expression | "{}"{} ;}
+\DoxyCodeLine{tag\_expression          := open\_tag , expression , [let\_tag\_expression] , close\_tag ;}
+\DoxyCodeLine{let\_tag\_expreesion      := body\_tag , expression}
+\DoxyCodeLine{open\_tag                := "{}<"{} , string , [ attribute ] , "{}>"{}}
+\DoxyCodeLine{body\_tag                := "{}<"{} , "{}BODY"{} , "{}/"{} , "{}>"{} ;}
+\DoxyCodeLine{close\_tag               := "{}<"{} , "{}/"{} , string , "{}>"{} ; }
+\DoxyCodeLine{attribute               := "{}"{}"{} , value , "{}"{}"{} ;}
+\DoxyCodeLine{value                   := double | string ;}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md4}{}\doxysubsection{How to use it?}\label{index_autotoc_md4}
+Every element is stored in the iml namespace, so to use the library, add {\ttfamily iml\+:\+:} in front of the class elements or simply write {\ttfamily using namespace iml;} on top of your program.\hypertarget{index_autotoc_md5}{}\doxysubsection{Quick start guide...}\label{index_autotoc_md5}
+Simply install the library and add the interpreter (parser) header file in your project. You can try the examples in the \textquotesingle{}examples\textquotesingle{} directory.. They consist of an example with the interpreter and the parser\+:\hypertarget{index_autotoc_md6}{}\doxysubsubsection{Interpreter example}\label{index_autotoc_md6}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{iml::interpreter i;}
+\DoxyCodeLine{i.interpret\_file("{}iml\_file\_example.iml"{});}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md7}{}\doxysubsubsection{Parser example}\label{index_autotoc_md7}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{iml::parser parser;}
+\DoxyCodeLine{iml::parser\_result result = parser.build\_tree("{}iml\_file\_example.iml"{});}
+\DoxyCodeLine{result.evaluate();}
+\DoxyCodeLine{result.visualize();}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md8}{}\doxysubsection{Installation}\label{index_autotoc_md8}
+\href{https://github.com/Stuksi/iml/releases/download/v1.0.1/iml.zip}{\texttt{ Version 1.\+0.\+1}} 

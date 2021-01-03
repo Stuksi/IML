@@ -1,15 +1,7 @@
 var searchData=
 [
-  ['name_5flinks_29',['name_links',['../namespaceiml.html#a456d8d7898ad3ea98b2da2169df3c3c1',1,'iml']]],
-  ['next_30',['next',['../classiml_1_1reader.html#a2eae6315f020fa6e4507723067dd8420',1,'iml::reader']]],
-  ['node_31',['node',['../classiml_1_1node.html',1,'iml::node'],['../classiml_1_1node.html#a892f3dc2ae3b420c01ff8c11fd42a4a4',1,'iml::node::node()']]],
-  ['node_2eh_32',['node.h',['../node_8h.html',1,'']]],
-  ['node_5fconst_33',['node_const',['../classiml_1_1node__const.html',1,'iml::node_const'],['../classiml_1_1node__const.html#aa4387189727c9111ac582c6b1c6e83f8',1,'iml::node_const::node_const()']]],
-  ['node_5fconst_2eh_34',['node_const.h',['../node__const_8h.html',1,'']]],
-  ['node_5fdocument_35',['node_document',['../classiml_1_1node__document.html',1,'iml']]],
-  ['node_5fdocument_2eh_36',['node_document.h',['../node__document_8h.html',1,'']]],
-  ['node_5flink_37',['node_link',['../classiml_1_1node__link.html',1,'iml::node_link'],['../classiml_1_1node__link.html#a8d96ade2f25f719b6cf2311b2ad1c8a4',1,'iml::node_link::node_link()']]],
-  ['node_5flink_2eh_38',['node_link.h',['../node__link_8h.html',1,'']]],
-  ['node_5ftag_39',['node_tag',['../classiml_1_1node__tag.html',1,'iml::node_tag'],['../classiml_1_1node__tag.html#abfcb057e2815cf61c89a02fd87f2bdc2',1,'iml::node_tag::node_tag()']]],
-  ['node_5ftag_2eh_40',['node_tag.h',['../node__tag_8h.html',1,'']]]
+  ['lexer_26',['lexer',['../classiml_1_1lexer.html',1,'iml::lexer'],['../classiml_1_1lexer.html#a83453ace3eb1797e84e2716af307c1d5',1,'iml::lexer::lexer()=default'],['../classiml_1_1lexer.html#a6feecbf1054772ff44d85e4ba03553f4',1,'iml::lexer::lexer(std::istream &amp;)']]],
+  ['lexer_2eh_27',['lexer.h',['../lexer_8h.html',1,'']]],
+  ['lexer_5fresult_28',['lexer_result',['../classiml_1_1lexer__result.html',1,'iml::lexer_result'],['../classiml_1_1lexer__result.html#a5c1a37832b5a5de207c51d672929ddc9',1,'iml::lexer_result::lexer_result()=default'],['../classiml_1_1lexer__result.html#ae5564a292b1202a7c26e8293bd10e9b8',1,'iml::lexer_result::lexer_result(std::list&lt; token &gt;)']]],
+  ['lexer_5fresult_2eh_29',['lexer_result.h',['../lexer__result_8h.html',1,'']]]
 ];

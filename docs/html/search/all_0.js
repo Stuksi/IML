@@ -1,9 +1,4 @@
 var searchData=
 [
-  ['apply_0',['apply',['../classiml_1_1tag__config.html#a08d3e20384ae7abb66871f6fad16f060',1,'iml::tag_config']]],
-  ['as_5fdouble_1',['as_double',['../classiml_1_1attribute.html#a59eea1e999503fef134939c6900aecc7',1,'iml::attribute']]],
-  ['as_5fint_2',['as_int',['../classiml_1_1attribute.html#a75b48f95c9eed985292284ffd6e77ce2',1,'iml::attribute']]],
-  ['as_5fstring_3',['as_string',['../classiml_1_1tag.html#a32e2766cf4776420822f775b5c714f2e',1,'iml::tag']]],
-  ['attribute_4',['attribute',['../classiml_1_1attribute.html#ae0835fce4dcbc875da0393e1c9577a80',1,'iml::attribute::attribute()'],['../classiml_1_1attribute.html#a4e20c5b2aa9ff6df6aae3a6e65290bcf',1,'iml::attribute::attribute(std::string)'],['../classiml_1_1attribute.html',1,'iml::attribute']]],
-  ['attribute_2eh_5',['attribute.h',['../attribute_8h.html',1,'']]]
+  ['_3ca_20href_3d_22https_3a_2f_2fdocs_2egoogle_2ecom_2fdocument_2fd_2f1mxnoawotixods8lzauqiolq4j4mkw4zwevlvbje6xks_2fedit_22_3eiml_3c_2fa_3e_0',['&lt;a href=&quot;https://docs.google.com/document/d/1MXNOaWoTIxODs8LzAuqIOLq4j4mkw4ZweVLvbJe6XKs/edit&quot;&gt;iml&lt;/a&gt;',['../index.html',1,'']]]
 ];
