@@ -48,7 +48,8 @@ namespace iml
 
     void interpreter::tag_expr()
     {
-        tags.push(r.read_open_tag());
+        tag* open_tag = r.read_open_tag();
+        tags.push(open_tag);
         values.push(std::list<double>());
         expr();
 
@@ -61,8 +62,12 @@ namespace iml
         if (tags.top()->get_type() != close_tag->get_type()) throw std::runtime_error("Wrong closing tag for - " + tags.top()->as_string() + ". Given - " + close_tag->as_string() + "!");
 
         std::list<double> list_values = tag_config::apply(values.top(), tags.top());
+        
         tags.pop();
         values.pop();
+        delete open_tag;
+        delete close_tag;
+
         for (double value : list_values)
         {
             values.top().push_back(value);
@@ -71,7 +76,7 @@ namespace iml
 
     void interpreter::body_expr()
     {
-        r.read_body_tag();
+        tag* body_tag = r.read_body_tag();
 
         std::string name = tags.top()->get_attribute().get_value();
         links[name].push(values.top());
@@ -84,57 +89,54 @@ namespace iml
         {
             links.erase(name);
         }
+
+        delete body_tag;
     }
 
     std::list<double> interpreter::evaluate()
     {
-        tags.push(new tag(tag_null));
+        tag* root_tag = new tag(tag_null);
+        
+        tags.push(root_tag);
         values.push(std::list<double>());
+        
         expr();
+
+        delete root_tag;
+        
         return values.top();
     }
-
-    void interpreter::interpret(const char* out_file_path)
+    
+    void interpreter::interpret_file(const char* in_file_path, const char* out_file_path)
     {
+        std::ifstream in(in_file_path);
+        if (!in.is_open())
+        {
+            std::cout << "Error -> Non existing input file!" << std::endl;
+            return;
+        }
+        
+        r = reader(in);
         try
         {
             std::list<double> resulting_values = evaluate();
             std::ofstream out(out_file_path);
             std::cout << "Evaluation successfull!\n";
             out << "Result: ";
-            for (auto i = resulting_values.begin(); i != --resulting_values.end(); ++i)
+            if (resulting_values.size() > 0)
             {
-                out << *i << " ";
+                for (auto i = resulting_values.begin(); i != --resulting_values.end(); ++i)
+                {
+                    out << *i << " ";
+                }
+                out << *(--resulting_values.end()); 
             }
-            out << *(--resulting_values.end()); 
         }
         catch(const std::exception& e)
         {
             std::cout << "Error -> " << e.what() << std::endl;
             std::cout << "Evaluation failed!" << std::endl;
         }
-    }
-
-    void interpreter::interpret_file(const char* in_file_path, const char* out_file_path)
-    {
-        std::ifstream in(in_file_path);
-        r = reader(in);
-        interpret(out_file_path);
-        
-    }
-
-    void interpreter::interpret_stream(std::istream& in_stream, const char* out_file_path)
-    {
-        r = reader(in_stream);
-        interpret(out_file_path);
-    }
-
-    void interpreter::interpret_buffer(const char* buffer, const char* out_file_path)
-    {
-        std::stringstream ss;
-        ss << buffer;
-        r = reader(ss);
-        interpret(out_file_path);
     }
 }
 

@@ -6,7 +6,7 @@
 
 namespace iml
 {
-    /// Lexer
+    /// @brief Lexer
     ///
     /// Converts the input signs ,string and numbers to tokens.
     class lexer
@@ -16,6 +16,11 @@ namespace iml
 
         //! Clears the input white spaces.
         void cws();
+
+        //! Checks if cursor is at a number character.
+        bool is_digit();
+        //! Checks if cursor is at a string character.
+        bool is_char(); 
         
         //! Returns a sign token (or invalid token if the characters is invalid).
         token next_sign();

@@ -11,7 +11,7 @@ namespace iml
     private:
         attribute attr;
     public:
-        //! Default constructor of class taga. Initializes the tag type and the attribute of the tag.
+        //! Parameterized constructor of class taga. Initializes the tag type and the attribute of the tag.
         taga(tag_type, attribute);
 
         //! Gets the tag attribute.

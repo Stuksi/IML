@@ -7,7 +7,7 @@
 
 namespace iml
 {
-    /// Reader class, validating the expressions based on the iml grammar.
+    /// @brief Reader class, validating the expressions based on the iml grammar.
     ///
     /// Helper class used to read and validate expressions and check for future expressions.
     class reader
@@ -20,7 +20,7 @@ namespace iml
     public: 
         //! Default constructor of class reader (not used).
         reader() = default;
-        //! Default constructor of class reader. Initializes the tokens by calling a lexer class.
+        //! Parameterized constructor of class reader. Initializes the tokens by calling a lexer class.
         reader(std::istream&);
 
         //! Gets the currently pointed token in the tokens list.

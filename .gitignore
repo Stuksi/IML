@@ -1,7 +1,0 @@
-lib
-.vscode
-*.out
-*.iml
-*.imlr
-*.dot
-main.cpp

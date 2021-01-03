@@ -146,11 +146,11 @@ namespace iml
         std::string attr = tag->get_attribute().get_value();
         if (attr == "ASC")
         {
-            values.sort([](double a, double b)->bool{return a > b;});
+            values.sort([](double a, double b)->bool{return a < b;});
         }
         else
         {
-            values.sort([](double a, double b)->bool{return a < b;});
+            values.sort([](double a, double b)->bool{return a > b;});
         }
         return values;
     }
@@ -174,14 +174,14 @@ namespace iml
     std::list<double> tag_config::tag_config_helper<tag_srt_dst>::apply(std::list<double> values, tag* tag)
     {
         std::set<double> values_set;
+        std::list<double> values_result;
         for (double value : values)
         {
-            values_set.insert(value);
-        }
-        std::list<double> values_result;
-        for (double value : values_set)
-        {
-            values_result.push_back(value);
+            if (values_set.find(value) == values_set.end())
+            {
+                values_set.insert(value);
+                values_result.push_back(value);
+            }
         }
         return values_result;
     }
@@ -225,9 +225,18 @@ namespace iml
     {
         return validate_attribute(tag, [](std::string str)
         {
+            bool dot = false;
             for (char c : str)
             {
-                if(!isdigit(c))
+                if (c == '.')
+                {
+                    if (dot)
+                    {
+                        return true;
+                    }
+                    dot = true;
+                }
+                else if(!isdigit(c) || (dot && c != '0'))
                 {
                     return true;
                 }

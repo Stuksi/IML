@@ -13,7 +13,7 @@ namespace iml
         tag* current_tag;
         node* link;
     public:
-        //! Default constructor of class node_tag. Initializes the tag with a non-null tag.
+        //! Parameterized constructor of class node_tag. Initializes the tag with a non-null tag.
         node_tag(tag*);
         //! Destroys the tag reference (and link if exists).
         ~node_tag();

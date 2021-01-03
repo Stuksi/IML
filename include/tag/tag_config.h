@@ -7,7 +7,7 @@
 
 namespace iml
 {
-    /// Tag configuration.
+    /// @brief Tag configuration.
     ///
     /// Used to validate and apply the different mechanisms of the diffrent tag types.
     class tag_config

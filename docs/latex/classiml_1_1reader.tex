@@ -2,6 +2,11 @@
 \label{classiml_1_1reader}\index{iml::reader@{iml::reader}}
 
 
+Reader class, validating the expressions based on the iml grammar.  
+
+
+
+
 {\ttfamily \#include $<$reader.\+h$>$}
 
 \doxysubsection*{Public Member Functions}
@@ -10,7 +15,7 @@
 \mbox{\hyperlink{classiml_1_1reader_a3a7599069ccf791587a67e97ddbbb534}{reader}} ()=default
 \begin{DoxyCompactList}\small\item\em Default constructor of class reader (not used). \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classiml_1_1reader_a006b02ab43414e734305a34f8c4f94f5}{reader}} (std\+::istream \&)
-\begin{DoxyCompactList}\small\item\em Default constructor of class reader. Initializes the tokens by calling a lexer class. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Parameterized constructor of class reader. Initializes the tokens by calling a lexer class. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classiml_1_1token}{token}} \mbox{\hyperlink{classiml_1_1reader_a02906575c6129718307a48ac209347b6}{current}} () const
 \begin{DoxyCompactList}\small\item\em Gets the currently pointed token in the tokens list. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classiml_1_1reader_a2eae6315f020fa6e4507723067dd8420}{next}} ()
@@ -32,7 +37,7 @@ bool \mbox{\hyperlink{classiml_1_1reader_a322d18a9bbeae8e5c2d1a48c49120e92}{is\+
 
 
 \doxysubsection{Detailed Description}
-Reader class, validating the expressions based on the iml grammar.
+Reader class, validating the expressions based on the iml grammar. 
 
 Helper class used to read and validate expressions and check for future expressions. 
 
@@ -55,7 +60,7 @@ Default constructor of class reader (not used).
 
 
 
-Default constructor of class reader. Initializes the tokens by calling a lexer class. 
+Parameterized constructor of class reader. Initializes the tokens by calling a lexer class. 
 
 
 

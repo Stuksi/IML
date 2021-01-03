@@ -29,19 +29,19 @@ namespace iml
 
     void node_tag::visualize(std::ostream& out) const
     {
-        std::string attr;
+        attribute attr;
         try
         {
-            attr = current_tag->get_attribute().get_value();
+            attr = current_tag->get_attribute();
         }
         catch(const std::exception& e)
         {
-            attr = "";
+            attr = attribute();
         }
         out << (long)this << "[label=\"" << "Tag: " << current_tag->as_string();
-        if (attr != "")
+        if (!attr.empty())
         {
-             out << " Attribute: " << attr;
+             out << " Attribute: " << attr.get_value();
         }
         out << "\"];\n";
         if (link != nullptr)

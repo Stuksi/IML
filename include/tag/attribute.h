@@ -13,7 +13,7 @@ namespace iml
     public:
         //! Default constructor of class attribute. Initializes the class value with an empty string.
         attribute();
-        //! Default constructor of class attribute. Initializes the class value with the passed string.
+        //! Parameterized constructor of class attribute. Initializes the class value with the passed string.
         attribute(std::string);
 
         //! Gets the attribute value.

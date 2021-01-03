@@ -73,6 +73,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>The interpreter class evaluates the input and returns the result in an output file.  
+ <a href="classiml_1_1interpreter.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="interpreter_8h_source.html">interpreter.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -80,47 +83,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acea0b232523b39a58fbf4a902353536e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiml_1_1interpreter.html#acea0b232523b39a58fbf4a902353536e">interpret_file</a> (const char *, const char *=&quot;iml_result.imlr&quot;)</td></tr>
 <tr class="memdesc:acea0b232523b39a58fbf4a902353536e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls interpreter with an input file.  <a href="classiml_1_1interpreter.html#acea0b232523b39a58fbf4a902353536e">More...</a><br /></td></tr>
 <tr class="separator:acea0b232523b39a58fbf4a902353536e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7396c13a019ea59e739a8a1f97c8a7cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiml_1_1interpreter.html#a7396c13a019ea59e739a8a1f97c8a7cb">interpret_stream</a> (std::istream &amp;, const char *=&quot;iml_result.imlr&quot;)</td></tr>
-<tr class="memdesc:a7396c13a019ea59e739a8a1f97c8a7cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls interpreter with an input stream.  <a href="classiml_1_1interpreter.html#a7396c13a019ea59e739a8a1f97c8a7cb">More...</a><br /></td></tr>
-<tr class="separator:a7396c13a019ea59e739a8a1f97c8a7cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20d9fd88e2f3d2ace2a826f98faba1ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiml_1_1interpreter.html#a20d9fd88e2f3d2ace2a826f98faba1ec">interpret_buffer</a> (const char *, const char *=&quot;iml_result.imlr&quot;)</td></tr>
-<tr class="memdesc:a20d9fd88e2f3d2ace2a826f98faba1ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls interpreter with a string representing the input.  <a href="classiml_1_1interpreter.html#a20d9fd88e2f3d2ace2a826f98faba1ec">More...</a><br /></td></tr>
-<tr class="separator:a20d9fd88e2f3d2ace2a826f98faba1ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The interpreter class evaluates the input and returns the result in an output file.</p>
+<div class="textblock"><p>The interpreter class evaluates the input and returns the result in an output file. </p>
 <p>Interpreting is done by a straightforward alghorithm, using a stack to store the tag hierarchy, an unordered_map storing the links between tag attribute names and resulting lists and another stack containing the hierarchy of lists of values to be modificated and returned as a result. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a20d9fd88e2f3d2ace2a826f98faba1ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20d9fd88e2f3d2ace2a826f98faba1ec">&#9670;&nbsp;</a></span>interpret_buffer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void iml::interpreter::interpret_buffer </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"> = <code>&quot;iml_result.imlr&quot;</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Calls interpreter with a string representing the input. </p>
-
-</div>
-</div>
 <a id="acea0b232523b39a58fbf4a902353536e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acea0b232523b39a58fbf4a902353536e">&#9670;&nbsp;</a></span>interpret_file()</h2>
 
@@ -148,36 +115,6 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Calls interpreter with an input file. </p>
-
-</div>
-</div>
-<a id="a7396c13a019ea59e739a8a1f97c8a7cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7396c13a019ea59e739a8a1f97c8a7cb">&#9670;&nbsp;</a></span>interpret_stream()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void iml::interpreter::interpret_stream </td>
-          <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"> = <code>&quot;iml_result.imlr&quot;</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Calls interpreter with an input stream. </p>
 
 </div>
 </div>

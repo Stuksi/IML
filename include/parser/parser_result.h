@@ -5,7 +5,7 @@
 
 namespace iml
 {
-    /// User handle.
+    /// @brief User handle.
     ///
     /// A wrap of the parsed tree for users to use and configure. 
     class parser_result
@@ -13,7 +13,7 @@ namespace iml
     private:
         node* root;
     public:
-        //! Default constructor of class parser_result. Initializes the root of the tree.
+        //! Parameterized constructor of class parser_result. Initializes the root of the tree.
         parser_result(node*);
         //! Destroys the tree.
         ~parser_result();

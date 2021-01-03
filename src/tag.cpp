@@ -1,5 +1,5 @@
 #include "../include/tag/tag.h"
-#include <cassert>
+#include <stdexcept>
 
 namespace iml
 {
@@ -38,11 +38,11 @@ namespace iml
 
     attribute tag::get_attribute() const
     {
-        throw as_string() + " type does not support attributes!";
+        throw std::runtime_error(as_string() + " type does not support attributes!");
     }
 
     void tag::set_attribute(attribute attr)
     {
-        throw as_string() + " type does not support attributes!";
+        throw std::runtime_error(as_string() + " type does not support attributes!");
     }
 }

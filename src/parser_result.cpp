@@ -28,11 +28,14 @@ namespace iml
             std::ofstream out(result_file_path);
             std::cout << "Evaluation successful!\n";
             out << "Result: ";
-            for (auto i = resulting_values.begin(); i != --resulting_values.end(); ++i)
+            if (resulting_values.size() > 0)
             {
-                out << *i << " ";
+                for (auto i = resulting_values.begin(); i != --resulting_values.end(); ++i)
+                {
+                    out << *i << " ";
+                }
+                out << *(--resulting_values.end());
             }
-            out << *(--resulting_values.end());
         }
         catch(const std::exception& e)
         {

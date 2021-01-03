@@ -5,7 +5,9 @@
 
 namespace iml
 {
-    /// Tag factory.
+    /// @brief Tag factory.
+    ///
+    /// Converts strings to tags.
     class factory
     {
     public:

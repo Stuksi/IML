@@ -13,6 +13,16 @@ namespace iml
         }
     }
 
+    bool lexer::is_digit()
+    {
+        return in.peek() >= '0' && in.peek() <= '9';
+    }
+
+    bool lexer::is_char()
+    {
+        return in.peek() >= 'A' && in.peek() <= 'Z';
+    } 
+
     token lexer::next_sign()
     {
         char c = in.get();
@@ -29,7 +39,7 @@ namespace iml
     token lexer::next_string()
     {
         std::string text = "";
-        while ((in.peek() >= 'A' && in.peek() <= 'Z') || in.peek() == '-')
+        while (is_char() || in.peek() == '-')
         {
             text += in.get();
         } 
@@ -38,20 +48,26 @@ namespace iml
 
     token lexer::next_number()
     {
-        double text;
-        in >> text;
-        return token {std::to_string(text), token_number};
+        double number;
+        try
+        {
+            in >> number;
+        }
+        catch(const std::exception& e)
+        {
+            throw std::runtime_error("Invalid number definition!");
+        }
+        return token {std::to_string(number), token_number};
     }
 
     token lexer::next()
     {
         cws();
-        char c = in.peek();
-        if (c >= 'A' && c <= 'Z')
+        if (is_char())
         {
             return next_string();
         }
-        else if ((c >= '0' && c <= '9') || c == '-')
+        else if (is_digit() || in.peek() == '-')
         {
             return next_number();
         }

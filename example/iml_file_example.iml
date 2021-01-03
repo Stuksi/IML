@@ -1,0 +1,27 @@
+<MAP-INC "1"> 
+    1  
+</MAP-INC>
+1 2
+<MAP-MLT "2">
+    3 4 5
+</MAP-MLT>
+<LET "X">
+    1
+    <BODY/>
+    X
+    <MAP-INC "1">
+        X
+    </MAP-INC>
+    <MAP-MLT>
+        X
+    </MAP-MLT>
+</LET>
+<SRT-ORD "ASC">
+    -1 -2 -3
+</SRT-ORD>
+10 11 12
+<LET>
+    1 2 3
+    <BODY/>
+    X
+</LET>

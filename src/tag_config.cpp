@@ -32,11 +32,6 @@ namespace iml
             case tag_srt_slc: return tag_config_helper<tag_srt_slc>::validate(tag); 
             case tag_let: return tag_config_helper<tag_let>::validate(tag); 
         }
-        if (!tag->get_attribute().empty())
-        {
-            std::cerr << "Warning -> " << "Tag " + tag->as_string() + " does not support attributes!";
-            return false;
-        }
-        return true;
+        return false;
     }
 }

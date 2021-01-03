@@ -5,7 +5,7 @@
 
 namespace iml
 {
-    /// Root node of the document.
+    /// @brief Root node of the document.
     ///
     /// The root of the tree (does not have a parent).
     class node_document : public node

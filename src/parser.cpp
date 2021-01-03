@@ -28,7 +28,8 @@ namespace iml
             {
                 link_children.push_back(parse(expression_node));
             }
-            r.read_body_tag();
+            tag* body = r.read_body_tag();
+            delete body;
             node* link = new node_link(open_tag->get_attribute().get_value());
             link->set_children(link_children);
             link->set_parent(expression_node);
@@ -44,8 +45,9 @@ namespace iml
         expression_node->set_parent(parent);
 
         tag* close_tag = r.read_close_tag();
-
         if (open_tag->get_type() != close_tag->get_type()) throw std::runtime_error("Wrong closing tag for - " + open_tag->as_string() + ". Given - " + close_tag->as_string() + "!");
+
+        delete close_tag;
 
         return expression_node;
     }
@@ -53,8 +55,13 @@ namespace iml
     parser_result parser::build_tree(const char* input_path)
     {
         std::ifstream in(input_path);
-        r = reader(in);
         node* document_root = new node_document();
+        if (!in.is_open())
+        {
+            std::cout << "Error -> Non existing input file!" << std::endl;
+            return parser_result(document_root);
+        }
+        r = reader(in);
         std::list<node*> document_children;
         try
         {

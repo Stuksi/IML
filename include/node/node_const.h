@@ -6,7 +6,7 @@
 
 namespace iml
 {
-    /// Constant nodes, containing real numbers or strings.
+    /// @brief Constant nodes, containing real numbers or strings.
     ///
     /// Leaf only nodes (do not have children).
     class node_const : public node
@@ -14,7 +14,7 @@ namespace iml
     private:
         std::string value;
     public:
-        //! Default constructor of class node_const. Initializes the class value with a non-empty string.
+        //! Parameterized constructor of class node_const. Initializes the class value with a non-empty string.
         node_const(std::string);
         
         //! Visualizes the node by creating a visual tree node with the value in it. 

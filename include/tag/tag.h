@@ -14,7 +14,7 @@ namespace iml
     public:
         //! Default constructor of class tag. Initializes the tag as a null-tag.
         tag();
-        //! Default constructor of class tag. Initializes the tag with the passed type.
+        //! Parameterized constructor of class tag. Initializes the tag with the passed type.
         tag(tag_type);
 
         // Gets the tag type.
