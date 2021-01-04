@@ -31,7 +31,9 @@ void \mbox{\hyperlink{classiml_1_1node__tag_ab004e7dad5ea3018a7837b2dbaa7577f}{s
 void \mbox{\hyperlink{classiml_1_1node__tag_ab81a5eacf613f9805d0d305927d81092}{visualize}} (std\+::ostream \&) const
 \item 
 std\+::list$<$ double $>$ \mbox{\hyperlink{classiml_1_1node__tag_a485e66aedd3b2e264a756e68aead444c}{evaluate}} () const
-\end{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classiml_1_1node__tag_a6f230117fbfd368de5d2a4706c29d736}{save}} (std\+::ostream \&) const
+\begin{DoxyCompactList}\small\item\em Saves the node, by the iml tag convention (if a link exists, the body of the expression is also saved). \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -98,6 +100,20 @@ Gets the tag associated with the node.
 
 
 Reimplemented from \mbox{\hyperlink{classiml_1_1node_ab7f96f4784db0387c4b8075ca3851a59}{iml\+::node}}.
+
+\mbox{\Hypertarget{classiml_1_1node__tag_a6f230117fbfd368de5d2a4706c29d736}\label{classiml_1_1node__tag_a6f230117fbfd368de5d2a4706c29d736}} 
+\index{iml::node\_tag@{iml::node\_tag}!save@{save}}
+\index{save@{save}!iml::node\_tag@{iml::node\_tag}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily void iml\+::node\+\_\+tag\+::save (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Saves the node, by the iml tag convention (if a link exists, the body of the expression is also saved). 
+
+
+
+Implements \mbox{\hyperlink{classiml_1_1node_ac560b1c1b32ae61482287258179364ea}{iml\+::node}}.
 
 \mbox{\Hypertarget{classiml_1_1node__tag_ab004e7dad5ea3018a7837b2dbaa7577f}\label{classiml_1_1node__tag_ab004e7dad5ea3018a7837b2dbaa7577f}} 
 \index{iml::node\_tag@{iml::node\_tag}!set\_link@{set\_link}}

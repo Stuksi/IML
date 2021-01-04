@@ -39,7 +39,9 @@ virtual \mbox{\hyperlink{classiml_1_1node}{node}} $\ast$ \mbox{\hyperlink{classi
 virtual void \mbox{\hyperlink{classiml_1_1node_a0e9f0631468dc2856d886a6304b958f8}{visualize}} (std\+::ostream \&) const =0
 \begin{DoxyCompactList}\small\item\em Visualizes the node depending on the type. \end{DoxyCompactList}\item 
 virtual std\+::list$<$ double $>$ \mbox{\hyperlink{classiml_1_1node_ad8a9514dd478f3337a96bfcac4643081}{evaluate}} () const =0
-\begin{DoxyCompactList}\small\item\em Evaluates the node depending on the type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Evaluates the node depending on the type. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classiml_1_1node_ac560b1c1b32ae61482287258179364ea}{save}} (std\+::ostream \&) const =0
+\begin{DoxyCompactList}\small\item\em Saves the node in a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -130,6 +132,20 @@ Gets the tag associated with the node (or nullptr if the node does not support t
 
 
 Reimplemented in \mbox{\hyperlink{classiml_1_1node__tag_ae3334336b88a12554b054a6a11b558a0}{iml\+::node\+\_\+tag}}.
+
+\mbox{\Hypertarget{classiml_1_1node_ac560b1c1b32ae61482287258179364ea}\label{classiml_1_1node_ac560b1c1b32ae61482287258179364ea}} 
+\index{iml::node@{iml::node}!save@{save}}
+\index{save@{save}!iml::node@{iml::node}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily virtual void iml\+::node\+::save (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Saves the node in a file. 
+
+
+
+Implemented in \mbox{\hyperlink{classiml_1_1node__tag_a6f230117fbfd368de5d2a4706c29d736}{iml\+::node\+\_\+tag}}, \mbox{\hyperlink{classiml_1_1node__link_a86427d4ff1cb0c7943f17f30b4bc1937}{iml\+::node\+\_\+link}}, \mbox{\hyperlink{classiml_1_1node__document_a0133240d3171f14c7705286c9456ee8a}{iml\+::node\+\_\+document}}, and \mbox{\hyperlink{classiml_1_1node__const_a50b7f013e2ea22d42f33204612af905e}{iml\+::node\+\_\+const}}.
 
 \mbox{\Hypertarget{classiml_1_1node_a27f42419a1c8eec86decafde8847b7ed}\label{classiml_1_1node_a27f42419a1c8eec86decafde8847b7ed}} 
 \index{iml::node@{iml::node}!set\_children@{set\_children}}

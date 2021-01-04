@@ -23,7 +23,9 @@ Inheritance diagram for iml\+::node\+\_\+const\+:\begin{figure}[H]
 void \mbox{\hyperlink{classiml_1_1node__const_ae4255c576dbe984243090f1f7714a454}{visualize}} (std\+::ostream \&) const
 \begin{DoxyCompactList}\small\item\em Visualizes the node by creating a visual tree node with the value in it. \end{DoxyCompactList}\item 
 std\+::list$<$ double $>$ \mbox{\hyperlink{classiml_1_1node__const_adbff43f2f9433b0a0166b6eddc255f11}{evaluate}} () const
-\end{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classiml_1_1node__const_a50b7f013e2ea22d42f33204612af905e}{save}} (std\+::ostream \&) const
+\begin{DoxyCompactList}\small\item\em Saves the node by writing its value to the file. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -54,6 +56,20 @@ Parameterized constructor of class \mbox{\hyperlink{classiml_1_1node__const}{nod
 Evaluates the node. If the value is a real number, returns the value by type convertion, otherwise the value is a string(capital-\/letter word) and a search for the value in the parents of the node begins (if not defined in a previous link, an error message is thrown). 
 
 Implements \mbox{\hyperlink{classiml_1_1node_ad8a9514dd478f3337a96bfcac4643081}{iml\+::node}}.
+
+\mbox{\Hypertarget{classiml_1_1node__const_a50b7f013e2ea22d42f33204612af905e}\label{classiml_1_1node__const_a50b7f013e2ea22d42f33204612af905e}} 
+\index{iml::node\_const@{iml::node\_const}!save@{save}}
+\index{save@{save}!iml::node\_const@{iml::node\_const}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily void iml\+::node\+\_\+const\+::save (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Saves the node by writing its value to the file. 
+
+
+
+Implements \mbox{\hyperlink{classiml_1_1node_ac560b1c1b32ae61482287258179364ea}{iml\+::node}}.
 
 \mbox{\Hypertarget{classiml_1_1node__const_ae4255c576dbe984243090f1f7714a454}\label{classiml_1_1node__const_ae4255c576dbe984243090f1f7714a454}} 
 \index{iml::node\_const@{iml::node\_const}!visualize@{visualize}}

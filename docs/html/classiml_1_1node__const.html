@@ -97,6 +97,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae4255c576dbe984243090f1f7714a454"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbff43f2f9433b0a0166b6eddc255f11"><td class="memItemLeft" align="right" valign="top">std::list&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiml_1_1node__const.html#adbff43f2f9433b0a0166b6eddc255f11">evaluate</a> () const</td></tr>
 <tr class="separator:adbff43f2f9433b0a0166b6eddc255f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50b7f013e2ea22d42f33204612af905e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiml_1_1node__const.html#a50b7f013e2ea22d42f33204612af905e">save</a> (std::ostream &amp;) const</td></tr>
+<tr class="memdesc:a50b7f013e2ea22d42f33204612af905e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the node by writing its value to the file.  <a href="classiml_1_1node__const.html#a50b7f013e2ea22d42f33204612af905e">More...</a><br /></td></tr>
+<tr class="separator:a50b7f013e2ea22d42f33204612af905e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classiml_1_1node"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classiml_1_1node')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classiml_1_1node.html">iml::node</a></td></tr>
 <tr class="memitem:a892f3dc2ae3b420c01ff8c11fd42a4a4 inherit pub_methods_classiml_1_1node"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiml_1_1node.html#a892f3dc2ae3b420c01ff8c11fd42a4a4">node</a> ()</td></tr>
 <tr class="memdesc:a892f3dc2ae3b420c01ff8c11fd42a4a4 inherit pub_methods_classiml_1_1node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor of class node. Initializes the node parameters with null objects.  <a href="classiml_1_1node.html#a892f3dc2ae3b420c01ff8c11fd42a4a4">More...</a><br /></td></tr>
@@ -176,6 +179,36 @@ Public Member Functions</h2></td></tr>
 <p>Evaluates the node. If the value is a real number, returns the value by type convertion, otherwise the value is a string(capital-letter word) and a search for the value in the parents of the node begins (if not defined in a previous link, an error message is thrown). </p>
 
 <p>Implements <a class="el" href="classiml_1_1node.html#ad8a9514dd478f3337a96bfcac4643081">iml::node</a>.</p>
+
+</div>
+</div>
+<a id="a50b7f013e2ea22d42f33204612af905e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50b7f013e2ea22d42f33204612af905e">&#9670;&nbsp;</a></span>save()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void iml::node_const::save </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Saves the node by writing its value to the file. </p>
+
+<p>Implements <a class="el" href="classiml_1_1node.html#ac560b1c1b32ae61482287258179364ea">iml::node</a>.</p>
 
 </div>
 </div>

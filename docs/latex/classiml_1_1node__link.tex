@@ -23,7 +23,9 @@ Inheritance diagram for iml\+::node\+\_\+link\+:\begin{figure}[H]
 void \mbox{\hyperlink{classiml_1_1node__link_ae904f18c685ee4a9f841d48b8ef9eac8}{visualize}} (std\+::ostream \&) const
 \begin{DoxyCompactList}\small\item\em Visualizes the node by creating a visual tree node with the link name in it and visualizes the children. \end{DoxyCompactList}\item 
 std\+::list$<$ double $>$ \mbox{\hyperlink{classiml_1_1node__link_ab1da2281ae130693fd51c09e5d26d3c7}{evaluate}} () const
-\begin{DoxyCompactList}\small\item\em Evaluates the node, by evaluating the node\textquotesingle{}s chuldren, storing the results in a list and returning it. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Evaluates the node, by evaluating the node\textquotesingle{}s chuldren, storing the results in a list and returning it. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classiml_1_1node__link_a86427d4ff1cb0c7943f17f30b4bc1937}{save}} (std\+::ostream \&) const
+\begin{DoxyCompactList}\small\item\em Saves the node, by writing the children of the link to the file. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -56,6 +58,20 @@ Evaluates the node, by evaluating the node\textquotesingle{}s chuldren, storing 
 
 
 Implements \mbox{\hyperlink{classiml_1_1node_ad8a9514dd478f3337a96bfcac4643081}{iml\+::node}}.
+
+\mbox{\Hypertarget{classiml_1_1node__link_a86427d4ff1cb0c7943f17f30b4bc1937}\label{classiml_1_1node__link_a86427d4ff1cb0c7943f17f30b4bc1937}} 
+\index{iml::node\_link@{iml::node\_link}!save@{save}}
+\index{save@{save}!iml::node\_link@{iml::node\_link}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily void iml\+::node\+\_\+link\+::save (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Saves the node, by writing the children of the link to the file. 
+
+
+
+Implements \mbox{\hyperlink{classiml_1_1node_ac560b1c1b32ae61482287258179364ea}{iml\+::node}}.
 
 \mbox{\Hypertarget{classiml_1_1node__link_ae904f18c685ee4a9f841d48b8ef9eac8}\label{classiml_1_1node__link_ae904f18c685ee4a9f841d48b8ef9eac8}} 
 \index{iml::node\_link@{iml::node\_link}!visualize@{visualize}}

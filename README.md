@@ -42,4 +42,4 @@ You can try the examples in the 'examples' directory.. They consist of an exampl
 ```
 
 ### Installation
-[Version 1.0.1](https://github.com/Stuksi/iml/releases/download/v1.0.1/iml.zip)
+[Version 1.1](https://github.com/Stuksi/iml/releases/download/v1.1/v1.1.zip)

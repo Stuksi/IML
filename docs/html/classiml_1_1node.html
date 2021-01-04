@@ -125,6 +125,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad8a9514dd478f3337a96bfcac4643081"><td class="memItemLeft" align="right" valign="top">virtual std::list&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiml_1_1node.html#ad8a9514dd478f3337a96bfcac4643081">evaluate</a> () const =0</td></tr>
 <tr class="memdesc:ad8a9514dd478f3337a96bfcac4643081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates the node depending on the type.  <a href="classiml_1_1node.html#ad8a9514dd478f3337a96bfcac4643081">More...</a><br /></td></tr>
 <tr class="separator:ad8a9514dd478f3337a96bfcac4643081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac560b1c1b32ae61482287258179364ea"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiml_1_1node.html#ac560b1c1b32ae61482287258179364ea">save</a> (std::ostream &amp;) const =0</td></tr>
+<tr class="memdesc:ac560b1c1b32ae61482287258179364ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the node in a file.  <a href="classiml_1_1node.html#ac560b1c1b32ae61482287258179364ea">More...</a><br /></td></tr>
+<tr class="separator:ac560b1c1b32ae61482287258179364ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class of the tree nodes. </p>
@@ -298,6 +301,36 @@ Public Member Functions</h2></td></tr>
 <p>Gets the tag associated with the node (or nullptr if the node does not support tags). </p>
 
 <p>Reimplemented in <a class="el" href="classiml_1_1node__tag.html#ae3334336b88a12554b054a6a11b558a0">iml::node_tag</a>.</p>
+
+</div>
+</div>
+<a id="ac560b1c1b32ae61482287258179364ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac560b1c1b32ae61482287258179364ea">&#9670;&nbsp;</a></span>save()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void iml::node::save </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Saves the node in a file. </p>
+
+<p>Implemented in <a class="el" href="classiml_1_1node__tag.html#a6f230117fbfd368de5d2a4706c29d736">iml::node_tag</a>, <a class="el" href="classiml_1_1node__link.html#a86427d4ff1cb0c7943f17f30b4bc1937">iml::node_link</a>, <a class="el" href="classiml_1_1node__document.html#a0133240d3171f14c7705286c9456ee8a">iml::node_document</a>, and <a class="el" href="classiml_1_1node__const.html#a50b7f013e2ea22d42f33204612af905e">iml::node_const</a>.</p>
 
 </div>
 </div>
