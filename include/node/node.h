@@ -39,6 +39,8 @@ namespace iml
         virtual void visualize(std::ostream&) const = 0;
         //! Evaluates the node depending on the type.
         virtual std::list<double> evaluate() const = 0;
+        //! Saves the node in a file.
+        virtual void save(std::ostream&) const = 0;
     };
 }
 

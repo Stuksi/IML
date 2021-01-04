@@ -22,24 +22,24 @@ namespace iml
 
     void parser_result::evaluate(const char* result_file_path)
     {
-        try
+        std::list<double> resulting_values = root->evaluate();
+        std::ofstream out(result_file_path);
+        std::cout << "Evaluation successful!\n";
+        out << "Result: ";
+        if (resulting_values.size() > 0)
         {
-            std::list<double> resulting_values = root->evaluate();
-            std::ofstream out(result_file_path);
-            std::cout << "Evaluation successful!\n";
-            out << "Result: ";
-            if (resulting_values.size() > 0)
+            for (auto i = resulting_values.begin(); i != --resulting_values.end(); ++i)
             {
-                for (auto i = resulting_values.begin(); i != --resulting_values.end(); ++i)
-                {
-                    out << *i << " ";
-                }
-                out << *(--resulting_values.end());
+                out << *i << " ";
             }
+            out << *(--resulting_values.end());
         }
-        catch(const std::exception& e)
-        {
-            std::cout << "Evaluation error -> " << e.what() << std::endl;
-        }        
+    }
+
+    void parser_result::save(const char* target_file_path)
+    {
+        std::ofstream out(target_file_path);
+        root->save(out);
+        std::cout << "Save successful!\n";
     }
 }

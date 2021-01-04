@@ -23,6 +23,8 @@ namespace iml
         /// otherwise the value is a string(capital-letter word) and a search for the value in the 
         /// parents of the node begins (if not defined in a previous link, an error message is thrown).
         std::list<double> evaluate() const;
+        //! Saves the node by writing its value to the file.
+        void save(std::ostream&) const;
     };
 }
 

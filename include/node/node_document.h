@@ -15,6 +15,8 @@ namespace iml
         void visualize(std::ostream&) const;
         //! Evaluates the node, by evaluating the node's chuldren, storing the results in a list and returning it.
         std::list<double> evaluate() const;
+        //! Saves the children of the root.
+        void save(std::ostream&) const;
     };
 }
 

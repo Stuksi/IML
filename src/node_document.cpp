@@ -25,4 +25,12 @@ namespace iml
         }
         return values;
     }
+
+    void node_document::save(std::ostream& out) const
+    {
+        for (node* child : get_children())
+        {
+            child->save(out);
+        }        
+    }
 }

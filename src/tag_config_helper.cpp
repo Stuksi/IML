@@ -1,5 +1,5 @@
 #include "../include/tag/tag_config.h"
-#include <set>
+#include <unordered_set>
 #include <stdexcept>
 #include <iostream>
 
@@ -173,7 +173,7 @@ namespace iml
     template <>
     std::list<double> tag_config::tag_config_helper<tag_srt_dst>::apply(std::list<double> values, tag* tag)
     {
-        std::set<double> values_set;
+        std::unordered_set<double> values_set;
         std::list<double> values_result;
         for (double value : values)
         {

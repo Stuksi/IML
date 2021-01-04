@@ -6,4 +6,5 @@ int main()
     iml::parser_result result = parser.build_tree("iml_file_example.iml");
     result.evaluate();
     result.visualize();
+    result.save();
 }

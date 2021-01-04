@@ -32,6 +32,8 @@ namespace iml
         //! Evaluates the node, by evaluating the node's chuldren, storing the results in a list 
         //! evaluates the list based on the tag type and returning it.
         std::list<double> evaluate() const;
+        //! Saves the node, by the iml tag convention (if a link exists, the body of the expression is also saved).
+        void save(std::ostream&) const;
     };
 }
 

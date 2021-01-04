@@ -23,6 +23,9 @@ namespace iml
 
         //! Evaluates the tree by calling the root evaluate method.
         void evaluate(const char* = "iml_result.imlr");
+
+        //! Save the tree into an iml file.
+        void save(const char* = "iml_save_file.iml");
     };
 }
 

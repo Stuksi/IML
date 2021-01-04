@@ -27,4 +27,9 @@ namespace iml
         }
         return parent->get_link() == nullptr ? std::list<double>() : parent->get_link()->evaluate();
     }
+
+    void node_const::save(std::ostream& out) const
+    {
+        out << value << " ";
+    }
 }

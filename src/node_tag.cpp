@@ -68,4 +68,26 @@ namespace iml
         }
         return tag_config::apply(values, current_tag);
     }
+
+    void node_tag::save(std::ostream& out) const
+    {
+        out << "\n<" << current_tag->as_string();
+        try
+        {
+            attribute attr = current_tag->get_attribute();
+            out << " \"" << attr.get_value() << "\"";
+        }
+        catch(const std::exception& e)
+        {}
+        out << "> ";
+        if (link != nullptr)
+        {
+            link->save(out);
+        }
+        for (node* child : get_children())
+        {
+            child->save(out);
+        }
+        out << "</" << current_tag->as_string() << ">\n";
+    }
 }
