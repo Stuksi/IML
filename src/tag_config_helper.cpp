@@ -35,9 +35,9 @@ namespace iml
     {
         try
         {
-            if (tag->get_attribute().empty()) throw std::runtime_error("Tag " + tag->as_string() + " expects an attribute!");
+            if (tag->get_attribute().empty()) throw std::runtime_error("Tag " + tag->as_string() + " expects an attribute! Default value '" + def + "' assigned!");
             std::string attr = tag->get_attribute().get_value();
-            if (pred(attr)) throw std::runtime_error("Invalid attribute value '" + attr + "'! " + error_msg);
+            if (pred(attr)) throw std::runtime_error("Invalid attribute value '" + attr + "'! " + error_msg + " Default value '" + def + "' assigned!");
         }
         catch(const std::exception& e)
         {
@@ -199,7 +199,7 @@ namespace iml
         return validate_attribute(tag, [](std::string str)
         {
             return (str[0] != '-' && !isdigit(str[0]));
-        }, "0", "Attribute exprects a real number value!");
+        }, "0", "Attribute expects a real number value!");
     }
 
     template <>

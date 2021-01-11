@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>iml</title>
+<title>iml: &lt;a href=&quot;https://docs.google.com/document/d/1MXNOaWoTIxODs8LzAuqIOLq4j4mkw4ZweVLvbJe6XKs/edit&quot;&gt;iml&lt;/a&gt;</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,7 +74,7 @@ What is its purpose?</h2>
 <p>IML as a language can be used to evaluate mathematical expressions with the use of tags or to structure arrays which can be used with other programs. iml provides a small range of tags to be played with.</p>
 <h2><a class="anchor" id="autotoc_md3"></a>
 IML Grammar</h2>
-<p>The parser and the interpreter are based on the following grammar: </p><div class="fragment"><div class="line">expression              := tag_expression , expression | value , expression | &quot;&quot; ;</div>
+<p>The parser and the interpreter are based on the following grammar: </p><div class="fragment"><div class="line">expression              := (tag_expression | value) , expression | &quot;&quot; ;</div>
 <div class="line">tag_expression          := open_tag , expression , [let_tag_expression] , close_tag ;</div>
 <div class="line">let_tag_expreesion      := body_tag , expression</div>
 <div class="line">open_tag                := &quot;&lt;&quot; , string , [ attribute ] , &quot;&gt;&quot;</div>

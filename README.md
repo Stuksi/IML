@@ -9,7 +9,7 @@ IML as a language can be used to evaluate mathematical expressions with the use 
 ### IML Grammar
 The parser and the interpreter are based on the following grammar:
 ```
-    expression              := tag_expression , expression | value , expression | "" ;
+    expression              := (tag_expression | value) , expression | "" ;
     tag_expression          := open_tag , expression , [let_tag_expression] , close_tag ;
     let_tag_expreesion      := body_tag , expression
     open_tag                := "<" , string , [ attribute ] , ">"

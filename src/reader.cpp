@@ -101,9 +101,12 @@ namespace iml
     attribute reader::read_attribute()
     {
         read_token(token_quote);
-        if (!is_value()) throw std::runtime_error("Expected 'value', given - '" + current().text + "' !");
-        std::string attr = current().text;
-        next();
+        std::string attr = "";
+        if (is_value())
+        {
+            attr = current().text;
+            next();
+        }
         read_token(token_quote);
 
         return attribute(attr);

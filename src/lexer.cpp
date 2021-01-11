@@ -49,15 +49,14 @@ namespace iml
     token lexer::next_number()
     {
         double number;
-        try
-        {
-            in >> number;
+        int pn = 1;
+        if (in.peek() == '-') {
+            pn = -1;
+            in.get();
         }
-        catch(const std::exception& e)
-        {
-            throw std::runtime_error("Invalid number definition!");
-        }
-        return token {std::to_string(number), token_number};
+        if (!is_digit()) throw std::runtime_error("Invalid '-' character usage!");
+        in >> number;
+        return token {std::to_string(number*pn), token_number};
     }
 
     token lexer::next()

@@ -5,7 +5,7 @@ iml is a light weight C++ language interpreting/parsing library. It consists of 
 IML as a language can be used to evaluate mathematical expressions with the use of tags or to structure arrays which can be used with other programs. iml provides a small range of tags to be played with.\hypertarget{index_autotoc_md3}{}\doxysubsection{IML Grammar}\label{index_autotoc_md3}
 The parser and the interpreter are based on the following grammar\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{expression              := tag\_expression , expression | value , expression | "{}"{} ;}
+\DoxyCodeLine{expression              := (tag\_expression | value) , expression | "{}"{} ;}
 \DoxyCodeLine{tag\_expression          := open\_tag , expression , [let\_tag\_expression] , close\_tag ;}
 \DoxyCodeLine{let\_tag\_expreesion      := body\_tag , expression}
 \DoxyCodeLine{open\_tag                := "{}<"{} , string , [ attribute ] , "{}>"{}}
